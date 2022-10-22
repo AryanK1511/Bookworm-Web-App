@@ -1,0 +1,36 @@
+/* =================== Footer ==================== */
+.footer {
+    background: #0F0119;
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.footer h4 {
+    color: #FFC18F;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.footer p {
+    color: #ADEDEA;
+    margin-bottom: 20px;
+}
+
+.footer p span {
+    color: #cf11bc;
+    font-weight: 600;
+}
+
+.icons .uil {
+    font-size: 30px;
+    color: #CE205B;
+    margin: 0 13px;
+    cursor: pointer;
+    padding: 18px;
+}
+
+.icons .uil:hover {
+    color: #ADEDEA;
+    transition: 0.6s;
+}
