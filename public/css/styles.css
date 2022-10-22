@@ -1,52 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+  font-family: 'Poppins', sans-serif;
+}
+
 /* ==================== Navbar ==================== */
 .navbar {
     background-color: #0f0e17;
     padding: 1rem;
-  }
+}
+
+/* font-family: 'Teko', sans-serif; */
   
-  .navbar-brand {
+.navbar-brand {
     color: #ffc18f;
-    font-family: "Ubuntu", sans-serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     padding: 0 18px;
-  }
-  
-  .nav-item {
+}
+
+.navbar-brand:hover {
+    color: #ffc18f;
+}
+
+.nav-item {
     padding: 0 8px;
-  }
-  
-  .nav-link {
+}
+
+.nav-link {
     color: #fffffe;
     font-size: 1.2rem;
     font-family: "Montserrat-Light", sans-serif;
-  }
+    font-weight: bold;
+    transition: 0.5s;
+}
 
-  .navbar-toggler-item {
+.nav-link:hover {
+    color: #e53170;
+}
+
+.navbar-toggler-item {
     margin: 0 18px;
-  }
+}
 
-  .form-inline {
+.form-inline {
     display: flex;
     padding: 0 8px;
-  }
+}
 
-  .form-inline button {
+.form-inline button {
     margin-left: 8px;
     color: #ff8906;
     background: transparent;
     border: 1px solid #ff8906;
     transition: 1s;
-  }
+}
 
-  .form-inline button:hover {
+.form-inline button:hover {
     margin-left: 18px;
     color: #fffffe;
     background-color: #ff8906;
-  }
+}
 
+/* ==================== Homepage ==================== */
+.home-page {
+    color: #fffffe;
+    background-color: #0f0e17;
+}
 
-/* ==================== Footer ==================== */
+.home-container {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.home-title {
+    font-size: 6.5rem;
+    font-weight: 900;
+    padding-bottom: 0.8rem;
+    padding-top: 0;
+    color: #FFC18F;
+}
+
+.home-text {
+    width: 70%;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+.home-btn {
+    padding: 15px;
+    width: 200px;
+    border: 4px solid black;
+    border-radius: 8px;
+    background: transparent;
+    transition: 1s;
+    margin-bottom: 4rem;
+}
+
+.home-btn a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #ff8906;
+    transition: 1s;
+}
+
+.home-btn:hover {
+    background: #ff8906;
+    /* border-color: #ff8906; */
+}
+
+.home-btn:hover > a {
+    color: #fffffe;
+}
+
+/* ==================== About Page ==================== */
+
+/* ==================== Importance of Reading Page ==================== */
+
+/* ==================== This Website Page ==================== */
+
+/* ==================== Webpage Footer ==================== */
 .footer {
     background: #0f0e17;
     width: 100%;
