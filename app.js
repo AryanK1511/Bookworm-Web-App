@@ -31,6 +31,11 @@ app.get("/", (req, res) => {
     res.render("index.ejs");
 })
 
+// ========== SEARCH RESULTS ROUTE =========
+app.get("/search-results", (req, res) => {
+    res.render("searchResults");
+})
+
 // ========== POSTING USING THE SEARCH FORM ==========
 app.post("/search-results", (req, res) => {
     const query = String(req.body.book);
@@ -48,6 +53,9 @@ app.post("/search-results", (req, res) => {
             console.log(bookData.totalItems);
         });
     })
+
+    // Once done, redirect to the search results page
+    res.redirect("search-results");
 })
 
 // Listening for requests
