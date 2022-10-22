@@ -50,12 +50,13 @@ app.post("/search-results", (req, res) => {
         })
         response.on('end', () => {
             const bookData = JSON.parse(result);
-            console.log(bookData.totalItems);
+
+            // Pushing all the search results into our array
+            // console.log(bookData.items[9].id);
+            // Rendering the search results page and sending the array
+        res.render("searchResults", {bookData: bookData});
         });
     })
-
-    // Once done, redirect to the search results page
-    res.redirect("search-results");
 })
 
 // Listening for requests
