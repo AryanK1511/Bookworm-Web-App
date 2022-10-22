@@ -1,4 +1,52 @@
-/* =================== Footer ==================== */
+/* ==================== Navbar ==================== */
+.navbar {
+    background-color: #0f0e17;
+    padding: 1rem;
+  }
+  
+  .navbar-brand {
+    color: #ffc18f;
+    font-family: "Ubuntu", sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0 18px;
+  }
+  
+  .nav-item {
+    padding: 0 8px;
+  }
+  
+  .nav-link {
+    color: #fffffe;
+    font-size: 1.2rem;
+    font-family: "Montserrat-Light", sans-serif;
+  }
+
+  .navbar-toggler-item {
+    margin: 0 18px;
+  }
+
+  .form-inline {
+    display: flex;
+    padding: 0 8px;
+  }
+
+  .form-inline button {
+    margin-left: 8px;
+    color: #ff8906;
+    background: transparent;
+    border: 1px solid #ff8906;
+    transition: 1s;
+  }
+
+  .form-inline button:hover {
+    margin-left: 18px;
+    color: #fffffe;
+    background-color: #ff8906;
+  }
+
+
+/* ==================== Footer ==================== */
 .footer {
     background: #0f0e17;
     width: 100%;
