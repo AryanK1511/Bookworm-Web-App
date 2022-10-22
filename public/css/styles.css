@@ -5,6 +5,7 @@
 
 body, html {
   font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
 }
 
 /* ==================== Navbar ==================== */
@@ -13,8 +14,6 @@ body, html {
     padding: 1rem;
 }
 
-/* font-family: 'Teko', sans-serif; */
-  
 .navbar-brand {
     color: #ffc18f;
     font-size: 2rem;
@@ -119,6 +118,35 @@ body, html {
 }
 
 /* ==================== About Page ==================== */
+.about-title {
+    font-family: 'Teko', sans-serif;
+    font-size: 6rem;
+    font-weight: 600;
+    padding: 40px;
+    text-align: center;
+    color: #0f0e17;
+}
+
+.row {
+    padding: 0 70px 110px;
+    margin: 0 auto;
+}
+
+.about-text {
+    text-align: left;
+    margin: auto 0;
+    background-color: #0f0e17;
+    color: #fffffe;
+    border-radius: 8px;
+    padding: 35px;
+    margin: 10px;
+}
+
+.about-image {
+    width: 380px;
+    margin: 10px;
+    border-radius: 15%;
+}
 
 /* ==================== Importance of Reading Page ==================== */
 
