@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const https = require("https");
 
 // Starting the express app
 const app = express();
@@ -28,6 +29,25 @@ const bookSchema = new mongoose.Schema ({
 // ========== HOME ROUTE =========
 app.get("/", (req, res) => {
     res.render("index.ejs");
+})
+
+// ========== POSTING USING THE SEARCH FORM ==========
+app.post("/search-results", (req, res) => {
+    const query = String(req.body.book);
+    const apiKey = String(process.env.API_KEY);
+    const url = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&key=" + apiKey;
+
+    // Using the native node https module
+    https.get(url, (response) => {
+        let result = '';
+        response.on("data", (data) => {
+            result += data;
+        })
+        response.on('end', () => {
+            const bookData = JSON.parse(result);
+            console.log(bookData.totalItems);
+        });
+    })
 })
 
 // Listening for requests
