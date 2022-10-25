@@ -1,160 +1,161 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-body, html {
-  font-family: 'Poppins', sans-serif;
+body,
+html {
+  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
 }
 
 /* ==================== Navbar ==================== */
 .navbar {
-    background-color: #0f0e17;
-    padding: 1rem;
+  background-color: #0f0e17;
+  padding: 1rem;
 }
 
 .navbar-brand {
-    color: #ffc18f;
-    font-size: 1.8rem;
-    font-weight: bold;
-    padding: 0 18px;
+  color: #ffc18f;
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 0 18px;
 }
 
 .navbar-brand:hover {
-    color: #ffc18f;
+  color: #ffc18f;
 }
 
 .nav-item {
-    padding: 0 8px;
+  padding: 0 8px;
 }
 
 .nav-link {
-    color: #fffffe;
-    font-size: 1.1rem;
-    font-family: "Montserrat-Light", sans-serif;
-    font-weight: bold;
-    transition: 0.5s;
-    margin: 10px 0 0 10px;
+  color: #fffffe;
+  font-size: 1.1rem;
+  font-family: "Montserrat-Light", sans-serif;
+  font-weight: bold;
+  transition: 0.5s;
+  margin: 10px 0 0 10px;
 }
 
 .nav-link:hover {
-    color: #e53170;
+  color: #e53170;
 }
 
 .navbar-toggler-item {
-    margin: 0 18px;
+  margin: 0 18px;
 }
 
 .form-inline {
-    display: flex;
-    padding: 0 8px;
-    margin-top: 10px;
+  display: flex;
+  padding: 0 8px;
+  margin-top: 10px;
 }
 
 .form-inline button {
-    margin-left: 8px;
-    color: #ff8906;
-    background: transparent;
-    border: 1px solid #ff8906;
-    transition: 1s;
+  margin-left: 8px;
+  color: #ff8906;
+  background: transparent;
+  border: 1px solid #ff8906;
+  transition: 1s;
 }
 
 .form-inline button:hover {
-    margin-left: 18px;
-    color: #fffffe;
-    background-color: #ff8906;
+  margin-left: 18px;
+  color: #fffffe;
+  background-color: #ff8906;
 }
 
 .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 /* ==================== Homepage ==================== */
 .home-page {
-    color: #fffffe;
-    background-color: #0f0e17;
+  color: #fffffe;
+  background-color: #0f0e17;
 }
 
 .home-container {
-    text-align: center;
-    width: 100%;
-    margin: 0 auto;
-    padding: 50px;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px;
 }
 
 .home-title {
-    font-size: 6.5rem;
-    font-weight: 900;
-    padding-bottom: 0.8rem;
-    padding-top: 0;
-    color: #FFC18F;
+  font-size: 6.5rem;
+  font-weight: 900;
+  padding-bottom: 0.8rem;
+  padding-top: 0;
+  color: #ffc18f;
 }
 
 .home-text {
-    width: 70%;
-    margin: 0 auto;
-    padding-bottom: 2rem;
+  width: 70%;
+  margin: 0 auto;
+  padding-bottom: 2rem;
 }
 
 .home-btn {
-    padding: 15px;
-    width: 200px;
-    border: 4px solid black;
-    border-radius: 8px;
-    background: transparent;
-    transition: 1s;
-    margin-bottom: 4rem;
+  padding: 15px;
+  width: 200px;
+  border: 4px solid black;
+  border-radius: 8px;
+  background: transparent;
+  transition: 1s;
+  margin-bottom: 4rem;
 }
 
 .home-btn a {
-    font-weight: bold;
-    text-decoration: none;
-    color: #ff8906;
-    transition: 1s;
+  font-weight: bold;
+  text-decoration: none;
+  color: #ff8906;
+  transition: 1s;
 }
 
 .home-btn:hover {
-    background: #ff8906;
-    /* border-color: #ff8906; */
+  background: #ff8906;
+  /* border-color: #ff8906; */
 }
 
 .home-btn:hover > a {
-    color: #fffffe;
+  color: #fffffe;
 }
 
 /* ==================== About Page ==================== */
 .about-title {
-    font-family: 'Teko', sans-serif;
-    font-size: 6rem;
-    font-weight: 600;
-    padding: 90px 40px 40px;
-    text-align: center;
-    color: #0f0e17;
-    text-transform: uppercase;
+  font-family: "Teko", sans-serif;
+  font-size: 6rem;
+  font-weight: 600;
+  padding: 90px 40px 40px;
+  text-align: center;
+  color: #0f0e17;
+  text-transform: uppercase;
 }
 
 .row {
-    padding: 0 70px 110px;
-    margin: 0 auto;
+  padding: 0 70px 110px;
+  margin: 0 auto;
 }
 
 .about-text {
-    text-align: left;
-    margin: auto 0;
-    background-color: #0f0e17;
-    color: #fffffe;
-    border-radius: 8px;
-    padding: 35px;
-    margin: 10px;
+  text-align: left;
+  margin: auto 0;
+  background-color: #0f0e17;
+  color: #fffffe;
+  border-radius: 8px;
+  padding: 35px;
+  margin: 10px;
 }
 
 .about-image {
-    width: 380px;
-    margin: 10px;
-    border-radius: 15%;
+  width: 380px;
+  margin: 10px;
+  border-radius: 15%;
 }
 
 /* ==================== Importance of Reading Page ==================== */
@@ -163,76 +164,80 @@ body, html {
 
 /* ==================== Webpage Footer ==================== */
 .footer {
-    background: #0f0e17;
-    width: 100%;
-    text-align: center;
-    padding: 30px 0;
+  background: #0f0e17;
+  width: 100%;
+  text-align: center;
+  padding: 30px 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  text-align: center;
 }
 
 .footer h4 {
-    color: #FFC18F;
-    margin-bottom: 25px;
-    font-weight: 600;
+  color: #ffc18f;
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
 .footer p {
-    color: #ADEDEA;
-    margin-bottom: 20px;
+  color: #adedea;
+  margin-bottom: 20px;
 }
 
 .footer p span {
-    color: #cf11bc;
-    font-weight: 600;
+  color: #cf11bc;
+  font-weight: 600;
 }
 
 .icons .uil {
-    font-size: 30px;
-    color: #CE205B;
-    margin: 0 13px;
-    cursor: pointer;
-    padding: 18px;
+  font-size: 30px;
+  color: #ce205b;
+  margin: 0 13px;
+  cursor: pointer;
+  padding: 18px;
 }
 
 .icons .uil:hover {
-    color: #ADEDEA;
-    transition: 0.6s;
+  color: #adedea;
+  transition: 0.6s;
 }
 
 /* Making the website responsive */
 @media (max-width: 768px) {
-    .home-container {
-        padding: 80px;
-    }
+  .home-container {
+    padding: 80px;
+  }
 
-    .home-logo img {
-        width: 340px;
-    }
+  .home-logo img {
+    width: 340px;
+  }
 
-    .home-title {
-        font-size: 3.6rem;
-        font-weight: 900;
-        padding-bottom: 0.8rem;
-        padding-top: 0;
-        color: #FFC18F;
-    }
-    
-    .home-text {
-        width: 70%;
-        margin: 0 auto;
-        padding-bottom: 2rem;
-    }
-    
-    .home-btn {
-        padding: 15px;
-        width: 200px;
-        border: 4px solid black;
-        border-radius: 8px;
-        background: transparent;
-        transition: 1s;
-        margin: 20px;
-    }
+  .home-title {
+    font-size: 3.6rem;
+    font-weight: 900;
+    padding-bottom: 0.8rem;
+    padding-top: 0;
+    color: #ffc18f;
+  }
 
-    .about-image {
-        width: 300px;
-    }
+  .home-text {
+    width: 70%;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+  }
+
+  .home-btn {
+    padding: 15px;
+    width: 200px;
+    border: 4px solid black;
+    border-radius: 8px;
+    background: transparent;
+    transition: 1s;
+    margin: 20px;
+  }
+
+  .about-image {
+    width: 300px;
+  }
 }

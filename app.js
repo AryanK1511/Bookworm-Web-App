@@ -16,7 +16,7 @@ app.use(express.static("public"));
 // Connecting to database
 mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/?retryWrites=true&w=majority/BooksDB", {useNewUrlParser: true});
 
-// Creating a schema for the database
+// Creating a schema for the books database
 const bookSchema = new mongoose.Schema ({
     bookName: {
         type: String,
@@ -26,10 +26,28 @@ const bookSchema = new mongoose.Schema ({
     DateAdded: String
 });
 
+// Creating a schema for the database that stores user data
+const userSchema = new mongoose.Schema({
+    email: String,
+    password: String,
+    googleId: String,
+    bookData: bookSchema
+});
+
 // ========== HOME ROUTE =========
 app.get("/", (req, res) => {
-    res.render("index.ejs");
+    res.render("Index");
 })
+
+// ==================== LOGIN ROUTE ===================
+app.get("/login", (req, res) => {
+    res.render("Login");
+});
+
+// ==================== REGISTER ROUTE ====================
+app.get("/register", (req, res) => {
+    res.render("Register");
+});
 
 // ========== SEARCH RESULTS ROUTE =========
 app.get("/search-results", (req, res) => {
