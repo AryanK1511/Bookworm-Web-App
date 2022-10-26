@@ -89,6 +89,11 @@ app.get("/search-results", (req, res) => {
     res.render("searchResults");
 })
 
+// ========== READING LIST ROUTE ========== 
+app.get("/reading-list", (req, res) => {
+    res.render("ReadingList");
+})
+
 // ========== POSTING USING THE SEARCH FORM ==========
 app.post("/search-results", (req, res) => {
     const query = String(req.body.book);
