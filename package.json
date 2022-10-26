@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/AryanK1511/Bookworm-Web-App#readme",
   "dependencies": {
+    "axios": "^1.1.3",
     "body-parser": "^1.20.1",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",

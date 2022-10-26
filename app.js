@@ -3,7 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const https = require("https");
+const ejs = require("ejs");
+const axios = require('axios');
 
 // Starting the express app
 const app = express();
@@ -60,20 +61,14 @@ app.post("/search-results", (req, res) => {
     const apiKey = String(process.env.API_KEY);
     const url = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&key=" + apiKey;
 
-    // Using the native node https module
-    https.get(url, (response) => {
-        let result = '';
-        response.on("data", (data) => {
-            result += data;
+    // Using axios for api get request
+    axios.get(url)
+        .then(result => {
+            res.render("SearchResults", {bookData: result.data.items});
         })
-        response.on('end', () => {
-            const bookData = JSON.parse(result);
-            // Pushing all the search results into our array
-            // console.log(bookData.items[9].id);
-            // Rendering the search results page and sending the array
-        res.render("searchResults", {bookData: bookData});
-        });
-    })
+        .catch(error => {
+            console.log(error);
+        })
 })
 
 // Listening for requests

@@ -7,14 +7,14 @@
         <div class="container">
             <div class="row">
 
-                <% for (let i = 0; i < Object.keys(bookData.items).length; i++) { %>
+                <% for (let i = 0; i < bookData.length; i++) { %>
                     <div class="col-md-6">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="<%= bookData.items[i].volumeInfo.imageLinks.smallThumbnail %>" alt="Card image cap">
+                            <img class="card-img-top" src="<%= bookData[i].volumeInfo.imageLinks.smallThumbnail %>" alt="Book Image">
                             <div class="card-body">
-                              <h5 class="card-title"><%= bookData.items[i].volumeInfo.title  %></h5>
-                              <h6 class="card-subtitle mb-2 text-muted"><%= bookData.items[i].volumeInfo.authors %></h6>
-                              <p class="card-text"><%= bookData.items[i].volumeInfo.description.substring(0, 100) + " ..." %>  <a href="">Read More</a></p>
+                              <h5 class="card-title"><%= bookData[i].volumeInfo.title  %></h5>
+                              <h6 class="card-subtitle mb-2 text-muted"><%= bookData[i].volumeInfo.authors %></h6>
+                              <p class="card-text"><%= bookData[i].volumeInfo.description.substring(0, 100) + " ..." %>  <a href="">Read More</a></p>
                               <a href="#" class="btn btn-primary">Add to Reading List</a>
                             </div>
                         </div>
