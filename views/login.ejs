@@ -1,14 +1,16 @@
 <%- include('partials/header') %>
 <br><br><br><br><br>
-<div class="login-form">
-    <form class="lr-form" action="/" method="post">
-        <h1>Sign In</h1>
-        <input type="text" name="email" placeholder="Username / Email" id="username">
-        <input type="password" name="password" placeholder="Password" id="password">
-        <button type="submit" value="Login" id="login-btn">Login</button>
-        OR
+<section class="login-page">
+    <div class="login-form mx-auto">
+        <form class="lr-form" action="/" method="post">
+            <h1>Sign In</h1>
+            <input type="text" name="email" placeholder="Username / Email" id="username">
+            <input type="password" name="password" placeholder="Password" id="password">
+            <button type="submit" value="Login" id="login-btn">Login</button>
+        </form>
+        <h2 style="color: white;">OR</h2>
         <button type="button" class="login-with-google-btn" >
             Sign in with Google
-          </button>
-    </form>
-</div>
+        </button>
+    </div>
+</section>
