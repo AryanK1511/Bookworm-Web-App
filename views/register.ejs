@@ -1,31 +1,16 @@
 <%- include('partials/header') %>
-<div class="login-form">
-    <form>
-        <!-- First Name Input -->
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" placeholder="First Name" name="firstName">
-        </div>
-
-        <!-- Last Name Input -->
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-<%- include('partials/footer') %>
+<section class="register-page">
+    <div class="register-form mx-auto">
+        <form class="lr-form" action="/" method="post">
+            <h1>Sign Up</h1>
+            <input type="text" name="email" placeholder="Username / Email" id="username">
+            <input type="password" name="password" placeholder="Password" id="password">
+            <button type="submit" value="Register" id="register-btn">Register</button>
+        </form>
+        <h2 style="color: white;">OR</h2>
+        <button type="button" class="login-with-google-btn" >
+            Sign up with Google
+        </button>
+        <p>Already have an account? <br>  <a href="/login">Sign In</a></p>
+    </div>
+</section>

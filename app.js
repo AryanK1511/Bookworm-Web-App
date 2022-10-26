@@ -43,7 +43,7 @@ const bookSchema = new mongoose.Schema ({
 
 // Creating a schema for the database that stores user data
 const userSchema = new mongoose.Schema({
-    email: String,
+    username: String,
     password: String,
     googleId: String,
     bookData: bookSchema
@@ -74,12 +74,12 @@ app.get("/", (req, res) => {
     res.render("Index");
 })
 
-// ==================== LOGIN ROUTE ===================
+// ========== LOGIN ROUTE ========
 app.get("/login", (req, res) => {
     res.render("Login");
 });
 
-// ==================== REGISTER ROUTE ====================
+// ========== REGISTER ROUTE =========
 app.get("/register", (req, res) => {
     res.render("Register");
 });
@@ -110,6 +110,42 @@ app.post("/search-results", (req, res) => {
             console.log(error);
         })
 })
+
+// // =========== Posting to the register route ==========
+// app.post("/register", (req, res) => {
+//     // Registering the user to our application and storing their data in our database
+//     User.register({username: req.body.username}, req.body.password, function(err) {
+//         if (err) {
+//             console.log(err);
+//             res.redirect("/register");
+//         }
+//         else {
+//             passport.authenticate("local")(req, res, function() {
+//                 res.redirect("/");
+//             })
+//         }
+//     });
+// })
+
+// // =========== Posting to the login route ==========
+// app.post("/login", (req, res) => {
+//     // Logging in the user by checking if the credentials match using passport
+//     const user = new User({
+//         username: req.body.username,
+//         password: req.body.password
+//     })
+
+//     req.login(user, function(err) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             passport.authenticate("local")(req, res, function() {
+//                 res.redirect("/secrets");
+//             })
+//         }
+//     });
+// })
 
 // Listening for requests
 let port = process.env.PORT;
