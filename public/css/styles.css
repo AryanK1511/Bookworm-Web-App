@@ -83,7 +83,7 @@ html {
   text-align: center;
   width: 100%;
   margin: 0 auto;
-  padding: 50px;
+  padding: 60px;
 }
 
 .home-title {
@@ -159,8 +159,72 @@ html {
 }
 
 /* ==================== Importance of Reading Page ==================== */
+.info {
+    background-color: #0f0e17;
+}
+
+.info-para {
+    color: #a7a9be;
+    padding: 35px;
+    font-size: 1.1rem;
+}
+
+.info-title {
+    font-family: "Teko", sans-serif;
+    font-size: 6rem;
+    font-weight: 600;
+    padding: 90px 40px 40px;
+    text-align: center;
+    color: #ffc18f;
+    text-transform: uppercase;
+  }
+
+.info-text {
+    text-align: left;
+    margin: auto 0;
+    background-color: #fffffe;
+    color: #0f0e17;
+    border-radius: 8px;
+    padding: 35px;
+    margin: 10px;
+  }
+  
+  .info-image {
+    width: 380px;
+    margin: 10px;
+    border-radius: 15%;
+  }
 
 /* ==================== This Website Page ==================== */
+.company-page {
+    background-color: #fffffe;
+}
+
+.company-title {
+    font-family: "Teko", sans-serif;
+    font-size: 6rem;
+    font-weight: 600;
+    padding: 90px 40px 40px;
+    text-align: center;
+    color: #e53170;
+    text-transform: uppercase;
+  }
+
+.company-text {
+    text-align: left;
+    margin: auto 0;
+    background-color: #0f0e17;
+    color: #fffffe;
+    border-radius: 8px;
+    padding: 35px;
+    margin: 10px;
+  }
+  
+  .company-image {
+    width: 380px;
+    margin: 10px;
+    border-radius: 15%;
+  }
 
 /* ==================== Webpage Footer ==================== */
 .footer {
@@ -168,9 +232,9 @@ html {
   width: 100%;
   text-align: center;
   padding: 30px 0;
-  position: fixed;
+  /* position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 0; */
   text-align: center;
 }
 
@@ -202,6 +266,9 @@ html {
   color: #adedea;
   transition: 0.6s;
 }
+
+/* ===================== LOGIN PAGE =================== */
+
 
 /* Making the website responsive */
 @media (max-width: 768px) {

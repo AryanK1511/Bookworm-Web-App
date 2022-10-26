@@ -68,7 +68,6 @@ app.post("/search-results", (req, res) => {
         })
         response.on('end', () => {
             const bookData = JSON.parse(result);
-
             // Pushing all the search results into our array
             // console.log(bookData.items[9].id);
             // Rendering the search results page and sending the array
