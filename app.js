@@ -64,6 +64,7 @@ app.post("/search-results", (req, res) => {
     // Using axios for api get request
     axios.get(url)
         .then(result => {
+            console.log(result.data.items[0].volumeInfo.title);
             res.render("SearchResults", {bookData: result.data.items});
         })
         .catch(error => {

@@ -1,21 +1,21 @@
 <%- include("partials/header"); -%>
 
     <section class="search-results-page">
+        <br><br><br><br><br>
         <h1 class="search-title">Search Results</h1>
 
         <!-- Card Design -->
         <div class="container">
             <div class="row">
-
                 <% for (let i = 0; i < bookData.length; i++) { %>
-                    <div class="col-md-6">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="<%= bookData[i].volumeInfo.imageLinks.smallThumbnail %>" alt="Book Image">
+                    <div class="col-lg-6 col-xl-4 my-4">
+                        <div class="card h-100 mx-3">
+                            <img class="card-img-top mx-auto" src="<%= bookData[i].volumeInfo.imageLinks.thumbnail %>" alt="Book Image">
                             <div class="card-body">
                               <h5 class="card-title"><%= bookData[i].volumeInfo.title  %></h5>
-                              <h6 class="card-subtitle mb-2 text-muted"><%= bookData[i].volumeInfo.authors %></h6>
-                              <p class="card-text"><%= bookData[i].volumeInfo.description.substring(0, 100) + " ..." %>  <a href="">Read More</a></p>
-                              <a href="#" class="btn btn-primary">Add to Reading List</a>
+                              <h6 class="card-subtitle mb-2"><%= bookData[i].volumeInfo.authors %></h6>
+                              <p class="card-text text-muted"><%= bookData[i].volumeInfo.description.substring(0, 100) + " ..." %>  <a href="">Read More</a></p>
+                              <button class="btn btn-primary"><a href="#">Add to Reading List</a></button>
                             </div>
                         </div>
                     </div>
