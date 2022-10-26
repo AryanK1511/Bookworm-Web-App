@@ -1,17 +1,14 @@
 <%- include('partials/header') %>
 <br><br><br><br><br>
 <div class="login-form">
-    <form action="/" method="post">
-        <span>LOGIN</span>
-        <div class="email">
-            <input type="text" name="email" placeholder="Email">
-        </div>
-        <div class="password">
-            <input type="password" name="password" placeholder="Password">
-        </div>
-        <div class="submit-btn">
-            <button type="submit">LOGIN</button>
-        </div>
+    <form class="lr-form" action="/" method="post">
+        <h1>Sign In</h1>
+        <input type="text" name="email" placeholder="Username / Email" id="username">
+        <input type="password" name="password" placeholder="Password" id="password">
+        <button type="submit" value="Login" id="login-btn">Login</button>
+        OR
+        <button type="button" class="login-with-google-btn" >
+            Sign in with Google
+          </button>
     </form>
 </div>
-<%- include('partials/footer') %>

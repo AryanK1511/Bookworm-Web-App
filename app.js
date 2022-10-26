@@ -4,7 +4,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const axios = require('axios');
+const axios = require("axios");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const session = require("express-session");
+const findOrCreate = require("mongoose-findorcreate");
 
 // Starting the express app
 const app = express();
@@ -13,6 +17,16 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+
+// Using passport sessions
+app.use(session({
+    secret: String(process.env.SESSION_SECRET),
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Connecting to database
 mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/?retryWrites=true&w=majority/BooksDB", {useNewUrlParser: true});
@@ -33,6 +47,26 @@ const userSchema = new mongoose.Schema({
     password: String,
     googleId: String,
     bookData: bookSchema
+});
+
+// Adding plugins to the databases
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
+
+// Creating a new collection (model)
+const User = new mongoose.model("User", userSchema);
+
+// Create a strategy and serialize and deserialize cookies
+passport.use(User.createStrategy());
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+  
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });
 });
 
 // ========== HOME ROUTE =========
