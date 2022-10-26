@@ -14,7 +14,12 @@
                             <div class="card-body">
                               <h5 class="card-title"><%= bookData[i].volumeInfo.title  %></h5>
                               <h6 class="card-subtitle mb-2"><%= bookData[i].volumeInfo.authors %></h6>
-                              <p class="card-text text-muted"><%= bookData[i].volumeInfo.description.substring(0, 100) + " ..." %>  <a href="">Read More</a></p>
+                              <% if (typeof bookData[i].volumeInfo.description !== 'undefined') { %>
+                                <p class="card-text text-muted"><%= bookData[i].volumeInfo.description.substring(0, 100) + " ..."%>  <a href="">Read More</a></p>
+                              <% } else { %>
+                                <p class="card-text text-muted"><%= bookData[i].volumeInfo.description%>
+                              <% } %>
+                              
                               <button class="btn btn-primary"><a href="#">Add to Reading List</a></button>
                             </div>
                         </div>
