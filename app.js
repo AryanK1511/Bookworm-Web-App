@@ -23,6 +23,7 @@ app.use(express.static("public"));
 
 // Global variables
 var readingListLoginRequest = false;
+var searchResults = [];
 
 // Using passport sessions
 app.use(session({
@@ -145,6 +146,10 @@ app.post("/search-results", (req, res) => {
     // Using axios for api get request
     axios.get(url)
         .then(result => {
+            // Pushing all items in the searchResults array to crreate an array of objects
+            for (let i = 0; i < result.data.items.length; i++) {
+                searchResults.push(result.data.items[i]);
+            }
             // Rendering the search results
             res.render("SearchResults", {bookData: result.data.items});
         })
@@ -169,7 +174,7 @@ app.post("/register", (req, res) => {
     });
 })
 
-// // =========== Posting to the login route ==========
+// =========== Posting to the login route ==========
 app.post("/login", (req, res) => {
     // Logging in the user by checking if the credentials match using passport
     const user = new User({
@@ -194,6 +199,11 @@ app.post("/login", (req, res) => {
             })
         }
     });
+})
+
+// ============ POSTING TO THE ADD ROUTE  ===========
+app.post("/add", (req, res) => {
+    res.redirect("/search-results");
 })
 
 // ========== GOOGLE AUTHENTICATION ==========
