@@ -245,9 +245,6 @@ app.get("/add/:bookId", (req, res) => {
                     // Avoiding duplicate entries in the reading list
                     var duplicate = 0;
                     foundUser.bookData.forEach((storedBook) => {
-                        console.log(storedBook);
-                        console.log(book);
-                        console.log("=========");
                         if (storedBook.bookName === book.bookName && storedBook.bookAuthor === book.bookAuthor) {
                             duplicate++;
                         }
