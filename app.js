@@ -11,6 +11,7 @@ const session = require("express-session");
 const findOrCreate = require("mongoose-findorcreate");
 const { body, validationResult } = require('express-validator');
 const { check } = require('express-validator');
+const _ = require("lodash");
 
 // For Google OAuth 2.0
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -233,12 +234,7 @@ app.get("/add/:bookId", (req, res) => {
                 console.log(err);
             }
             else {
-                console.log("Hello1");
                 if (foundUser) {
-                    console.log("Hello2");
-                    console.log(bookAdded.volumeInfo.title);
-                    console.log(bookAdded.volumeInfo.authors.join(", "));
-
                     // Creating a book object for user
                     const book = new Book({
                         bookName: bookAdded.volumeInfo.title,
@@ -246,11 +242,23 @@ app.get("/add/:bookId", (req, res) => {
                         bookStatus: 0
                     })
 
-                    // Saving the book object
-                    book.save();
+                    // Avoiding duplicate entries in the reading list
+                    var duplicate = 0;
+                    foundUser.bookData.forEach((storedBook) => {
+                        console.log(storedBook);
+                        console.log(book);
+                        console.log("=========");
+                        if (storedBook.bookName === book.bookName && storedBook.bookAuthor === book.bookAuthor) {
+                            duplicate++;
+                        }
+                    })
 
-                    // Pushing the book object in the book data array for user
-                    foundUser.bookData.push(book);
+                    if (duplicate === 0) {
+                        // Saving the book object
+                        book.save();
+                        // Pushing the book object in the book data array for user
+                        foundUser.bookData.push(book);
+                    }
 
                     // Saving the book data and redirecting the user
                     foundUser.save(function() {
