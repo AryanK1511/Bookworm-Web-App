@@ -115,7 +115,7 @@ hr {
   margin-bottom: 4rem;
 }
 
-.home-btn a {
+.home-link .home-btn {
   font-weight: bold;
   text-decoration: none;
   color: #ff8906;
@@ -126,7 +126,7 @@ hr {
   background: #ff8906;
 }
 
-.home-btn:hover > a {
+.home-link .home-btn:hover {
   color: #fffffe;
 }
 
