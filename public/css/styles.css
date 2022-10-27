@@ -340,6 +340,12 @@ hr {
   color: #fffffe;
 }
 
+.popover-body {
+  height: 200px;
+  overflow-y: auto;
+  white-space:pre-wrap;
+}
+
 /* ==================== READING LIST ===================== */
 .reading-list-page {
   background-color: #0f0e17;
