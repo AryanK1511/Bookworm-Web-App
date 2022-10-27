@@ -10,7 +10,11 @@
                 <% for (let i = 0; i < bookData.length; i++) { %>
                     <div class="col-lg-6 col-xl-4 my-4">
                         <div class="card h-100 mx-3">
-                            <img class="card-img-top mx-auto" src="<%= bookData[i].volumeInfo.imageLinks.thumbnail %>" alt="Book Image">
+                            <% if (typeof bookData[i].volumeInfo.imageLinks !== 'undefined') { %>
+                                <img class="card-img-top mx-auto" src="<%= bookData[i].volumeInfo.imageLinks.thumbnail %>" alt="Book Image">
+                            <% } else { %>
+                                <img class="card-img-top mx-auto" alt="Book Image">
+                            <% } %>
                             <div class="card-body">
                               <h5 class="card-title"><%= bookData[i].volumeInfo.title  %></h5>
                               <h6 class="card-subtitle mb-2"><%= bookData[i].volumeInfo.authors %></h6>
@@ -20,7 +24,9 @@
                                 <p class="card-text text-muted"><%= bookData[i].volumeInfo.description%>
                               <% } %>
                               
-                              <button class="btn btn-primary"><a href="#">Add to Reading List</a></button>
+                              <form action="/add" method="post">
+                                <button type="submit" class="btn btn-primary"><a href="#">Add to Reading List</a></button>
+                              </form>
                             </div>
                         </div>
                     </div>

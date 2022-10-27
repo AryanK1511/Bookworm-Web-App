@@ -211,7 +211,7 @@ app.get("/auth/google/bookworm-authentication",
     }
   });
 
-// Listening for requests
+// ========== Listening for requests ==========
 let port = process.env.PORT;
 
 if (port == null || port == "") {
