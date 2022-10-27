@@ -9,6 +9,8 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const session = require("express-session");
 const findOrCreate = require("mongoose-findorcreate");
+const { body, validationResult } = require('express-validator');
+const { check } = require('express-validator');
 
 // For Google OAuth 2.0
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -159,19 +161,27 @@ app.post("/search-results", (req, res) => {
 })
 
 // =========== Posting to the register route ==========
-app.post("/register", (req, res) => {
-    // Registering the user to our application and storing their data in our database
-    User.register({username: req.body.username}, req.body.password, function(err) {
-        if (err) {
-            console.log(err);
-            res.redirect("/register");
-        }
-        else {
-            passport.authenticate("local")(req, res, function() {
-                res.redirect("/");
-            })
-        }
-    });
+app.post("/register", [check("username", "Username must be a valid email").exists().isEmail(), check("password", "Password must be atleast 5 characters long").exists().isLength({min: 5})], (req, res) => {
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        res.render("register", {errors: errors.errors});
+    }
+    else {
+        // Registering the user to our application and storing their data in our database
+        User.register({username: req.body.username}, req.body.password, function(err) {
+            if (err) {
+                console.log(err);
+                res.redirect("/register");
+            }
+            else {
+                passport.authenticate("local")(req, res, function() {
+                    res.redirect("/");
+                })
+            }
+        });
+    }
 })
 
 // =========== Posting to the login route ==========

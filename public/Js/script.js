@@ -5,4 +5,4 @@ const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstra
 
 const popover = new bootstrap.Popover('.popover-dismiss', {
     trigger: 'focus'
-  });
+});

@@ -1,9 +1,21 @@
 <%- include('partials/header') %>
 <section class="register-page">
     <div class="custom-form mx-auto">
+
+        <!-- Rendering the errors if they form has them -->
+        <% if (typeof errors != 'undefined') { %>
+            <% if (errors.length > 0) { %>
+                <% errors.forEach((error) => { %>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <%= error.msg %>
+                    </div>
+                <% }) %>
+            <% } %>
+        <% } %>
+
         <form class="lr-form" action="/register" method="post">
             <h1>Sign Up</h1>
-            <input type="text" name="username" placeholder="Username / Email" id="username">
+            <input type="text" name="username" placeholder="Email" id="username">
             <input type="password" name="password" placeholder="Password" id="password">
             <button type="submit" value="Register" id="register-btn" class="form-btn">Register</button>
         </form>
@@ -14,5 +26,18 @@
           </button>
       </a>
         <p>Already have an account? <br>  <a href="/login">Sign In</a></p>
+        <div class="error"></div>
     </div>
 </section>
+
+<!-- Custom JavaScript -->
+<script src="JS/script.js"></script>
+
+<!-- Animate on Scroll JS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+</body>
+</html>
