@@ -10,6 +10,9 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const session = require("express-session");
 const findOrCreate = require("mongoose-findorcreate");
 
+// For Google OAuth 2.0
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 // Starting the express app
 const app = express();
 
@@ -72,6 +75,20 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     });
 });
+
+// Setting up google authentication strategy using passport.js
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/bookworm-authentication",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
 
 // ========== HOME ROUTE =========
 app.get("/", (req, res) => {
@@ -178,6 +195,21 @@ app.post("/login", (req, res) => {
         }
     });
 })
+
+// ========== GOOGLE AUTHENTICATION ==========
+app.get("/auth/google", passport.authenticate("google", { scope: ["profile"] }));
+
+app.get("/auth/google/bookworm-authentication", 
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function(req, res) {
+    // Checking whether the login was requested manually or to access the reading list
+    if (readingListLoginRequest) {
+        res.redirect("/reading-list");
+    }
+    else {
+        res.redirect("/");
+    }
+  });
 
 // Listening for requests
 let port = process.env.PORT;

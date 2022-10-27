@@ -14,7 +14,7 @@ hr {
   color: #fff;
 }
 
-/* ==================== Navbar ==================== */
+/* ========== Navbar ========= */
 .navbar {
   background-color: #0f0e17;
   padding: 1rem;
@@ -79,7 +79,7 @@ hr {
   width: 100%;
 }
 
-/* ==================== Homepage ==================== */
+/* ========== Homepage ========== */
 .home-page {
   color: #fffffe;
   background-color: #0f0e17;
@@ -131,7 +131,7 @@ hr {
   color: #fffffe;
 }
 
-/* ==================== About Page ==================== */
+/* ========== About Page ========== */
 .about-title {
   font-family: "Teko", sans-serif;
   font-size: 6rem;
@@ -163,7 +163,7 @@ hr {
   border-radius: 15%;
 }
 
-/* ==================== Importance of Reading Page ==================== */
+/* ========== Importance of Reading Page ========== */
 .info {
   background-color: #0f0e17;
 }
@@ -200,7 +200,7 @@ hr {
   border-radius: 15%;
 }
 
-/* ==================== This Website Page ==================== */
+/* ========== This Website Page ========== */
 .company-page {
   background-color: #fffffe;
 }
@@ -231,7 +231,7 @@ hr {
   border-radius: 15%;
 }
 
-/* ==================== Webpage Footer ==================== */
+/* ========== Webpage Footer ========== */
 .footer {
   background: #0f0e17;
   width: 100%;
@@ -269,7 +269,7 @@ hr {
   transition: 0.6s;
 }
 
-/* ==================== SEARCH RESULTS PAGE ==================== */
+/* ========== SEARCH RESULTS PAGE ========== */
 .search-results-page {
   background-color: #0f0e17;
 }
@@ -346,7 +346,7 @@ hr {
   white-space:pre-wrap;
 }
 
-/* ==================== READING LIST ===================== */
+/* ========== READING LIST =========== */
 .reading-list-page {
   background-color: #0f0e17;
 }
@@ -371,7 +371,7 @@ hr {
   color: #fffffe;
 }
 
-/* ===================== LOGIN AND REGISTER PAGE =================== */
+/* =========== LOGIN AND REGISTER PAGE ========= */
 .login-page {
   background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.3)), url(../Images/login-bg.jpg);
   background-size: cover;
@@ -476,21 +476,7 @@ hr {
   margin: 20px;
 }
 
-.login-with-google-btn:hover {
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-.login-with-google-btn:active {
-  background-color: #eeeeee;
-}
-
-.login-with-google-btn:focus {
-  outline: none;
-  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25),
-    0 0 0 3px #c8dafc;
-}
-
-/* Making the website responsive */
+/* ========== Making the website responsive ========== */
 @media (max-width: 768px) {
   .home-container {
     padding: 80px;
