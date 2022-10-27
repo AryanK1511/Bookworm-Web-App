@@ -25,10 +25,7 @@
                               <% } else { %>
                                 <p class="card-text text-muted"><%= bookData[i].volumeInfo.description%>
                               <% } %>
-                              
-                              <form action="/add" method="post">
-                                <button type="submit" class="btn btn-primary">Add to Reading List</button>
-                              </form>
+                                <a class="btn btn-primary add-to-list-btn" href="/add/<%= bookData[i].id %>">Add to Reading List</a>
                             </div>
                         </div>
                     </div>

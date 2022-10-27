@@ -1,17 +1,28 @@
 <%- include("partials/header"); -%>
 
-<div class="reading-list-page">
-  <h1 class="reading-list-title">Reading List</h1>
-  <div class="col-lg-6 col-xl-4 my-4">
-    <div class="card h-100 mx-3">
-      <img class="card-img-top mx-auto" src="#" alt="Book Image" />
-      <div class="card-body">
-        <h5 class="card-title">Card Title</h5>
-        <h6 class="card-subtitle mb-2">Authors</h6>
-        <button class="btn btn-primary" id="reading-list-btn"><a href="#">Delete Book</a></button>
-      </div>
-    </div>
-  </div>
-</div>
+    <section class="reading-list-page">
+        <br><br><br><br><br>
+        <h1 class="reading-list-title">My Reading List</h1>
+
+        <!-- Card Design -->
+        <div class="container">
+            <div class="row">
+                <% for (let i = 0; i < userBookData.length; i++) { %>
+                    <div class="col-lg-6 col-xl-4 my-4" data-aos="slide-left" data-aos-offset="200"
+                    data-aos-delay="50"
+                    data-aos-duration="1000">
+                        <div class="card h-100 mx-3">
+                            <div class="card-body">
+                              <h5 class="card-title"><%= userBookData[i].bookName  %></h5>
+                              <h6 class="card-subtitle mb-2"><%= userBookData[i].bookAuthor %></h6>
+                              <button class="btn btn-primary" id="reading-list-btn"><a href="#">Delete Book</a></button>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+
+    </section>
 
 <%- include("partials/footer"); -%>

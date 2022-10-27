@@ -29,7 +29,7 @@ var searchResults = [];
 
 // Using passport sessions
 app.use(session({
-    secret: String(process.env.SESSION_SECRET),
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }))
@@ -48,7 +48,7 @@ const bookSchema = new mongoose.Schema ({
         required: [true, "No name has been provided for the book."]
     },
     bookAuthor: String,
-    DateAdded: String
+    bookStatus: Number,
 });
 
 // Creating a schema for the database that stores user data
@@ -56,15 +56,16 @@ const userSchema = new mongoose.Schema({
     username: String,
     password: String,
     googleId: String,
-    bookData: bookSchema
+    bookData: Array
 });
 
 // Adding plugins to the databases
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
 
-// Creating a new collection (model)
+// Creating collections / models
 const User = new mongoose.model("User", userSchema);
+const Book = new mongoose.model("Book", bookSchema);
 
 // Create a strategy and serialize and deserialize cookies
 passport.use(User.createStrategy());
@@ -201,7 +202,7 @@ app.post("/login", (req, res) => {
             passport.authenticate("local")(req, res, function() {
                 // Checking whether the login was requested manually or to access the reading list
                 if (readingListLoginRequest) {
-                    res.redirect("/reading-list");
+                    res.redirect("/");
                 }
                 else {
                     res.redirect("/");
@@ -211,9 +212,58 @@ app.post("/login", (req, res) => {
     });
 })
 
-// ============ POSTING TO THE ADD ROUTE  ===========
-app.post("/add", (req, res) => {
-    res.redirect("/search-results");
+// ============ THE ADD ROUTE  ===========
+app.get("/add/:bookId", (req, res) => {
+    // Array holding all users and their book data
+
+    // Checking for auth
+    if (req.isAuthenticated()) {
+        const bookId = req.params.bookId;
+        let bookAdded = {};
+
+        for (let i = 0 ; i < searchResults.length; i++) {
+            if (String(searchResults[i].id) === String(bookId)) {
+                bookAdded = searchResults[i];
+            }
+        }
+
+        // Locating the user in our database and storing the book in the database
+        User.findById(req.user.id, function(err, foundUser) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log("Hello1");
+                if (foundUser) {
+                    console.log("Hello2");
+                    console.log(bookAdded.volumeInfo.title);
+                    console.log(bookAdded.volumeInfo.authors.join(", "));
+
+                    // Creating a book object for user
+                    const book = new Book({
+                        bookName: bookAdded.volumeInfo.title,
+                        bookAuthor: bookAdded.volumeInfo.authors.join(", "),
+                        bookStatus: 0
+                    })
+
+                    // Saving the book object
+                    book.save();
+
+                    // Pushing the book object in the book data array for user
+                    foundUser.bookData.push(book);
+
+                    // Saving the book data and redirecting the user
+                    foundUser.save(function() {
+                        res.render("ReadingList", {userBookData: foundUser.bookData});
+                    })
+                }
+            }
+        })
+    }
+    else {
+        readingListLoginRequest = true;
+        res.render("Login");
+    }
 })
 
 // ========== GOOGLE AUTHENTICATION ==========
