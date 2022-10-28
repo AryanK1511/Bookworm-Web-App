@@ -29,6 +29,7 @@ var readingListLoginRequest = false;
 var searchResults = [];
 var bookAdded = {};
 var searchQuery = "";
+var userFirstName = "";
 
 // Using passport sessions
 app.use(session({
@@ -56,6 +57,8 @@ const bookSchema = new mongoose.Schema ({
 
 // Creating a schema for the database that stores user data
 const userSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
     username: String,
     password: String,
     googleId: String,
@@ -136,9 +139,10 @@ app.get("/reading-list", (req, res) => {
             }
             else {
                 if (foundUser) {
+                    userFirstName = foundUser.firstName;
                     // Checking to see whether a book was added
                     if (Object.keys(bookAdded).length === 0) {
-                        res.render("ReadingList", {userBookData: foundUser.bookData, user: req.user});
+                        res.render("ReadingList", {userBookData: foundUser.bookData, user: req.user, userFirstName: userFirstName});
                     }
                     else {
                         // Creating a book object for user
@@ -165,7 +169,7 @@ app.get("/reading-list", (req, res) => {
     
                         // Saving the book data and redirecting the user
                         foundUser.save(function() {
-                            res.render("ReadingList", {userBookData: foundUser.bookData, user: req.user});
+                            res.render("ReadingList", {userBookData: foundUser.bookData, user: req.user, userFirstName: userFirstName});
                         })
                     }
                 }
@@ -220,7 +224,7 @@ app.post("/search-results", (req, res) => {
 })
 
 // =========== Posting to the register route ==========
-app.post("/register", [check("username", "Username must be a valid email").exists().isEmail(), check("password", "Password must be atleast 5 characters long").exists().isLength({min: 5})], (req, res) => {
+app.post("/register", [check("firstname", "First name is a required field").exists() , check("username", "Username must be a valid email").exists().isEmail(), check("password", "Password must be atleast 5 characters long").exists().isLength({min: 5})], (req, res) => {
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
 
@@ -229,7 +233,7 @@ app.post("/register", [check("username", "Username must be a valid email").exist
     }
     else {
         // Registering the user to our application and storing their data in our database
-        User.register({username: req.body.username}, req.body.password, function(err) {
+        User.register({username: req.body.username, firstName: req.body.firstname, lastName: req.body.lastname}, req.body.password, function(err) {
             if (err) {
                 console.log(err);
                 res.redirect("/register");
@@ -258,6 +262,7 @@ app.post("/login", (req, res) => {
         }
         else {
             passport.authenticate("local", {failureRedirect: '/login' })(req, res, function() {
+                userFirstName = "";
                 // Checking whether the login was requested manually or to access the reading list
                 if (readingListLoginRequest) {
                     res.redirect("/reading-list");
@@ -312,6 +317,7 @@ app.get("/auth/google/bookworm-authentication",
   function(req, res) {
     // Checking whether the login was requested manually or to access the reading list
     if (readingListLoginRequest) {
+        userFirstName = "";
         res.redirect("/reading-list");
     }
     else {

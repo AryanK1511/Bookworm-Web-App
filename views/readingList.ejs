@@ -2,7 +2,11 @@
 
     <section class="reading-list-page">
         <br><br><br><br><br>
-        <h1 class="reading-list-title">My Reading List</h1>
+        <% if (typeof userFirstName === 'undefined' || userFirstName === "" || userFirstName === null) { %>
+            <h1 class="reading-list-title">My Reading List</h1>
+        <% } else { %>
+            <h1 class="reading-list-title"><%= userFirstName %>'s Reading List</h1>
+        <% } %>
 
         <!-- Card Design -->
         <div class="container">
