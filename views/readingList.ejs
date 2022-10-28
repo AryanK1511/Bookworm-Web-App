@@ -15,7 +15,7 @@
                             <div class="card-body">
                               <h5 class="card-title"><%= userBookData[i].bookName  %></h5>
                               <h6 class="card-subtitle mb-2"><%= userBookData[i].bookAuthor %></h6>
-                              <a href="/delete/<%= userBookData[i].bookId %>"><button class="btn btn-primary" id="reading-list-btn">Delete Book</button></a>
+                              <a class="reading-list-link" href="/delete/<%= userBookData[i].bookId %>"><button class="btn btn-primary" id="reading-list-btn">Delete Book</button></a>
                             </div>
                         </div>
                     </div>

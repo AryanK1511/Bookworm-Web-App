@@ -367,6 +367,17 @@ hr {
   white-space:pre-wrap;
 }
 
+#popver-btn {
+  background: none!important;
+  border: none;
+  padding: 0;
+  margin: 0;
+  height: 20px;
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* ========== READING LIST =========== */
 .reading-list-page {
   background-color: #0f0e17;
@@ -380,15 +391,13 @@ hr {
   text-align: center;
 }
 
-#reading-list-btn a {
+.reading-list-link #reading-list-btn {
   color: #f00e0e;
+  font-weight: bold;
 }
 
-#reading-list-btn:hover {
+.reading-list-link #reading-list-btn:hover {
   background-color: #f00e0e;
-}
-
-#reading-list-btn:hover > a {
   color: #fffffe;
 }
 

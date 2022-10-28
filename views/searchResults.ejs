@@ -21,7 +21,7 @@
                               <h5 class="card-title"><%= bookData[i].volumeInfo.title  %></h5>
                               <h6 class="card-subtitle mb-2"><%= bookData[i].volumeInfo.authors %></h6>
                               <% if (typeof bookData[i].volumeInfo.description !== 'undefined') { %>
-                                <p class="card-text text-muted"><%= bookData[i].volumeInfo.description.substring(0, 100) + " ..."%>  <a style="color: #adedea;" href="#" class="popover-body"  data-bs-trigger="focus" data-bs-toggle="popover" data-bs-title="<%= bookData[i].volumeInfo.title %>" data-bs-content="<%= bookData[i].volumeInfo.description %>">Read More</a></p>
+                                <p class="card-text text-muted"><%= bookData[i].volumeInfo.description.substring(0, 100) + " ..."%>  <button type="button" id="popver-btn" style="color: #adedea;" id="popover" class="popover-body"  data-bs-trigger="focus" data-bs-toggle="popover" data-bs-title="<%= bookData[i].volumeInfo.title %>" data-bs-content="<%= bookData[i].volumeInfo.description %>">Read More</button></p>
                               <% } else { %>
                                 <p class="card-text text-muted"><%= bookData[i].volumeInfo.description%>
                               <% } %>
