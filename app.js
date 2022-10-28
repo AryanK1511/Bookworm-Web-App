@@ -257,7 +257,7 @@ app.post("/login", (req, res) => {
             console.log(err);
         }
         else {
-            passport.authenticate("local")(req, res, function() {
+            passport.authenticate("local", {failureRedirect: '/login' })(req, res, function() {
                 // Checking whether the login was requested manually or to access the reading list
                 if (readingListLoginRequest) {
                     res.redirect("/reading-list");
