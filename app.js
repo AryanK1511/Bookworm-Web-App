@@ -129,31 +129,37 @@ app.get("/reading-list", (req, res) => {
             }
             else {
                 if (foundUser) {
-                    // Creating a book object for user
-                    const book = new Book({
-                        bookName: bookAdded.volumeInfo.title,
-                        bookAuthor: bookAdded.volumeInfo.authors.join(", "),
-                    })
-
-                    // Avoiding duplicate entries in the reading list
-                    var duplicate = 0;
-                    foundUser.bookData.forEach((storedBook) => {
-                        if (storedBook.bookName === book.bookName && storedBook.bookAuthor === book.bookAuthor) {
-                            duplicate++;
-                        }
-                    })
-
-                    if (duplicate === 0) {
-                        // Saving the book object
-                        book.save();
-                        // Pushing the book object in the book data array for user
-                        foundUser.bookData.push(book);
-                    }
-
-                    // Saving the book data and redirecting the user
-                    foundUser.save(function() {
+                    // Checking to see whether a book was added
+                    if (Object.keys(bookAdded).length === 0) {
                         res.render("ReadingList", {userBookData: foundUser.bookData});
-                    })
+                    }
+                    else {
+                        // Creating a book object for user
+                        const book = new Book({
+                            bookName: bookAdded.volumeInfo.title,
+                            bookAuthor: bookAdded.volumeInfo.authors.join(", "),
+                        })
+    
+                        // Avoiding duplicate entries in the reading list
+                        var duplicate = 0;
+                        foundUser.bookData.forEach((storedBook) => {
+                            if (storedBook.bookName === book.bookName && storedBook.bookAuthor === book.bookAuthor) {
+                                duplicate++;
+                            }
+                        })
+    
+                        if (duplicate === 0) {
+                            // Saving the book object
+                            book.save();
+                            // Pushing the book object in the book data array for user
+                            foundUser.bookData.push(book);
+                        }
+    
+                        // Saving the book data and redirecting the user
+                        foundUser.save(function() {
+                            res.render("ReadingList", {userBookData: foundUser.bookData});
+                        })
+                    }
                 }
             }
         })

@@ -312,6 +312,8 @@ hr {
 .card-subtitle {
   margin: 20px 0;
   color: #e53170;
+  font-size: large;
+  font-weight: bold;
 }
 
 .card-text {
