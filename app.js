@@ -28,6 +28,7 @@ app.use(express.static("public"));
 var readingListLoginRequest = false;
 var searchResults = [];
 var bookAdded = {};
+var bookDeleted = {};
 
 // Using passport sessions
 app.use(session({
@@ -45,6 +46,7 @@ mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY +
 
 // Creating a schema for the books database
 const bookSchema = new mongoose.Schema ({
+    bookId: String,
     bookName: {
         type: String,
         required: [true, "No name has been provided for the book."]
@@ -136,6 +138,7 @@ app.get("/reading-list", (req, res) => {
                     else {
                         // Creating a book object for user
                         const book = new Book({
+                            bookId: bookAdded.id,
                             bookName: bookAdded.volumeInfo.title,
                             bookAuthor: bookAdded.volumeInfo.authors.join(", "),
                         })
@@ -270,6 +273,22 @@ app.get("/reading-list/:bookId", (req, res) => {
 
     // Redirecting to the reading list route
     res.redirect("/reading-list");
+})
+
+// ============ THE DELETE FROM READING LIST ROUTE  ===========
+app.get("/delete/:bookId", (req, res) => {
+    const bookId = req.params.bookId;
+
+    // Deleting the book from the database
+    User.findOneAndUpdate({id: req.user.id}, { $pull: { bookData: { bookId: bookId }}}, function(err, foundList) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // Redirecting to the reading list route
+            res.redirect("/reading-list");
+        }
+});
 })
 
 // ========== GOOGLE AUTHENTICATION ==========
