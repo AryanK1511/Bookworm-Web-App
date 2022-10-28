@@ -8,6 +8,7 @@ body,
 html {
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
+  background-color: #0f0e17;
 }
 
 .page-container {
@@ -140,6 +141,10 @@ hr {
 }
 
 /* ========== About Page ========== */
+.about-page {
+  background-color: #fffffe;
+}
+
 .about-title {
   font-family: "Teko", sans-serif;
   font-size: 6rem;
