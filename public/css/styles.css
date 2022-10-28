@@ -169,15 +169,18 @@ hr {
 
 .info-para {
   color: #a7a9be;
-  padding: 35px;
+  padding: 30px 35px;
   font-size: 1.1rem;
+  width: 80vw;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .info-title {
   font-family: "Teko", sans-serif;
   font-size: 6rem;
   font-weight: 600;
-  padding: 90px 40px 40px;
+  padding: 90px 40px 0;
   text-align: center;
   color: #ffc18f;
   text-transform: uppercase;

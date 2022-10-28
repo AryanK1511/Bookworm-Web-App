@@ -27,6 +27,7 @@ app.use(express.static("public"));
 // Global variables
 var readingListLoginRequest = false;
 var searchResults = [];
+var bookAdded = {};
 
 // Using passport sessions
 app.use(session({
@@ -49,7 +50,6 @@ const bookSchema = new mongoose.Schema ({
         required: [true, "No name has been provided for the book."]
     },
     bookAuthor: String,
-    bookStatus: Number,
 });
 
 // Creating a schema for the database that stores user data
@@ -120,8 +120,43 @@ app.get("/search-results", (req, res) => {
 
 // ========== READING LIST ROUTE ========== 
 app.get("/reading-list", (req, res) => {
+    // Checking whether the user is authenticated
     if (req.isAuthenticated()) {
-        res.render("ReadingList");
+        // Locating the user in our database and storing the book in the database
+        User.findById(req.user.id, function(err, foundUser) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (foundUser) {
+                    // Creating a book object for user
+                    const book = new Book({
+                        bookName: bookAdded.volumeInfo.title,
+                        bookAuthor: bookAdded.volumeInfo.authors.join(", "),
+                    })
+
+                    // Avoiding duplicate entries in the reading list
+                    var duplicate = 0;
+                    foundUser.bookData.forEach((storedBook) => {
+                        if (storedBook.bookName === book.bookName && storedBook.bookAuthor === book.bookAuthor) {
+                            duplicate++;
+                        }
+                    })
+
+                    if (duplicate === 0) {
+                        // Saving the book object
+                        book.save();
+                        // Pushing the book object in the book data array for user
+                        foundUser.bookData.push(book);
+                    }
+
+                    // Saving the book data and redirecting the user
+                    foundUser.save(function() {
+                        res.render("ReadingList", {userBookData: foundUser.bookData});
+                    })
+                }
+            }
+        })
     }
     else {
         readingListLoginRequest = true;
@@ -213,62 +248,22 @@ app.post("/login", (req, res) => {
     });
 })
 
-// ============ THE ADD ROUTE  ===========
-app.get("/add/:bookId", (req, res) => {
-    // Array holding all users and their book data
+// ============ THE ADD TO READING LIST ROUTE  ===========
+app.get("/reading-list/:bookId", (req, res) => {
+    const bookId = req.params.bookId;
 
-    // Checking for auth
-    if (req.isAuthenticated()) {
-        const bookId = req.params.bookId;
-        let bookAdded = {};
-
-        for (let i = 0 ; i < searchResults.length; i++) {
-            if (String(searchResults[i].id) === String(bookId)) {
-                bookAdded = searchResults[i];
-            }
+    // Saving the book that is supposed to be added in the bookAdded global variable
+    for (let i = 0 ; i < searchResults.length; i++) {
+        if (String(searchResults[i].id) === String(bookId)) {
+            bookAdded = searchResults[i];
         }
-
-        // Locating the user in our database and storing the book in the database
-        User.findById(req.user.id, function(err, foundUser) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                if (foundUser) {
-                    // Creating a book object for user
-                    const book = new Book({
-                        bookName: bookAdded.volumeInfo.title,
-                        bookAuthor: bookAdded.volumeInfo.authors.join(", "),
-                        bookStatus: 0
-                    })
-
-                    // Avoiding duplicate entries in the reading list
-                    var duplicate = 0;
-                    foundUser.bookData.forEach((storedBook) => {
-                        if (storedBook.bookName === book.bookName && storedBook.bookAuthor === book.bookAuthor) {
-                            duplicate++;
-                        }
-                    })
-
-                    if (duplicate === 0) {
-                        // Saving the book object
-                        book.save();
-                        // Pushing the book object in the book data array for user
-                        foundUser.bookData.push(book);
-                    }
-
-                    // Saving the book data and redirecting the user
-                    foundUser.save(function() {
-                        res.render("ReadingList", {userBookData: foundUser.bookData});
-                    })
-                }
-            }
-        })
     }
-    else {
-        readingListLoginRequest = true;
-        res.render("Login");
-    }
+
+    // Emptying the search results array
+    searchResults = [];
+
+    // Redirecting to the reading list route
+    res.redirect("/reading-list");
 })
 
 // ========== GOOGLE AUTHENTICATION ==========
