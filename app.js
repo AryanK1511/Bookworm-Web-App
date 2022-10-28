@@ -298,7 +298,7 @@ app.get("/delete/:bookId", (req, res) => {
     const bookId = req.params.bookId;
 
     // Deleting the book from the database
-    User.findOneAndUpdate({id: req.user.id}, { $pull: { bookData: { bookId: bookId }}}, function(err, foundList) {
+    User.updateMany({id: req.user.id}, { $pull: { "bookData": { "bookId": bookId }}}, function(err, foundList) {
         if (err) {
             console.log(err);
         }
