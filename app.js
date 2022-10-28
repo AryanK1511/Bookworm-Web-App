@@ -28,7 +28,7 @@ app.use(express.static("public"));
 var readingListLoginRequest = false;
 var searchResults = [];
 var bookAdded = {};
-var bookDeleted = {};
+var searchQuery = "";
 
 // Using passport sessions
 app.use(session({
@@ -117,7 +117,12 @@ app.get("/register", (req, res) => {
 
 // ========== SEARCH RESULTS ROUTE =========
 app.get("/search-results", (req, res) => {
-    res.render("searchResults", {user: req.user});
+    if (searchQuery === null || searchQuery === "") {
+        res.redirect("/");
+    }
+    else {
+        res.render("searchResults", {user: req.user});
+    }
 })
 
 // ========== READING LIST ROUTE ========== 
@@ -188,22 +193,30 @@ app.get("/logout", function(req, res) {
 // ========== POSTING USING THE SEARCH FORM ==========
 app.post("/search-results", (req, res) => {
     const query = String(req.body.book);
-    const apiKey = String(process.env.API_KEY);
-    const url = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&key=" + apiKey;
+    searchQuery = query;
 
-    // Using axios for api get request
-    axios.get(url)
-        .then(result => {
-            // Pushing all items in the searchResults array to crreate an array of objects
-            for (let i = 0; i < result.data.items.length; i++) {
-                searchResults.push(result.data.items[i]);
-            }
-            // Rendering the search results
-            res.render("SearchResults", {bookData: result.data.items, user: req.user});
-        })
-        .catch(error => {
-            console.log(error);
-        })
+    // If there is no query
+    if (query === null || query === "") {
+        res.redirect("/");
+    }
+    else {
+        const apiKey = String(process.env.API_KEY);
+        const url = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&key=" + apiKey;
+
+        // Using axios for api get request
+        axios.get(url)
+            .then(result => {
+                // Pushing all items in the searchResults array to crreate an array of objects
+                for (let i = 0; i < result.data.items.length; i++) {
+                    searchResults.push(result.data.items[i]);
+                }
+                // Rendering the search results
+                res.render("SearchResults", {bookData: result.data.items, user: req.user});
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 })
 
 // =========== Posting to the register route ==========
