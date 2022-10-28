@@ -10,6 +10,15 @@ html {
   scroll-behavior: smooth;
 }
 
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 13.5rem;
+}
+
 hr {
   color: #fff;
 }
@@ -235,6 +244,9 @@ hr {
 
 /* ========== Webpage Footer ========== */
 .footer {
+  position: absolute;
+  bottom: 0;
+  height: 13.5rem; 
   background: #0f0e17;
   width: 100%;
   text-align: center;

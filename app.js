@@ -115,7 +115,7 @@ app.get("/register", (req, res) => {
 
 // ========== SEARCH RESULTS ROUTE =========
 app.get("/search-results", (req, res) => {
-    res.render("searchResults");
+    res.render("searchResults", {user: req.user});
 })
 
 // ========== READING LIST ROUTE ========== 
@@ -131,7 +131,7 @@ app.get("/reading-list", (req, res) => {
                 if (foundUser) {
                     // Checking to see whether a book was added
                     if (Object.keys(bookAdded).length === 0) {
-                        res.render("ReadingList", {userBookData: foundUser.bookData});
+                        res.render("ReadingList", {userBookData: foundUser.bookData, user: req.user});
                     }
                     else {
                         // Creating a book object for user
@@ -157,7 +157,7 @@ app.get("/reading-list", (req, res) => {
     
                         // Saving the book data and redirecting the user
                         foundUser.save(function() {
-                            res.render("ReadingList", {userBookData: foundUser.bookData});
+                            res.render("ReadingList", {userBookData: foundUser.bookData, user: req.user});
                         })
                     }
                 }
@@ -196,7 +196,7 @@ app.post("/search-results", (req, res) => {
                 searchResults.push(result.data.items[i]);
             }
             // Rendering the search results
-            res.render("SearchResults", {bookData: result.data.items});
+            res.render("SearchResults", {bookData: result.data.items, user: req.user});
         })
         .catch(error => {
             console.log(error);
