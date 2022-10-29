@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     password: String,
     googleId: String,
-    bookData: Array
+    bookData: [bookSchema]
 });
 
 // Adding plugins to the databases
@@ -161,8 +161,6 @@ app.get("/reading-list", (req, res) => {
                         })
     
                         if (duplicate === 0) {
-                            // Saving the book object
-                            book.save();
                             // Pushing the book object in the book data array for user
                             foundUser.bookData.push(book);
                         }
@@ -296,14 +294,17 @@ app.get("/reading-list/:bookId", (req, res) => {
 // ============ THE DELETE FROM READING LIST ROUTE  ===========
 app.get("/delete/:bookId", (req, res) => {
     const bookId = req.params.bookId;
+    console.log(bookId);
+    console.log(req.user.id);
 
     // Deleting the book from the database
-    User.updateMany({id: req.user.id}, { $pull: { "bookData": { "bookId": bookId }}}, function(err, foundList) {
+    User.update({"id": req.user.id}, { "$pull": { "bookData": { "bookId": bookId }}}, {"multi": true}, function(err, foundList) {
         if (err) {
             console.log(err);
         }
         else {
             // Redirecting to the reading list route
+            console.log(foundList);
             res.redirect("/reading-list");
         }
 });
