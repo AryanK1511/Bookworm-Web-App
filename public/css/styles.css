@@ -402,6 +402,15 @@ hr {
   color: #fffffe;
 }
 
+.del-all-btn {
+  padding: 15px;
+  width: 200px;
+  border: 4px solid black;
+  border-radius: 8px;
+  background: transparent;
+  transition: 1s;
+}
+
 /* =========== LOGIN AND REGISTER PAGE ========= */
 .login-page {
   background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.3)), url(../Images/login-bg.jpg);

@@ -8,6 +8,10 @@
             <h1 class="reading-list-title"><%= userFirstName %>'s Reading List</h1>
         <% } %>
 
+        <% if (userBookData.length > 0) { %>
+            <a class="reading-list-link" href="/delete-all"><button class="btn btn-primary del-all-btn" id="reading-list-btn">Delete All Books</button></a>
+        <% } %>
+
         <!-- Card Design -->
         <div class="container">
             <div class="row">

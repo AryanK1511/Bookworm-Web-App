@@ -358,6 +358,23 @@ app.get("/delete/:bookId", (req, res) => {
   );
 });
 
+// ============ THE DELETE ALL FROM READING LIST ROUTE  ===========
+app.get("/delete-all", (req, res) => {
+  // Deleting all the books from the database
+  Book.deleteMany(
+    { userId: req.user.id},
+    function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        // Redirecting to the reading list route
+        bookAdded = {};
+        res.redirect("/reading-list");
+      }
+    }
+  );
+});
+
 // ========== GOOGLE AUTHENTICATION ==========
 app.get(
   "/auth/google",
