@@ -13,6 +13,7 @@ const { body, validationResult } = require("express-validator");
 const { check } = require("express-validator");
 const _ = require("lodash");
 const sort = require(__dirname + "/sort.js");
+const reverse = require(__dirname + "/reverse.js");
 
 // For Google OAuth 2.0
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -161,7 +162,7 @@ app.get("/reading-list", (req, res) => {
                 if (sortType === 0 || sortType === 1) {
                   // Rendering the reading list page
                   res.render("ReadingList", {
-                    userBookData: books,
+                    userBookData: reverse.reverseBooks(books),
                     user: req.user,
                     userFirstName: userFirstName,
                     sortType: sortType
@@ -200,7 +201,7 @@ app.get("/reading-list", (req, res) => {
                   if (sortType === 0 || sortType === 1) {
                     // Rendering the reading list page
                     res.render("ReadingList", {
-                      userBookData: books,
+                      userBookData: reverse.reverseBooks(books),
                       user: req.user,
                       userFirstName: userFirstName,
                       sortType: sortType
