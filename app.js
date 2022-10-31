@@ -24,6 +24,9 @@ const app = express();
 // Using imported modules
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use(express.favicon(path.join(config.root, '/', 'favicon.ico')));
+app.use(express.static(path.join(config.root, '/')));
+app.set('views', config.root + '/views');
 app.use(express.static("public"));
 
 // Global variables
