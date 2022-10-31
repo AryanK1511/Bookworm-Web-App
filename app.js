@@ -48,7 +48,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Connecting to database
-mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
+// mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/BookWorm", {useNewUrlParser: true})
 
 // Creating a schema for the books database
 const bookSchema = new mongoose.Schema({
@@ -102,9 +103,15 @@ passport.use(
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
-      });
+      // Finding or creating a user if it doesn't exist yet
+      try {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+          return cb(err, user);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      
     }
   )
 );
@@ -447,15 +454,15 @@ app.get(
   "/auth/google/bookworm-authentication",
   passport.authenticate("google", { failureRedirect: "/login" }),
   function (req, res) {
-    // Checking whether the login was requested manually or to access the reading list
-    if (readingListLoginRequest) {
-      userFirstName = "";
-      bookAdded = {};
-      res.redirect("/reading-list");
-    } else {
-      bookAdded = {};
-      res.redirect("/");
-    }
+      // Checking whether the login was requested manually or to access the reading list
+      if (readingListLoginRequest) {
+        userFirstName = "";
+        bookAdded = {};
+        res.redirect("/reading-list");
+      } else {
+        bookAdded = {};
+        res.redirect("/");
+      }
   }
 );
 
