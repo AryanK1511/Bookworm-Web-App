@@ -301,9 +301,11 @@ app.post(
         function (err) {
           if (err) {
             console.log(err);
+            bookAdded = {};
             res.redirect("/register");
           } else {
             passport.authenticate("local")(req, res, function () {
+              bookAdded = {};
               res.redirect("/");
             });
           }
@@ -336,6 +338,7 @@ app.post("/login", (req, res) => {
             bookAdded = {};
             res.redirect("/reading-list");
           } else {
+            bookAdded = {};
             res.redirect("/");
           }
         }
@@ -445,6 +448,7 @@ app.get(
       bookAdded = {};
       res.redirect("/reading-list");
     } else {
+      bookAdded = {};
       res.redirect("/");
     }
   }
