@@ -224,6 +224,7 @@ app.get("/reading-list", (req, res) => {
       }
     });
   } else {
+    // Redirecting to the login route if the user is not authenticated
     readingListLoginRequest = true;
     res.render("Login");
   }
@@ -375,6 +376,19 @@ app.get("/reading-list/:bookId", (req, res) => {
       bookAdded = searchResults[i];
     }
   }
+
+  // Searching the database to check for duplicates
+  Book.find({userId: req.user.id}, function(err, foundBooks) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      // Checking whether duplicates are found
+      if (foundBooks.length > 0) {
+        bookAdded = {};
+      }
+    }
+  });
 
   // Emptying the search results array
   searchResults = [];
