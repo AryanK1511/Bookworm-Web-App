@@ -34,6 +34,11 @@
                 <!-- Delete all Button -->
                 <a class="reading-list-link" href="/delete-all"><button class="btn btn-primary del-all-btn" id="reading-list-btn">Delete All Books</button></a>
             </div>
+        <% } else { %>
+            <div class="no-books-message">
+                <h3>Hmmm... Looks like your reading list is empty!!</h3>
+                <p>Use the search bar above to look for books that you want to add to your reading list and click on the "Add to Reading List" button to add the books to this list.</p>
+            </div>
         <% } %>
 
         <!-- Card Design -->

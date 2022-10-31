@@ -435,6 +435,21 @@ hr {
   padding-left: 20px;
 }
 
+.no-books-message {
+  background-color: #fffffe;
+  padding: 20px 40px;
+}
+
+.no-books-message h3 {
+  font-weight: 600;
+  font-size: 1.9rem;
+  color: #f25f4c;
+}
+
+.no-books-message p {
+  color: #e53170;
+}
+
 /* =========== LOGIN AND REGISTER PAGE ========= */
 .login-page {
   background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.3)), url(../Images/login-bg.jpg);
