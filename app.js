@@ -48,8 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Connecting to database
-// mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
-mongoose.connect("mongodb://localhost:27017/BookWorm", {useNewUrlParser: true})
+mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
 
 // Creating a schema for the books database
 const bookSchema = new mongoose.Schema({
