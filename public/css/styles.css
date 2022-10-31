@@ -458,6 +458,10 @@ hr {
   overflow: hidden;
   width: 100%;
   height: 100vh;
+  position: absolute;
+  min-height: 0;
+  padding-bottom: 0;
+  overflow: scroll;
 }
 
 .register-page {
@@ -466,11 +470,16 @@ hr {
   overflow: hidden;
   width: 100%;
   height: 100vh;
+  position: absolute;
+  min-height: 0;
+  padding-bottom: 0;
+  overflow: scroll;
 }
 
 .custom-form {
   width: 300px;
   padding: 30px;
+  margin: 100px 0;
   background-color: #0f0e17;
   text-align: center;
   left: 50%;
@@ -641,6 +650,16 @@ hr {
     width: 100px;
     font-size: small;
   }
+
+  .lr-form h1 {
+    color: #fffffe;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .reading-list-title {
+    font-size: 3rem;
+  }
 }
 
 @media (max-width: 472px) {
@@ -665,5 +684,9 @@ hr {
     padding: 15px;
     width: 150px;
     margin: 0 0 20px 0;
+  }
+
+  .about-image {
+    width: 200px;
   }
 }
