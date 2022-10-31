@@ -12,8 +12,8 @@ const findOrCreate = require("mongoose-findorcreate");
 const { body, validationResult } = require("express-validator");
 const { check } = require("express-validator");
 const _ = require("lodash");
-const sort = require(__dirname + "/sort.js");
-const reverse = require(__dirname + "/reverse.js");
+const sort = require(__dirname + "/public/Js/sort.js");
+const reverse = require(__dirname + "/public/Js/reverse.js");
 
 // For Google OAuth 2.0
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -48,11 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Connecting to database
-// mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
-
-mongoose.connect("mongodb://localhost:27017/BookWorm", {
-  useNewUrlParser: true,
-});
+mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
 
 // Creating a schema for the books database
 const bookSchema = new mongoose.Schema({
@@ -378,7 +374,7 @@ app.get("/reading-list/:bookId", (req, res) => {
   }
 
   // Searching the database to check for duplicates
-  Book.find({userId: req.user.id}, function(err, foundBooks) {
+  Book.find({userId: req.user.id, bookId: bookId}, function(err, foundBooks) {
     if (err) {
       console.log(err);
     }
