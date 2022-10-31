@@ -78,9 +78,10 @@ userSchema.plugin(findOrCreate);
 const User = new mongoose.model("User", userSchema);
 const Book = new mongoose.model("Book", bookSchema);
 
-// Create a strategy and serialize and deserialize cookies
+// Create a strategy using passport
 passport.use(User.createStrategy());
 
+// Serializing and Deserializing cookies
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
@@ -128,6 +129,7 @@ app.get("/register", (req, res) => {
 
 // ========== SEARCH RESULTS ROUTE =========
 app.get("/search-results", (req, res) => {
+  // checking whether the user entered anything in the search input field
   if (searchQuery === null || searchQuery === "") {
     res.redirect("/");
   } else {
@@ -155,6 +157,7 @@ app.get("/reading-list", (req, res) => {
               if (err) {
                 console.log(err);
               } else {
+                // If there is no sort type or it is based on recently added items
                 if (sortType === 0 || sortType === 1) {
                   // Rendering the reading list page
                   res.render("ReadingList", {
@@ -164,6 +167,7 @@ app.get("/reading-list", (req, res) => {
                     sortType: sortType
                   });
                 }
+                // When the sort type is alphabetical order sorting based on book names
                 else if (sortType === 2) {
                   // Rendering the reading list page
                   res.render("ReadingList", {
@@ -304,6 +308,7 @@ app.post(
             bookAdded = {};
             res.redirect("/register");
           } else {
+            // Authenticating using local strategy
             passport.authenticate("local")(req, res, function () {
               bookAdded = {};
               res.redirect("/");
@@ -389,7 +394,7 @@ app.get("/reading-list/:bookId", (req, res) => {
     }
   });
 
-  // Emptying the search results array
+  // Emptying the search results array so that it resets
   searchResults = [];
 
   // Redirecting to the reading list route
@@ -415,7 +420,7 @@ app.get("/delete/:bookId", (req, res) => {
   );
 });
 
-// ============ THE DELETE ALL FROM READING LIST ROUTE  ===========
+// ========== THE DELETE ALL FROM READING LIST ROUTE  ==========
 app.get("/delete-all", (req, res) => {
   // Deleting all the books from the database
   Book.deleteMany(
