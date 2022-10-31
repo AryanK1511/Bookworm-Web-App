@@ -411,6 +411,30 @@ hr {
   transition: 1s;
 }
 
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.sort-options {
+  padding: 0 20px;
+  display: flex;
+}
+
+.sort-options p {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #cf11bc;
+}
+
+.radio-btns {
+  color: #ffc18f;
+  font-weight: bolder;
+  padding-left: 20px;
+}
+
 /* =========== LOGIN AND REGISTER PAGE ========= */
 .login-page {
   background: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.3)), url(../Images/login-bg.jpg);

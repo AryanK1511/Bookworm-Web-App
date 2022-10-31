@@ -12,7 +12,7 @@ const findOrCreate = require("mongoose-findorcreate");
 const { body, validationResult } = require("express-validator");
 const { check } = require("express-validator");
 const _ = require("lodash");
-const e = require("express");
+const sort = require(__dirname + "/sort.js");
 
 // For Google OAuth 2.0
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -31,6 +31,7 @@ var searchResults = [];
 var bookAdded = {};
 var searchQuery = "";
 var userFirstName = "";
+var sortType = 0;
 
 // Using passport sessions
 app.use(
@@ -157,12 +158,24 @@ app.get("/reading-list", (req, res) => {
               if (err) {
                 console.log(err);
               } else {
-                // Rendering the reading list page
-                res.render("ReadingList", {
-                  userBookData: books,
-                  user: req.user,
-                  userFirstName: userFirstName,
-                });
+                if (sortType === 0 || sortType === 1) {
+                  // Rendering the reading list page
+                  res.render("ReadingList", {
+                    userBookData: books,
+                    user: req.user,
+                    userFirstName: userFirstName,
+                    sortType: sortType
+                  });
+                }
+                else if (sortType === 2) {
+                  // Rendering the reading list page
+                  res.render("ReadingList", {
+                    userBookData: sort.bookSort(books),
+                    user: req.user,
+                    userFirstName: userFirstName,
+                    sortType: sortType
+                  });
+                }
               }
             })
           } else {
@@ -184,12 +197,23 @@ app.get("/reading-list", (req, res) => {
                   if (err) {
                     console.log(err);
                   } else {
+                  if (sortType === 0 || sortType === 1) {
                     // Rendering the reading list page
                     res.render("ReadingList", {
                       userBookData: books,
                       user: req.user,
                       userFirstName: userFirstName,
+                      sortType: sortType
                     });
+                  }
+                  else if (sortType === 2) {
+                    res.render("ReadingList", {
+                      userBookData: sort.bookSort(books),
+                      user: req.user,
+                      userFirstName: userFirstName,
+                      sortType: sortType
+                    });
+                  }
                   }
                 });
               }
@@ -311,6 +335,7 @@ app.post("/login", (req, res) => {
           userFirstName = "";
           // Checking whether the login was requested manually or to access the reading list
           if (readingListLoginRequest) {
+            bookAdded = {};
             res.redirect("/reading-list");
           } else {
             res.redirect("/");
@@ -319,6 +344,24 @@ app.post("/login", (req, res) => {
       );
     }
   });
+});
+
+// ============ POSTING TO THE SORT ROUTE  ===========
+app.post("/sort", (req, res) => {
+  // Accessing the sorting option chosen by the user
+  const sortingOption = req.body.option;
+
+  if (sortingOption === "1") {
+    sortType = 1;
+  }
+  else if (sortingOption === "2") {
+    sortType = 2;
+  }
+
+  // Redirecting to the reading list page
+  bookAdded = {};
+  res.redirect("/reading-list");
+
 });
 
 // ============ THE ADD TO READING LIST ROUTE  ===========
@@ -388,6 +431,7 @@ app.get(
     // Checking whether the login was requested manually or to access the reading list
     if (readingListLoginRequest) {
       userFirstName = "";
+      bookAdded = {};
       res.redirect("/reading-list");
     } else {
       res.redirect("/");
