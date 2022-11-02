@@ -125,12 +125,12 @@ app.get("/", (req, res) => {
 
 // ========== LOGIN ROUTE ========
 app.get("/login", (req, res) => {
-  res.render("Login");
+  res.render("login");
 });
 
 // ========== REGISTER ROUTE =========
 app.get("/register", (req, res) => {
-  res.render("Register");
+  res.render("register");
 });
 
 // ========== SEARCH RESULTS ROUTE =========
@@ -166,7 +166,7 @@ app.get("/reading-list", (req, res) => {
                 // If there is no sort type or it is based on recently added items
                 if (sortType === 0 || sortType === 1) {
                   // Rendering the reading list page
-                  res.render("ReadingList", {
+                  res.render("readingList", {
                     userBookData: reverse.reverseBooks(books),
                     user: req.user,
                     userFirstName: userFirstName,
@@ -176,7 +176,7 @@ app.get("/reading-list", (req, res) => {
                 // When the sort type is alphabetical order sorting based on book names
                 else if (sortType === 2) {
                   // Rendering the reading list page
-                  res.render("ReadingList", {
+                  res.render("readingList", {
                     userBookData: sort.bookSort(books),
                     user: req.user,
                     userFirstName: userFirstName,
@@ -206,7 +206,7 @@ app.get("/reading-list", (req, res) => {
                   } else {
                   if (sortType === 0 || sortType === 1) {
                     // Rendering the reading list page
-                    res.render("ReadingList", {
+                    res.render("readingList", {
                       userBookData: reverse.reverseBooks(books),
                       user: req.user,
                       userFirstName: userFirstName,
@@ -214,7 +214,7 @@ app.get("/reading-list", (req, res) => {
                     });
                   }
                   else if (sortType === 2) {
-                    res.render("ReadingList", {
+                    res.render("readingList", {
                       userBookData: sort.bookSort(books),
                       user: req.user,
                       userFirstName: userFirstName,
@@ -232,7 +232,7 @@ app.get("/reading-list", (req, res) => {
   } else {
     // Redirecting to the login route if the user is not authenticated
     readingListLoginRequest = true;
-    res.render("Login");
+    res.render("login");
   }
 });
 
@@ -272,7 +272,7 @@ app.post("/search-results", (req, res) => {
           searchResults.push(result.data.items[i]);
         }
         // Rendering the search results
-        res.render("SearchResults", {
+        res.render("searchResults", {
           bookData: result.data.items,
           user: req.user,
         });
