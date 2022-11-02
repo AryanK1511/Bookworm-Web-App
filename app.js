@@ -378,6 +378,7 @@ app.post("/sort", (req, res) => {
 
 // ============ THE ADD TO READING LIST ROUTE  ===========
 app.get("/reading-list/:bookId", (req, res) => {
+  if (req.isAuthenticated()) {
   const bookId = req.params.bookId;
 
   // Saving the book that is supposed to be added in the bookAdded global variable
@@ -405,6 +406,11 @@ app.get("/reading-list/:bookId", (req, res) => {
 
   // Redirecting to the reading list route
   res.redirect("/reading-list");
+} else {
+  // Redirecting to the login route if the user is not authenticated
+  readingListLoginRequest = true;
+  res.render("login");
+}
 });
 
 // ============ THE DELETE FROM READING LIST ROUTE  ===========
