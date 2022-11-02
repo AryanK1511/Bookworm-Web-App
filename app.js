@@ -24,7 +24,6 @@ const app = express();
 // Using imported modules
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.set('views', __dirname + 'views');
 app.use(express.static("public"));
 
 // Global variables
@@ -119,7 +118,7 @@ passport.use(
 // ========== HOME ROUTE =========
 app.get("/", (req, res) => {
   readingListLoginRequest = false;
-  res.render("Index", {
+  res.render("home", {
     user: req.user,
   });
 });
@@ -469,6 +468,6 @@ app.get(
 // ========== Listening for requests ==========
 let port = process.env.PORT;
 
-app.listen(port, () => {
+app.listen(port || 3000, () => {
   console.log("Server has successfully started.");
 });
