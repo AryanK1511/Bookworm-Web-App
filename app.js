@@ -48,7 +48,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Connecting to database
-mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect("mongodb+srv://AryanK1511:" + process.env.MONGO_ATLAS_PASSKEY + "@bookworm.qvd4tsp.mongodb.net/BookWorm", {useNewUrlParser: true});
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
 
 // Creating a schema for the books database
 const bookSchema = new mongoose.Schema({
@@ -472,8 +480,10 @@ app.get(
 );
 
 // ========== Listening for requests ==========
+//Connect to the database before listening
 let port = process.env.PORT;
-
-app.listen(port || 3000, () => {
-  console.log("Server has successfully started.");
+connectDB().then(() => {
+  app.listen(port || 3000, () => {
+    console.log("Server has successfully started.");
+  })
 });
