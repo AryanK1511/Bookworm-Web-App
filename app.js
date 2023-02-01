@@ -98,7 +98,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "https://web-production-5822.up.railway.app/auth/google/bookworm-authentication",
+      callbackURL: "https://pear-wild-chipmunk.cyclic.app/auth/google/bookworm-authentication",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
