@@ -1,5 +1,6 @@
 from app import app, db
 from flask import request, jsonify
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 from app.models.user import User
 from app.models.review import Review
 from app.models.reading_list import ReadingList
@@ -8,10 +9,41 @@ from sqlalchemy import text
 from passlib.hash import pbkdf2_sha256
 import asyncio
 
+# Configure JWT for authorization
+jwt = JWTManager(app)
+
 # ========== ROUTE TO CHECK API RUNS ==========
 @app.route('/', methods=['GET'])
 def check_for_run():
     return jsonify({'message': 'API runs successfully'}), 201
+
+# ========== ENDPOINT FOR USER LOGIN ===========
+@app.route('/api/users/login', methods=["POST"])
+def login_user():
+    user_data = request.get_json()
+
+    # Extract user info from the request
+    login_credential = user_data.get('login_credential')  # Can be either username or email
+    password = user_data.get('password')
+
+    # Fetch user by username or email
+    user = User.query.filter((User.username == login_credential) | (User.email == login_credential)).first()
+
+    # Check if user exists and the password is correct
+    if user and pbkdf2_sha256.verify(password, user.password_hash):
+        # Create a JWT Token
+        jwt_access_token = create_access_token(identity=user.id)
+        # User authenticated successfully
+        return jsonify({'message': 'Login successful', 'jwt_access_token': f'{jwt_access_token}'}), 200
+    else:
+        # Authentication failed
+        return jsonify({'message': 'Invalid login credentials'}), 401
+
+# ========== ENDPOINT FOR USER LOGOUT ===========
+@app.route('/api/users/logout', methods=["POST"])
+@jwt_required()
+def logout_user():
+    return jsonify({'message': 'user is logged out'})
 
 # ========== ENDPOINT FOR USER REGISTRATION ==========
 @app.route('/api/users/register', methods=['POST'])

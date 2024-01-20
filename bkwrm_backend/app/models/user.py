@@ -9,9 +9,11 @@ class User(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
     date_joined = db.Column(db.DateTime, default=datetime.utcnow)  
     profile_picture = db.Column(db.String(255))  
+    role = db.Column(db.String(10))
 
-    def __init__(self, username, email, password_hash, profile_picture=None):
+    def __init__(self, username, email, password_hash, profile_picture=None, role="user"):
         self.username = username
         self.email = email
         self.password_hash = password_hash
         self.profile_picture = profile_picture
+        self.role = role
