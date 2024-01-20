@@ -1,0 +1,37 @@
+# Compiled Python files
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+*.pyc
+
+# Virtual environment
+venv
+ENV
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor directories
+.idea
+.vscode
+*.swp
+*.swo
+*.sublime*
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Flask instance folder
+instance
+
+# Environment files
+.env
+*.env
+.env.*
+
+# Other files
+*.bak
+*.tmp
