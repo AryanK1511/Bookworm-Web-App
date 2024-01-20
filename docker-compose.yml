@@ -2,13 +2,13 @@ version: '3.8'
 
 services:
   frontend:
-    build: ./bkwrm-frontend
+    build: ./bkwrm_frontend
     ports:
       - "3000:3000"
     depends_on:
       - backend
 
   backend:
-    build: ./bkwrm-backend
+    build: ./bkwrm_backend
     ports:
       - "8000:8000"
