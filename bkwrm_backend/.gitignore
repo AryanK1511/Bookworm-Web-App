@@ -1,0 +1,35 @@
+/venv
+# Compiled Python files
+__pycache__/
+
+# Byte-compiled Python files
+*.pyc
+
+# Virtual environment
+venv/
+
+# Dependency folders
+node_modules/
+*.log
+
+# Local development configuration
+config.py
+
+# Database files
+*.db
+
+# Environment variables file
+.env
+
+# IDE-specific files and folders
+.idea/
+.vscode/
+
+# Compiled code
+*.pyc
+*.pyo
+__pycache__/
+
+# Logs
+*.log
+logs/
