@@ -1,0 +1,12 @@
+.dropdown {
+    background-color: #000;
+}
+
+.dropdown-link {
+    color: gray;
+}
+
+.dropdown-link:hover {
+    background-color: #E48822;
+    color: #fff;
+}

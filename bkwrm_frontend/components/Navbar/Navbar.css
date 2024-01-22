@@ -12,14 +12,11 @@
 }
 
 .bkwrm-logo-word {
+    margin-right: 20px;
     color: #fff;
     font-weight: 400;
     font-size: 2rem;
     font-family: "Comfortaa", sans-serif;
-}
-
-.nav-text {
-    padding-left: 5rem;
 }
 
 .nav-link:hover {

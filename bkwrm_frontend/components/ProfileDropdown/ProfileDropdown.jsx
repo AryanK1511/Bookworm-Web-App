@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import "./ProfileDropdown.css";
 
 // ===== PROFILE DROPDOWN COMPONENT =====
 const ProfileDropdown = ({ user }) => {
@@ -43,15 +44,15 @@ const ProfileDropdown = ({ user }) => {
 
             {/* Dropdown Menu */}
             {isOpen && (
-                <div className="absolute right-0 w-48 py-2 mt-2 rounded-md">
+                <div className="dropdown absolute right-0 w-48 py-2 mt-2 rounded-md">
                     <Link legacyBehavior href="/profile">
-                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                        <a className="dropdown-link block px-4 py-2 text-sm">Your Profile</a>
                     </Link>
                     <Link legacyBehavior href="/reading-list">
-                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Reading List</a>
+                        <a className="dropdown-link block px-4 py-2 text-sm">Your Reading List</a>
                     </Link>
                     <Link legacyBehavior href="/logout">
-                        <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        <a className="dropdown-link block px-4 py-2 text-sm">Logout</a>
                     </Link>
                 </div>
             )}
