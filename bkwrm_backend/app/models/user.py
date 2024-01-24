@@ -12,7 +12,7 @@ class User(db.Model):
     profile_picture = db.Column(db.String(255))  
     role = db.Column(db.String(10))
 
-    def __init__(self, username, email, password_hash, profile_picture=None, role="user"):
+    def __init__(self, fullname, username, email, password_hash, profile_picture=None, role="user"):
         self.fullname = fullname
         self.username = username
         self.email = email

@@ -1,7 +1,7 @@
 "use client"
 
 // Navbar.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -12,6 +12,25 @@ import "./Navbar.css";
 
 const Navbar = ({ user }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [user, setUser] = useState(null);
+
+  // useEffect(() => {
+  //     async function fetchUser() {
+  //         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/status`, {
+  //             credentials: 'include', // Necessary to include the cookie
+  //         });
+
+  //         console.log(res);
+
+  //         if (res.ok) {
+  //             const data = await res.json();
+  //             console.log(data)
+  //             setUser(data.user); // Adjust according to your API response
+  //         }
+  //     }
+
+  //     fetchUser();
+  // }, []);
 
   return (
     <nav className="navbar-style">
