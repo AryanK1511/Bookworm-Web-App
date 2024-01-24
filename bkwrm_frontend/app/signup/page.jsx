@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
+import { registerUser } from "@/lib/userAuth";
 import "../globals.css";
 
 // ========== SIGNUP PAGE ==========
@@ -31,13 +32,30 @@ const SignUpPage = () => {
         return Object.keys(errors).length === 0;
     }
  
-     // Handle Form Submission
-     const submitForm = (e) => {
-         e.preventDefault();
-         if (validate()) {
-             console.log("Form submitted");
-         }
-     }
+    // Handle Form Submission
+    const submitForm = async (e) => {
+        e.preventDefault();
+        if (validate()) {
+            try {
+                // Prepare user details
+                const userDetails = {
+                    "username": username,
+                    "email": email,
+                    "password": password 
+                };
+
+                // Call the registerUser function
+                const response = await registerUser(userDetails);
+                console.log("Registration Successful:", response);
+                
+                // Handle the response, e.g., redirect or show success message
+
+            } catch (error) {
+                console.error("Registration Failed:", error.message);
+                // Handle registration errors, e.g., show error message to the user
+            }
+        }
+    };
      
     return (
         <div className="min-h-screen login-signup-page flex flex-col justify-center py-12 sm:px-6 lg:px-8">
