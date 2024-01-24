@@ -1,42 +1,55 @@
-import Head from 'next/head'
+import React from 'react';
+import Image from 'next/image';
 
+// =========== INFO BANNER COMPONENT ===========
 const InfoBanner = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100">
-      <Head>
-        <title>Game API UI</title>
-      </Head>
+    <div className="bg-white py-12">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-24 mt-10">
+          Enhance Your Reading Experience
+        </h2>
 
-      <main className="container mx-auto py-16 px-6 md:px-8">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-16 text-gray-800">
-          How do I play a game through a Web API?
-        </h1>
-        
-        {/* Container for the cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* Card Function */}
-          {Card('Community Support', 'We are a young platform with an active community of learners and builders working on very cool open source apps. Join our Discord to share your app or find help.')}
-          {Card('Automation With Code', 'Our game presents a unique opportunity to automate your gameplay using any programming language you know or want to learn. Every action you can take in the game is an endpoint you can hit with code.')}
-          {Card('Space Trading Game', 'Build a fleet of ships, explore the galaxy for hidden secrets, and automate trade routes. Join a faction to compete with other players for the best routes and the most credits.')}
-          {Card('Dynamic Universe', 'SpaceTraders is both a learning platform as well as a dynamic game world with real balance and community-driven goals. Join a universe driven by player activity and cooperation.')}
-          
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-8 mb-24">
+          {/* Explore Books Feature */}
+          <div className="flex-1 text-center space-y-4">
+            <div className="inline-block relative w-60 h-60">
+              {/* Replace with your image path */}
+              <Image src="/assets/images/img-1.png" layout="fill" objectFit="contain" alt="Explore Books" />
+            </div>
+            <h3 className="text-2xl font-semibold">Explore Books</h3>
+            <p className="text-gray-600">
+              Discover a vast selection of books from all around the world.
+            </p>
+          </div>
+
+          {/* Share Thoughts Feature */}
+          <div className="flex-1 text-center space-y-4">
+            <div className="inline-block relative w-60 h-60">
+              {/* Replace with your image path */}
+              <Image src="/assets/images/img-2.png" layout="fill" objectFit="contain" alt="Share Thoughts" />
+            </div>
+            <h3 className="text-2xl font-semibold">Share Your Thoughts</h3>
+            <p className="text-gray-600">
+              Connect and share your reviews with a community of readers worldwide.
+            </p>
+          </div>
+
+          {/* Create Reading Lists Feature */}
+          <div className="flex-1 text-center space-y-4">
+            <div className="inline-block relative w-60 h-60">
+              {/* Replace with your image path */}
+              <Image src="/assets/images/img-3.png" layout="fill" objectFit="contain" alt="Reading Lists" />
+            </div>
+            <h3 className="text-2xl font-semibold">Track Your Journey</h3>
+            <p className="text-gray-600">
+              Create personalized reading lists and keep track of your reading milestones.
+            </p>
+          </div>
         </div>
-      </main>
+      </div>
     </div>
-  )
-}
-
-// Card Component Function
-const Card = (title, description) => (
-  <div className="transform hover:scale-105 transition-transform duration-300 bg-white rounded-xl shadow-xl overflow-hidden hover:shadow-2xl">
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4 text-indigo-700">{title}</h2>
-      <p className="text-gray-700 text-base md:text-lg">
-        {description}
-      </p>
-    </div>
-  </div>
-);
+  );
+};
 
 export default InfoBanner;
