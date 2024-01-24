@@ -39,6 +39,7 @@ const SignUpPage = () => {
             try {
                 // Prepare user details
                 const userDetails = {
+                    "fullname": fullName,
                     "username": username,
                     "email": email,
                     "password": password 
@@ -46,7 +47,8 @@ const SignUpPage = () => {
 
                 // Call the registerUser function
                 const response = await registerUser(userDetails);
-                console.log("Registration Successful:", response);
+                // Logging the response of thr action
+                console.log(response);
                 
                 // Handle the response, e.g., redirect or show success message
 
