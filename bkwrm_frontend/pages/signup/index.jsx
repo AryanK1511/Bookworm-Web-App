@@ -1,8 +1,5 @@
-"use client"
-
 import React, { useState } from "react";
 import { registerUser } from "@/lib/userAuth";
-import "../globals.css";
 
 // ========== SIGNUP PAGE ==========
 const SignUpPage = () => {

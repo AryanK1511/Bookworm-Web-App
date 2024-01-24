@@ -1,5 +1,4 @@
 import React from "react";
-import "../globals.css";
 
 // ========== LOGIN PAGE ==========
 const LoginPage = () => {

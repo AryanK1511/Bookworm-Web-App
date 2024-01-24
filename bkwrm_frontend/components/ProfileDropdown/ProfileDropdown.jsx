@@ -1,9 +1,7 @@
-"use client"
-
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import "./ProfileDropdown.css";
+import styles from "./ProfileDropdown.module.css";
 
 // ===== PROFILE DROPDOWN COMPONENT =====
 const ProfileDropdown = ({ user }) => {
@@ -44,15 +42,15 @@ const ProfileDropdown = ({ user }) => {
 
             {/* Dropdown Menu */}
             {isOpen && (
-                <div className="dropdown absolute right-0 w-48 py-2 mt-2 rounded-md">
+                <div className={`${styles.dropdown} absolute right-0 w-48 py-2 mt-2 rounded-md`}>
                     <Link legacyBehavior href="/profile">
-                        <a className="dropdown-link block px-4 py-2 text-sm">Your Profile</a>
+                        <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Profile</a>
                     </Link>
                     <Link legacyBehavior href="/reading-list">
-                        <a className="dropdown-link block px-4 py-2 text-sm">Your Reading List</a>
+                        <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Reading List</a>
                     </Link>
                     <Link legacyBehavior href="/logout">
-                        <a className="dropdown-link block px-4 py-2 text-sm">Logout</a>
+                        <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Logout</a>
                     </Link>
                 </div>
             )}

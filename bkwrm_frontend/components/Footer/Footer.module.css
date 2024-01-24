@@ -1,13 +1,13 @@
 /* => Footer Styles <= */
-.footer-icon {
+.footerIcon {
     color: #C6356D;
 }
 
-.footer-icon:hover {
+.footerIcon:hover {
     color: #c6356d89;
 }
 
-.footer-text {
+.footerText {
     color: #E48822;
     font-weight: bold;
 }
