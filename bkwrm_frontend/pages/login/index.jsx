@@ -1,16 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import { authenticateUser } from "@/lib/userAuth";
+import { useRouter } from "next/router";
 
 // ========== LOGIN PAGE ==========
 const LoginPage = () => {
+    const router = useRouter()
+    
+    // Set state for auth
+    const [ loginCred, setLoginCred ] = useState("");
+    const [ password, setPassword ] = useState("");
+
+    // State vars for validation errors
+    const [errors, setErrors] = useState({});
+
+    // Update state with user inputs
+    const handleInputChange = (e, setter) => setter(e.target.value);
+
+    // Handle Form Submission
+    const submitForm = async (e) => {
+        e.preventDefault();
+        try {
+            // Prepare user details
+            const userDetails = {
+                "login_credential": loginCred,
+                "password": password 
+            };
+
+            // Call the authenticateUser function
+            const response = await authenticateUser(userDetails);
+
+            // Logging the response of the action
+            console.log(response);
+            router.push("/");
+            
+        } catch (error) {
+            console.error("Registration Failed:", error.message);
+        }
+    };
+
     return (
-        <div className="min-h-screen login-signup-page flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="min-h-screen loginSignupPage flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 className="mt-6 text-center text-3xl font-extrabold form-heading">
+                <h2 className="mt-6 text-center text-3xl font-extrabold formHeading">
                     Sign in to your account
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-600">
                     Or{' '}
-                    <a href="/signup" className="font-medium form-subheading">
+                    <a href="/signup" className="font-medium formSubheading">
                         sign up for a new account
                     </a>
                 </p>
@@ -18,7 +54,7 @@ const LoginPage = () => {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" onSubmit={submitForm}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                 Username or Email
@@ -29,7 +65,8 @@ const LoginPage = () => {
                                     name="email"
                                     type="text"
                                     required
-                                    className="form-input appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm"
+                                    className="formInput appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm"
+                                    onChange={(e) => handleInputChange(e, setLoginCred)}
                                 />
                             </div>
                         </div>
@@ -45,7 +82,8 @@ const LoginPage = () => {
                                     type="password"
                                     autoComplete="current-password"
                                     required
-                                    className="form-input appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm"
+                                    className="formInput appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm"
+                                    onChange={(e) => handleInputChange(e, setPassword)}
                                 />
                             </div>
                         </div>

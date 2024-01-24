@@ -55,33 +55,33 @@
 }
 
 /* ========== Login and Signup Form Styles ========== */
-.login-signup-page {
+.loginSignupPage {
     background-color: #000;
     font-family: "Poppins", sans-serif;
 }
 
-.form-heading {
+.formHeading {
     color: #fff;
 }
 
-.form-subheading {
+.formSubheading {
     color: #8947FB;
 }
 
-.form-subheading:hover {
+.formSubheading:hover {
     color: #E48822;
 }
 
-.form-input:focus {
+.formInput:focus {
     border-color: #8947FB;
 }
 
-.form-btn {
+.formBtn {
     background-color: #8947FB;
     transition: 0.2s;
 }
 
-.error-message {
+.errorMessage {
     margin-top: 0.5rem;
     font-size: 0.875rem; /* Adjust font size to match your form's aesthetic */
     color: #dc2626; /* This is a shade of red for visibility */
