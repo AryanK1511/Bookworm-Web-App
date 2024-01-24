@@ -59,7 +59,7 @@ const Navbar = ({ user }) => {
           <SearchBar />
           {!user && (
             <Link legacyBehavior href="/login">
-              <a className="py-2 px-4 bg-blue-500 hover:bg-blue-600 rounded transition duration-300">
+              <a className="py-2 px-4 log-in-btn rounded">
                 Log In
               </a>
             </Link>
@@ -113,7 +113,7 @@ const Navbar = ({ user }) => {
               <SearchBar />
               {!user && (
                 <Link legacyBehavior href="/login">
-                  <a className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-800">
+                  <a className="log-in-btn block px-3 py-2 rounded-md font-medium">
                     Log In
                   </a>
                 </Link>

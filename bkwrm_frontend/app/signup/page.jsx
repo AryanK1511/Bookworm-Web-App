@@ -1,8 +1,44 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import "../globals.css";
 
 // ========== SIGNUP PAGE ==========
 const SignUpPage = () => {
+    // State vars for managing validation and sending details to server
+    const [ fullName, setFullName ] = useState("");
+    const [ username, setUsername ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ password, setPassword ] = useState("");
+    const [ confirmPassword, setConfirmPassword ] = useState("");
+
+    // State vars for validation errors
+    const [errors, setErrors] = useState({});
+
+    // Update state with user inputs
+    const handleInputChange = (e, setter) => setter(e.target.value);
+ 
+    // Validate input fields
+    const validate = () => {
+        let errors = {};
+        if (!fullName) errors.fullName = "Full Name is required";
+        if (!username) errors.username = "Username is required";
+        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.email = "Invalid email format";
+        if (password !== confirmPassword) errors.confirmPassword = "Passwords do not match";
+        if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/)) errors.password = "Password must be 8+ characters, with a number, uppercase, and special character";
+
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    }
+ 
+     // Handle Form Submission
+     const submitForm = (e) => {
+         e.preventDefault();
+         if (validate()) {
+             console.log("Form submitted");
+         }
+     }
+     
     return (
         <div className="min-h-screen login-signup-page flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -19,7 +55,7 @@ const SignUpPage = () => {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" onSubmit={submitForm}>
                         <div>
                             <label htmlFor="full-name" className="block text-sm font-medium text-gray-700">
                                 Full Name
@@ -30,10 +66,28 @@ const SignUpPage = () => {
                                     name="full-name"
                                     type="text"
                                     autoComplete="name"
-                                    required
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    onChange={(e) => handleInputChange(e, setFullName)}
                                 />
                             </div>
+                            {errors?.fullName && <p className="error-message">{errors.fullName}</p>}
+                        </div>
+
+                        <div>
+                            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                                Username
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    autoComplete="name"
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    onChange={(e) => handleInputChange(e, setUsername)}
+                                />
+                            </div>
+                            {errors?.username && <p className="error-message">{errors.username}</p>}
                         </div>
 
                         <div>
@@ -46,10 +100,11 @@ const SignUpPage = () => {
                                     name="email"
                                     type="email"
                                     autoComplete="email"
-                                    required
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    onChange={(e) => handleInputChange(e, setEmail)}
                                 />
                             </div>
+                            {errors?.email && <p className="error-message">{errors.email}</p>}
                         </div>
 
                         <div>
@@ -62,10 +117,11 @@ const SignUpPage = () => {
                                     name="password"
                                     type="password"
                                     autoComplete="new-password"
-                                    required
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    onChange={(e) => handleInputChange(e, setPassword)}
                                 />
                             </div>
+                            {errors?.password && <p className="error-message">{errors.password}</p>}
                         </div>
 
                         <div>
@@ -78,10 +134,11 @@ const SignUpPage = () => {
                                     name="confirm-password"
                                     type="password"
                                     autoComplete="new-password"
-                                    required
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    onChange={(e) => handleInputChange(e, setConfirmPassword)}
                                 />
                             </div>
+                            {errors?.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
                         </div>
 
                         <div>
