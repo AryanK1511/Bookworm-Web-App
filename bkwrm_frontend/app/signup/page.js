@@ -49,12 +49,10 @@ const SignUpPage = () => {
                 const response = await registerUser(userDetails);
                 // Logging the response of thr action
                 console.log(response);
+                window.location.href = '/'; // Replace with your home page URL
                 
-                // Handle the response, e.g., redirect or show success message
-
             } catch (error) {
                 console.error("Registration Failed:", error.message);
-                // Handle registration errors, e.g., show error message to the user
             }
         }
     };
