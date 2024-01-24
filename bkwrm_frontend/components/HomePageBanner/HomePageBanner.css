@@ -1,0 +1,58 @@
+.home-page {
+    background-color: #000;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+}
+
+.title-heading {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 5rem;
+    padding-bottom: 30px;
+    margin-top: 20px;
+}
+
+#orange-yellow {
+    color: #E48822;
+}
+
+#red {
+    color: #DC3D49;
+}
+
+#purple {
+    color: #8947FB;
+}
+
+#pink {
+    color: #C6356D;
+}
+
+#teal {
+    color: #89f1e6;
+}
+
+.title-btn {
+    border: 1px solid white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: 200;
+    transition: 0.2s;
+}
+
+#btn-var-1 {
+    color: #6AB376;
+}
+
+#btn-var-1:hover {
+    color: #fff;
+    background-color: #6AB376;
+}
+
+#btn-var-2 {
+    color: #4C75E9;
+}
+
+#btn-var-2:hover {
+    color: #fff;
+    background-color: #4C75E9;
+}
