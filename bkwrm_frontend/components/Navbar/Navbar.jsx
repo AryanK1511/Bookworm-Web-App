@@ -1,53 +1,34 @@
-"use client"
-
-// Navbar.js
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import { Transition } from '@headlessui/react';
-import SearchBar from "@/components/Searchbar/SearchBar";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { Transition } from "@headlessui/react";
 import ProfileDropdown from "@/components/ProfileDropdown/ProfileDropdown";
-import "./Navbar.css";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
 
-const Navbar = ({ user }) => {
+// ========== NAVBAR COMPONENT ==========
+const Navbar = () => {
+  // Tracking user atom state
+  const [{ isAuthenticated, user }] = useAtom(userAtom);
+  
+  // Tracking menu state to toggle hamburger menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [user, setUser] = useState(null);
-
-  // useEffect(() => {
-  //     async function fetchUser() {
-  //         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/status`, {
-  //             credentials: 'include', // Necessary to include the cookie
-  //         });
-
-  //         console.log(res);
-
-  //         if (res.ok) {
-  //             const data = await res.json();
-  //             console.log(data)
-  //             setUser(data.user); // Adjust according to your API response
-  //         }
-  //     }
-
-  //     fetchUser();
-  // }, []);
 
   return (
-    <nav className="navbar-style">
+    <nav className="navbarStyle">
       <div className="max-w-8xl mx-auto px-4 flex justify-between items-center h-16">
         {/* Bookworm Logo */}
         <div className="flex items-center">
           <Link legacyBehavior href="/">
-            <a className="bkwrm-logo-word">Bookworm</a>
+            <a className="bkwrmLogoWord">Bookworm</a>
           </Link>
         </div>
 
         {/* Hamburger Menu and Profile Dropdown for Mobile Screens */}
         <div className="flex items-center md:hidden">
           {/* Profile Dropdown, always shown */}
-          {user && (
-            <ProfileDropdown user={user} />
-          )}
+          {user && <ProfileDropdown user={user} />}
 
           {/* Hamburger Menu */}
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="ml-2">
@@ -62,30 +43,26 @@ const Navbar = ({ user }) => {
         {/* Navigation Links for Large Screens */}
         <div className="hidden md:flex items-center space-x-7">
           <Link legacyBehavior href="/">
-            <a className="nav-link">Home</a>
+            <a className="navLink">Home</a>
           </Link>
           <Link legacyBehavior href="/about">
-            <a className="nav-link">About</a>
+            <a className="navLink">About</a>
           </Link>
           <Link legacyBehavior href="/explore">
-            <a className="nav-link">Explore</a>
+            <a className="navLink">Explore</a>
           </Link>
           {user && (
             <Link legacyBehavior href="/reading-list">
-              <a className="nav-link">Reading List</a>
+              <a className="navLink">Reading List</a>
             </Link>
           )}
-          <SearchBar />
+
           {!user && (
             <Link legacyBehavior href="/login">
-              <a className="py-2 px-4 log-in-btn rounded">
-                Log In
-              </a>
+              <a className={`py-2 px-4 loginButton rounded`}>Log In</a>
             </Link>
           )}
         </div>
-
-        {/* Profile Dropdown for Large Screens */}
         {user && (
           <div className="hidden md:block">
             <ProfileDropdown user={user} />
@@ -125,15 +102,6 @@ const Navbar = ({ user }) => {
                 <Link legacyBehavior href="/reading-list">
                   <a className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-800">
                     Your Reading List
-                  </a>
-                </Link>
-              )}
-              {/* Mobile SearchBar */}
-              <SearchBar />
-              {!user && (
-                <Link legacyBehavior href="/login">
-                  <a className="log-in-btn block px-3 py-2 rounded-md font-medium">
-                    Log In
                   </a>
                 </Link>
               )}

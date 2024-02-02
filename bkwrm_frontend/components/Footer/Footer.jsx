@@ -3,7 +3,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import XIcon from '@mui/icons-material/X';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import "./Footer.css";
+import styles from "./Footer.module.css";
 
 // ========== FOOTER COMPONENT ===========
 const Footer = () => {
@@ -13,22 +13,22 @@ const Footer = () => {
           <div className="flex mb-2 md:mb-0 space-x-4">
 
             {/* Social Icons */}
-            <a href="https://github.com/AryanK1511" target="_blank" className="footer-icon">
+            <a href="https://github.com/AryanK1511" target="_blank" className={styles.footerIcon}>
               <GitHubIcon />
             </a>
-            <a href="https://www.linkedin.com/in/aryan-khurana-239684229/" target="_blank" className="footer-icon">
+            <a href="https://www.linkedin.com/in/aryan-khurana-239684229/" target="_blank" className={styles.footerIcon}>
               <LinkedInIcon />
             </a>
-            <a href="https://twitter.com/AryanK1511" target="_blank" className="footer-icon">
+            <a href="https://twitter.com/AryanK1511" target="_blank" className={styles.footerIcon}>
               <XIcon />
             </a>
-            <a href="https://www.youtube.com/channel/UCCrKswcxk_hCSXedUEOs7Fw" target="_blank" className="footer-icon">
+            <a href="https://www.youtube.com/channel/UCCrKswcxk_hCSXedUEOs7Fw" target="_blank" className={styles.footerIcon}>
               <YouTubeIcon />
             </a>
           </div>
 
           {/* Copyright Text */}
-          <div className="text-center md:text-right footer-text mt-4 md:mt-0">
+          <div className={`text-center md:text-right ${styles.footerText} mt-4 md:mt-0`}>
             © 2024 Aryan Khurana. All rights reserved.
           </div>
 

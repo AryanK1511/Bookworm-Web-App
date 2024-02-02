@@ -3,36 +3,69 @@
 @import 'tailwindcss/utilities';
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@300;500;700&family=Rubik+Doodle+Shadow&display=swap');
 
-/* ========== HOMEPAGE STYLES ========== */
+/* ========== NAVBAR STYLES ========== */
+.navbarStyle {
+    font-family: "Poppins", sans-serif;
+    background-color: #000;
+    color: gray;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 50; 
+}
 
-/* ========== Login and Signup Form Styles ========== */
-.login-signup-page {
+.bkwrmLogoWord {
+    margin-right: 20px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 2rem;
+    font-family: "Comfortaa", sans-serif;
+}
+
+.navLink:hover {
+    color: #fff;
+    transition: 0.3s;
+}
+
+.loginButton {
+    background: transparent;
+    transition: 0.2s;
+}
+
+.loginButton:hover {
+    background: #E48822;
+    color: #fff;
+}
+
+/* ========== LOGIN AND SIGNUP FORM STYLES ========== */
+.loginSignupPage {
     background-color: #000;
     font-family: "Poppins", sans-serif;
 }
 
-.form-heading {
+.formHeading {
     color: #fff;
 }
 
-.form-subheading {
+.formSubheading {
     color: #8947FB;
 }
 
-.form-subheading:hover {
+.formSubheading:hover {
     color: #E48822;
 }
 
-.form-input:focus {
+.formInput:focus {
     border-color: #8947FB;
 }
 
-.form-btn {
+.formBtn {
     background-color: #8947FB;
     transition: 0.2s;
 }
 
-.error-message {
+.errorMessage {
     margin-top: 0.5rem;
     font-size: 0.875rem; /* Adjust font size to match your form's aesthetic */
     color: #dc2626; /* This is a shade of red for visibility */

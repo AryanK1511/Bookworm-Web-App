@@ -1,11 +1,12 @@
-"use client"
-
 import React, { useState } from "react";
 import { registerUser } from "@/lib/userAuth";
-import "../globals.css";
+import { useRouter } from "next/router";
 
 // ========== SIGNUP PAGE ==========
 const SignUpPage = () => {
+    // Define Router
+    const router = useRouter();
+
     // State vars for managing validation and sending details to server
     const [ fullName, setFullName ] = useState("");
     const [ username, setUsername ] = useState("");
@@ -13,8 +14,11 @@ const SignUpPage = () => {
     const [ password, setPassword ] = useState("");
     const [ confirmPassword, setConfirmPassword ] = useState("");
 
+    // State var for registration error message
+    const [ registrationError, setRegistrationError ] = useState(null);
+
     // State vars for validation errors
-    const [errors, setErrors] = useState({});
+    const [ errors, setErrors ] = useState({});
 
     // Update state with user inputs
     const handleInputChange = (e, setter) => setter(e.target.value);
@@ -27,7 +31,6 @@ const SignUpPage = () => {
         if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.email = "Invalid email format";
         if (password !== confirmPassword) errors.confirmPassword = "Passwords do not match";
         if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/)) errors.password = "Password must be 8+ characters, with a number, uppercase, and special character";
-
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }
@@ -36,36 +39,38 @@ const SignUpPage = () => {
     const submitForm = async (e) => {
         e.preventDefault();
         if (validate()) {
-            try {
-                // Prepare user details
-                const userDetails = {
-                    "fullname": fullName,
-                    "username": username,
-                    "email": email,
-                    "password": password 
-                };
+            // Prepare user details
+            const userDetails = {
+                "fullname": fullName,
+                "username": username,
+                "email": email,
+                "password": password 
+            };
 
-                // Call the registerUser function
-                const response = await registerUser(userDetails);
-                // Logging the response of thr action
-                console.log(response);
-                window.location.href = '/'; // Replace with your home page URL
-                
-            } catch (error) {
-                console.error("Registration Failed:", error.message);
+            // Call the registerUser function
+            const response = await registerUser(userDetails);
+
+            // Check if registration was successful
+            if (response.success) {
+                // Redirect to login page if registration was successful
+                router.push("/login");
+            } else {
+                // Set the registration error message
+                console.log(response)
+                setRegistrationError(response.message);
             }
         }
     };
      
     return (
-        <div className="min-h-screen login-signup-page flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="min-h-screen loginSignupPage flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 className="form-heading mt-6 text-center text-3xl font-extrabold text-gray-900">
+                <h2 className="formHeading mt-6 text-center text-3xl font-extrabold text-gray-900">
                     Create your account
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-600">
                     Or{' '}
-                    <a href="/login" className="form-subheading font-medium">
+                    <a href="/login" className="formSubheading font-medium">
                         sign in to your existing account
                     </a>
                 </p>
@@ -84,11 +89,11 @@ const SignUpPage = () => {
                                     name="full-name"
                                     type="text"
                                     autoComplete="name"
-                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none formInput sm:text-sm"
                                     onChange={(e) => handleInputChange(e, setFullName)}
                                 />
                             </div>
-                            {errors?.fullName && <p className="error-message">{errors.fullName}</p>}
+                            {errors?.fullName && <p className="errorMessage">{errors.fullName}</p>}
                         </div>
 
                         <div>
@@ -101,11 +106,11 @@ const SignUpPage = () => {
                                     name="username"
                                     type="text"
                                     autoComplete="name"
-                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none formInput sm:text-sm"
                                     onChange={(e) => handleInputChange(e, setUsername)}
                                 />
                             </div>
-                            {errors?.username && <p className="error-message">{errors.username}</p>}
+                            {errors?.username && <p className="errorMessage">{errors.username}</p>}
                         </div>
 
                         <div>
@@ -118,11 +123,11 @@ const SignUpPage = () => {
                                     name="email"
                                     type="email"
                                     autoComplete="email"
-                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none formInput sm:text-sm"
                                     onChange={(e) => handleInputChange(e, setEmail)}
                                 />
                             </div>
-                            {errors?.email && <p className="error-message">{errors.email}</p>}
+                            {errors?.email && <p className="errorMessage">{errors.email}</p>}
                         </div>
 
                         <div>
@@ -135,11 +140,11 @@ const SignUpPage = () => {
                                     name="password"
                                     type="password"
                                     autoComplete="new-password"
-                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none formInput sm:text-sm"
                                     onChange={(e) => handleInputChange(e, setPassword)}
                                 />
                             </div>
-                            {errors?.password && <p className="error-message">{errors.password}</p>}
+                            {errors?.password && <p className="errorMessage">{errors.password}</p>}
                         </div>
 
                         <div>
@@ -152,12 +157,19 @@ const SignUpPage = () => {
                                     name="confirm-password"
                                     type="password"
                                     autoComplete="new-password"
-                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none form-input sm:text-sm"
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none formInput sm:text-sm"
                                     onChange={(e) => handleInputChange(e, setConfirmPassword)}
                                 />
                             </div>
-                            {errors?.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
+                            {errors?.confirmPassword && <p className="errorMessage">{errors.confirmPassword}</p>}
                         </div>
+
+                        {/* Registration error message */}
+                        {registrationError && (
+                            <div className="mt-4">
+                                <p className="text-red-600">{registrationError}</p>
+                            </div>
+                        )}
 
                         <div>
                             <button

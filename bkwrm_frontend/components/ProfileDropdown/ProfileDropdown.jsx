@@ -1,19 +1,38 @@
-"use client"
-
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import "./ProfileDropdown.css";
+import styles from "./ProfileDropdown.module.css";
+import { logoutUser } from "@/lib/userAuth";
+import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
 
 // ===== PROFILE DROPDOWN COMPONENT =====
 const ProfileDropdown = ({ user }) => {
+    // Getting the user state from the store
+    const [userState, setUserState] = useAtom(userAtom);
+
+    // Getting the router
+    const router = useRouter();
+
     // Setting the States and References
     const [ isOpen, setIsOpen ] = useState(false);
     const dropdownRef = useRef(null);
 
+    // Function to clear JWT and redirect to login page
+    const handleLogout = async () => {
+        try {
+            await logoutUser();
+            setUserState({ isAuthenticated: false, user: null });
+            router.push("/login");
+        } catch (error) {
+            console.error("Logout Failed:", error.message);
+        }
+    };
+
     // Function to close the dropdown when clicked outside
     const handleClickOutside = (event) => {
-        // Check to see whether the se clicked outside and whether the target is not a child of the dropdown component
+        // Check to see whether the user clicked outside and whether the target is not a child of the dropdown component
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setIsOpen(false);
         }
@@ -44,16 +63,16 @@ const ProfileDropdown = ({ user }) => {
 
             {/* Dropdown Menu */}
             {isOpen && (
-                <div className="dropdown absolute right-0 w-48 py-2 mt-2 rounded-md">
+                <div className={`${styles.dropdown} absolute right-0 w-48 py-2 mt-2 rounded-md`}>
                     <Link legacyBehavior href="/profile">
-                        <a className="dropdown-link block px-4 py-2 text-sm">Your Profile</a>
+                        <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Profile</a>
                     </Link>
                     <Link legacyBehavior href="/reading-list">
-                        <a className="dropdown-link block px-4 py-2 text-sm">Your Reading List</a>
+                        <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Reading List</a>
                     </Link>
-                    <Link legacyBehavior href="/logout">
-                        <a className="dropdown-link block px-4 py-2 text-sm">Logout</a>
-                    </Link>
+                    <button onClick={handleLogout} className={`${styles.dropdownLink} block text-left px-4 py-2 text-sm`}>
+                        Logout
+                    </button>
                 </div>
             )}
         </div>
