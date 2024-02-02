@@ -9,7 +9,10 @@ import { userAtom } from "@/store";
 
 // ===== PROFILE DROPDOWN COMPONENT =====
 const ProfileDropdown = ({ user }) => {
+    // Getting the user state from the store
     const [userState, setUserState] = useAtom(userAtom);
+
+    // Getting the router
     const router = useRouter();
 
     // Setting the States and References
@@ -20,7 +23,6 @@ const ProfileDropdown = ({ user }) => {
     const handleLogout = async () => {
         try {
             await logoutUser();
-            console.log("User logged out successfully!");
             setUserState({ isAuthenticated: false, user: null });
             router.push("/login");
         } catch (error) {
@@ -30,7 +32,7 @@ const ProfileDropdown = ({ user }) => {
 
     // Function to close the dropdown when clicked outside
     const handleClickOutside = (event) => {
-        // Check to see whether the se clicked outside and whether the target is not a child of the dropdown component
+        // Check to see whether the user clicked outside and whether the target is not a child of the dropdown component
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setIsOpen(false);
         }

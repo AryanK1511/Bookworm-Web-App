@@ -3,6 +3,7 @@ import HomePageBanner from "@/components/HomePageBanner/HomePageBanner";
 import InfoBanner from "@/components/InfoBanner/InfoBanner";
 import Footer from "@/components/Footer/Footer";
 
+// ========== HOME PAGE ==========
 const Home = () => {
   return (
     <div>

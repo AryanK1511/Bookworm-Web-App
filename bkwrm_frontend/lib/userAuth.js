@@ -1,5 +1,5 @@
 // ===================================
-// This file contains functions for user authentication and authorization
+// User authentication and authorization
 // ===================================
 
 // => Store token in local storage
@@ -22,7 +22,7 @@ const removeToken = () => {
     localStorage.removeItem('access_token');
 }
 
-// => Check to see whether th euser is authenticated
+// => Check to see whether the user is authenticated
 const isAuthenticated = () => {
     const token = getToken();
     if (token) {

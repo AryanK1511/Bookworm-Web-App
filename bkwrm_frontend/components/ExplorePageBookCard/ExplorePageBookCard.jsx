@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
+// ========== BOOK CARD COMPONENT COMPONENT ===========
 const ExplorePageBookCard = ({ book }) => {
     return (
         <div className="bg-dark rounded overflow-hidden shadow-lg">

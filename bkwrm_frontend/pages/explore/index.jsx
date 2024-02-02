@@ -8,18 +8,25 @@ import { useAtom } from "jotai";
 import { userAtom } from "@/store";
 import styles from "./explore.module.css";
 
+// ========== EXPLORE PAGE ==========
 const ExplorePage = () => {
+    // Setting the States 
     const [books, setBooks] = useState([]);
     const [query, setQuery] = useState("");
+
+    // Getting the router
     const router = useRouter();
 
     // Authentication check
     const [user] = useAtom(userAtom);
 
+    // Redirect to login if user is not authenticated
     useEffect(() => {
         if (!user.isAuthenticated) router.push('/login');
     }, [user, router]);
 
+    // Function to fetch books from the Google Books API
+    // Debounce the function to prevent too many requests
     const fetchBooks = debounce(async (query) => {
         if (!query.trim()) return;
         const API_KEY = process.env.NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY;
@@ -35,6 +42,7 @@ const ExplorePage = () => {
         }
     }, 300);
 
+    // Fetch books when query changes
     useEffect(() => {
         if (query) fetchBooks(query);
     }, [query]);
