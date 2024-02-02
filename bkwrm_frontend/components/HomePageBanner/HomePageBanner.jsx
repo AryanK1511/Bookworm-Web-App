@@ -23,7 +23,7 @@ const HomePageBanner = () => {
                 
             {/* Action Buttons */}
             <div className="flex justify-center space-x-4">
-                <Link legacyBehavior href="/register">
+                <Link legacyBehavior href="/explore">
                 <a className={`${styles.titleBtn} ${styles.btnVar1}`}>
                     Get Started
                 </a>
