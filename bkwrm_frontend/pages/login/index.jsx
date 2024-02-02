@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { authenticateUser } from "@/lib/userAuth";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
@@ -20,6 +20,11 @@ const LoginPage = () => {
 
     // State vars for validation errors
     const [ errors, setErrors ] = useState({});
+
+    // Do not login if user is already authenticated
+    useEffect(() => {  
+        if (userState.isAuthenticated) router.push("/explore");
+    }, [userState, router]);
 
     // Update state with user inputs
     const handleInputChange = (e, setter) => setter(e.target.value);

@@ -1,0 +1,26 @@
+/* => Searchbar Styles <= */
+.searchInput {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #fff;
+}
+
+.orangeYellow {
+    color: #E48822;
+}
+
+.red {
+    color: #DC3D49;
+}
+
+.purple {
+    color: #8947FB;
+}
+
+.pink {
+    color: #C6356D;
+}
+
+.teal {
+    color: #89f1e6;
+}

@@ -1,3 +1,4 @@
+// Import necessary hooks and components
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { debounce } from "lodash";
@@ -5,24 +6,20 @@ import ExplorePageBookCard from "@/components/ExplorePageBookCard/ExplorePageBoo
 import SearchBar from "@/components/Searchbar/SearchBar";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store";
+import styles from "./explore.module.css";
 
-// ========== EXPLORE PAGE ==========
 const ExplorePage = () => {
     const [books, setBooks] = useState([]);
     const [query, setQuery] = useState("");
-    const router = useRouter(); // Initialize useRouter
+    const router = useRouter();
 
-    // Use userAtom to check if user is authenticated
-    const [user, setUser] = useAtom(userAtom);
+    // Authentication check
+    const [user] = useAtom(userAtom);
 
-    // Redirect to login page if user is not authenticated
     useEffect(() => {
-        if (!user.isAuthenticated) {
-            router.push('/login'); // Redirect to login page
-        }
+        if (!user.isAuthenticated) router.push('/login');
     }, [user, router]);
 
-    // Function to fetch books from the Google Books API
     const fetchBooks = debounce(async (query) => {
         if (!query.trim()) return;
         const API_KEY = process.env.NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY;
@@ -44,9 +41,9 @@ const ExplorePage = () => {
 
     return (
         <div className="p-4 bg-black min-h-screen text-white">
-            <h1 className="text-3xl text-center font-bold mb-6">Explore Books</h1>
+            <h1 className={`${styles.heading}`}>Explore Books</h1>
             <SearchBar query={query} setQuery={setQuery} />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
                 {books.map((book) => (
                     <ExplorePageBookCard key={book.id} book={book} />
                 ))}
