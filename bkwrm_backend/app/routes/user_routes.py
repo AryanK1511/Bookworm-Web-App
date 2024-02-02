@@ -88,13 +88,13 @@ def register_user():
     email = user_data.get('email')
     password = user_data.get('password')
 
-    # Hash the password
-    password_hash = pbkdf2_sha256.hash(password)
-
     # Check if the user already exists
     existing_user = User.query.filter(User.username == username).first()
     if existing_user:
-        return jsonify({'message': 'Username already exists'}), 400
+        return jsonify({'message': 'Username or email already exists'}), 400
+
+    # Hash the password
+    password_hash = pbkdf2_sha256.hash(password)
 
     # Create a new user if the user doesn't exist already
     new_user = User(fullname=fullname, username=username, email=email, password_hash=password_hash)
@@ -107,17 +107,16 @@ def register_user():
         # Create JWT token for the new user
         jwt_access_token = create_access_token(identity=new_user.id, expires_delta=timedelta(days=365))
 
-        # Create a response object
-        response = make_response(jsonify({"message": "User registered successfully"}), 201)
+        # Return the JWT token in the response body
+        return jsonify({
+            "message": "User registered successfully",
+            "jwt_token": jwt_access_token
+        }), 200
 
-        # Set the JWT token in a secure, HttpOnly cookie
-        response.set_cookie('jwt_token', jwt_access_token, httponly=True, secure=True, samesite='Lax')
-
-        return response
     except Exception as e:
         db.session.rollback()
         # Handle any exceptions, such as database errors
-        return jsonify({'message': 'Failed to register user', 'error': str(e)}), 500
+        return jsonify({'message': 'Failed to register user. Server Error.', 'error': str(e)}), 500
 
 # ========== ENDPOINT FOR USER ACCOUNT DEACTIVATION ==========
 @app.route('/api/users/deactivate/<user_id>', methods=['POST'])

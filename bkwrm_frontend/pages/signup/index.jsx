@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 // ========== SIGNUP PAGE ==========
 const SignUpPage = () => {
+    // Define Router
     const router = useRouter();
 
     // State vars for managing validation and sending details to server
@@ -12,6 +13,9 @@ const SignUpPage = () => {
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ confirmPassword, setConfirmPassword ] = useState("");
+
+    // State var for registration error message
+    const [registrationError, setRegistrationError] = useState(null);
 
     // State vars for validation errors
     const [errors, setErrors] = useState({});
@@ -27,7 +31,6 @@ const SignUpPage = () => {
         if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.email = "Invalid email format";
         if (password !== confirmPassword) errors.confirmPassword = "Passwords do not match";
         if (!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/)) errors.password = "Password must be 8+ characters, with a number, uppercase, and special character";
-
         setErrors(errors);
         return Object.keys(errors).length === 0;
     }
@@ -47,11 +50,15 @@ const SignUpPage = () => {
 
                 // Call the registerUser function
                 const response = await registerUser(userDetails);
-                
-                // Logging the response of the action
-                console.log(response);
-                router.push("/login");
-                
+
+                // Check if registration was successful
+                if (response.success) {
+                    // Redirect to login page if registration was successful
+                    router.push("/login");
+                } else {
+                    // Set the registration error message
+                    setRegistrationError(response.message);
+                }
             } catch (error) {
                 console.error("Registration Failed:", error.message);
             }
@@ -159,6 +166,13 @@ const SignUpPage = () => {
                             </div>
                             {errors?.confirmPassword && <p className="errorMessage">{errors.confirmPassword}</p>}
                         </div>
+
+                        {/* Registration error message */}
+                        {registrationError && (
+                            <div className="mt-4">
+                                <p className="text-red-600">{registrationError}</p>
+                            </div>
+                        )}
 
                         <div>
                             <button
