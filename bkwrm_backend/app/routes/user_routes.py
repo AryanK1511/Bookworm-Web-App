@@ -18,29 +18,6 @@ jwt = JWTManager(app)
 def check_for_run():
     return jsonify({'message': 'API runs successfully'}), 201
 
-# ========== ROUTE TO CHECK WHETHER USER IS AUTHENTICATED ==========
-@app.route('/api/users/status', methods=['GET'])
-@jwt_required()
-def user_status():
-    # Get the user's identity from the JWT token
-    current_user_id = get_jwt_identity()
-
-    # Fetch the user's details from the database
-    user = User.query.get(current_user_id)
-
-    if user:
-        # Return the user's details (or a subset of them)
-        return jsonify({
-            "isAuthenticated": True,
-            "message": "User has been authenticated already",
-            "fullname": user.fullname,
-            "username": user.username,
-            "profile_picture": user.profile_picture
-        }), 200
-    else:
-        # User not found in database
-        return jsonify({"isAuthenticated": False, "message": "User not found"}), 404
-
 # ========== ENDPOINT FOR USER LOGIN ===========
 @app.route('/api/users/login', methods=["POST"])
 def login_user():
@@ -55,27 +32,27 @@ def login_user():
 
     # Check if user exists and the password is correct
     if user and pbkdf2_sha256.verify(password, user.password_hash):
+        # Define custom claims with user data
+        user_claims = {
+            "id": user.id,
+            "fullname": user.fullname,
+            "username": user.username,
+            "email": user.email,
+            "profile_picture": user.profile_picture
+        }
+
         # Create JWT token for the new user
-        jwt_access_token = create_access_token(identity=user.id, expires_delta=timedelta(days=365))
+        jwt_access_token = create_access_token(identity=user.id, additional_claims=user_claims, expires_delta=timedelta(days=365))
 
-        # Create a response object
-        response = make_response(jsonify({"message": "Login successful"}), 201)
+        # Return the JWT token in the response body
+        return jsonify({
+            "message": "User logged in successfully",
+            "jwt_token": jwt_access_token,
+        }), 200
 
-        # Set the JWT token in a secure, HttpOnly cookie
-        response.set_cookie('jwt_token', jwt_access_token, httponly=True, secure=True, samesite='Lax')
-
-        return response
     else:
         # Authentication failed
         return jsonify({'message': 'Invalid login credentials'}), 401
-
-# ========== ENDPOINT FOR USER LOGOUT ===========
-@app.route('/api/users/logout', methods=["POST"])
-@jwt_required()
-def logout_user():
-    response = make_response(jsonify({"message": "User logged out"}), 200)
-    response.delete_cookie('jwt_token')
-    return response
 
 # ========== ENDPOINT FOR USER REGISTRATION ==========
 @app.route('/api/users/register', methods=['POST'])
@@ -104,13 +81,9 @@ def register_user():
         db.session.add(new_user)
         db.session.commit()
 
-        # Create JWT token for the new user
-        jwt_access_token = create_access_token(identity=new_user.id, expires_delta=timedelta(days=365))
-
-        # Return the JWT token in the response body
+        # Return message
         return jsonify({
-            "message": "User registered successfully",
-            "jwt_token": jwt_access_token
+            "message": "User registered successfully"
         }), 200
 
     except Exception as e:

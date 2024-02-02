@@ -1,15 +1,46 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import { Transition } from '@headlessui/react';
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { Transition } from "@headlessui/react";
 import SearchBar from "@/components/Searchbar/SearchBar";
 import ProfileDropdown from "@/components/ProfileDropdown/ProfileDropdown";
+import { isUserAuthenticated } from "@/lib/userAuth";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
 
 // ========== NAVBAR COMPONENT ==========
-const Navbar = ({ user }) => {
+const Navbar = () => {
+  // Tracking user atom state
+  const [{ isAuthenticated, user }] = useAtom(userAtom);
   // Tracking menu state to toggle hamburger menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [user, setUser] = useState(null);
+
+  // Effect to check user authentication status
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      console.log("Checking auth status...")
+      console.log("User data:", user);
+      console.log("isAuthenticated:", isAuthenticated);
+      // Use atoms to check auth status
+      
+
+      // const authStatus = await isUserAuthenticated();
+      // const authStatus = await isUserAuthenticated();
+      // if (authStatus.isAuthenticated) {
+      //   setUser(authStatus.user); // Set user data if authenticated
+      // } else {
+      //   setUser(null); // Clear user data if not authenticated
+      // }
+    };
+
+    checkAuthStatus();
+  }, []);
+
+  useEffect(() => {
+    console.log("User data:", user);
+  }, []);
 
   return (
     <nav className="navbarStyle">
@@ -24,9 +55,7 @@ const Navbar = ({ user }) => {
         {/* Hamburger Menu and Profile Dropdown for Mobile Screens */}
         <div className="flex items-center md:hidden">
           {/* Profile Dropdown, always shown */}
-          {user && (
-            <ProfileDropdown user={user} />
-          )}
+          {user && <ProfileDropdown user={user} />}
 
           {/* Hamburger Menu */}
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="ml-2">
@@ -54,12 +83,10 @@ const Navbar = ({ user }) => {
               <a className="navLink">Reading List</a>
             </Link>
           )}
-          <SearchBar />
+
           {!user && (
             <Link legacyBehavior href="/login">
-              <a className={`py-2 px-4 loginButton rounded`}>
-                Log In
-              </a>
+              <a className={`py-2 px-4 loginButton rounded`}>Log In</a>
             </Link>
           )}
         </div>
@@ -111,7 +138,9 @@ const Navbar = ({ user }) => {
               <SearchBar />
               {!user && (
                 <Link legacyBehavior href="/login">
-                  <a className={`${styles.loginButton} block px-3 py-2 rounded-md font-medium`}>
+                  <a
+                    className={`loginButton block px-3 py-2 rounded-md font-medium`}
+                  >
                     Log In
                   </a>
                 </Link>

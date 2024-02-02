@@ -1,3 +1,7 @@
+// ===================================
+// This file contains functions for user authentication and authorization
+// ===================================
+
 // => Store token in local storage
 const setToken = (token) => {
     localStorage.setItem('access_token', token);
@@ -11,15 +15,6 @@ const getToken = () => {
     catch (error) {
         return null;
     }
-}
-
-// => Read token from local storage
-const readToken = () => {
-    const token = getToken();
-    if (token) {
-        return token;
-    }
-    return null;
 }
 
 // => Remove token from local storage
@@ -43,7 +38,6 @@ const registerUser = async (userDetails) => {
 
         // Throw an error if response is not 200
         if (response.ok) {
-            setToken(data.jwt_token);
             return { success: true, message: data.message};
         } else {
             console.error("Registration Failed:", error.message);
@@ -69,38 +63,27 @@ const authenticateUser = async (userDetails) => {
         const data = await response.json();
         if (response.ok) {
             setToken(data.jwt_token);
+            return { success: true, message: data.message, token: data.jwt_token};
         } else {
-            throw new Error(data.message || `HTTP error! Status: ${response.status}`);
+            console.error("Login Failed:", error.message);
+            return { success: false, message: error.message };
         }
 
-        return data;
     } catch (error) {
         console.error("Error during user authentication:", error.message);
         throw error;
     }
 };
 
-// => Check to see whether a user is authenticated
-const isUserAuthenticated = async () => {
+// => Logout user
+const logoutUser = async () => {
     try {
-        // Make a POST request to the /register route of the API
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/status`, {
-            method: 'GET', 
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
-
-        // Throw an error if response is not 200
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        return await response.json(); 
+        removeToken(); // Remove the JWT token from local storage
+        return { success: true, message: "User logged out successfully" };
     } catch (error) {
-        console.error("Error during user registration:", error.message);
-        throw error; 
+        console.error("Logout failed:", error);
+        return { success: false, message: "Logout failed" };
     }
 };
 
-export { registerUser, authenticateUser, isUserAuthenticated }; 
+export { registerUser, authenticateUser, logoutUser, getToken }; 

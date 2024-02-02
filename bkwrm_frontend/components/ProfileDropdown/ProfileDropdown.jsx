@@ -2,12 +2,31 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProfileDropdown.module.css";
+import { logoutUser } from "@/lib/userAuth";
+import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
 
 // ===== PROFILE DROPDOWN COMPONENT =====
 const ProfileDropdown = ({ user }) => {
+    const [userState, setUserState] = useAtom(userAtom);
+    const router = useRouter();
+
     // Setting the States and References
     const [ isOpen, setIsOpen ] = useState(false);
     const dropdownRef = useRef(null);
+
+    // Function to clear JWT and redirect to login page
+    const handleLogout = async () => {
+        try {
+            await logoutUser();
+            console.log("User logged out successfully!");
+            setUserState({ isAuthenticated: false, user: null });
+            router.push("/login");
+        } catch (error) {
+            console.error("Logout Failed:", error.message);
+        }
+    };
 
     // Function to close the dropdown when clicked outside
     const handleClickOutside = (event) => {
@@ -49,9 +68,9 @@ const ProfileDropdown = ({ user }) => {
                     <Link legacyBehavior href="/reading-list">
                         <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Reading List</a>
                     </Link>
-                    <Link legacyBehavior href="/logout">
-                        <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Logout</a>
-                    </Link>
+                    <button onClick={handleLogout} className={`${styles.dropdownLink} block text-left px-4 py-2 text-sm`}>
+                        Logout
+                    </button>
                 </div>
             )}
         </div>

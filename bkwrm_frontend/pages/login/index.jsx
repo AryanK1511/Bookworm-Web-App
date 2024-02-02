@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { authenticateUser } from "@/lib/userAuth";
 import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
+import { jwtDecode } from "jwt-decode";
 
 // ========== LOGIN PAGE ==========
 const LoginPage = () => {
+    // Get the userAtom state and set the userAtom state
+    const [ userState, setUserState ] = useAtom(userAtom);
     const router = useRouter()
     
     // Set state for auth
     const [ loginCred, setLoginCred ] = useState("");
     const [ password, setPassword ] = useState("");
 
-    // State vars for validation errors
-    const [errors, setErrors] = useState({});
+    // State var for login error message
+    const [loginError, setLoginError] = useState(null);
 
     // Update state with user inputs
     const handleInputChange = (e, setter) => setter(e.target.value);
@@ -28,13 +33,15 @@ const LoginPage = () => {
 
             // Call the authenticateUser function
             const response = await authenticateUser(userDetails);
-
-            // Logging the response of the action
-            console.log(response);
+            setUserState({ isAuthenticated: true, user: jwtDecode(response.token) });
             router.push("/");
             
         } catch (error) {
-            console.error("Registration Failed:", error.message);
+            let errs = {};
+            errs["auth"] = "Incorrect username or password";
+            // Set the registration error message
+            setErrors(errs);
+            console.error("Login Failed:", error.message);
         }
     };
 

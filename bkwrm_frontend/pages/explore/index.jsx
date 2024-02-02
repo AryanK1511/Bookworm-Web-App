@@ -8,7 +8,6 @@ const ExplorePage = () => {
     // State to store details
     const [books, setBooks] = useState([]);
     const [query, setQuery] = useState("");
-    const [inputValue, setInputValue] = useState("");
 
     // Function to fetch books from the Google Books API
     // This function is delayed as it is debounced to avoid making too many requests
@@ -34,49 +33,15 @@ const ExplorePage = () => {
         if (query) fetchBooks(query);
     }, [query]);
 
-    // Function to handle the query change
-    const handleInputChange = (e) => {
-        setQuery(e.target.value);
-    };
-
     return (
-        <div className="p-4">
-        <h1 className="text-2xl text-center font-bold mb-6">Explore Books</h1>
-        <div className="flex justify-center mb-8">
-            <input
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder="Search for books..."
-            className="p-2 rounded-l-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 transition-colors"
-            />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {books.map((book) => (
-            <div
-                key={book.id}
-                className="border rounded-lg p-4 flex flex-col items-center"
-            >
-                <img
-                src={book.volumeInfo.imageLinks?.thumbnail}
-                alt={book.volumeInfo.title}
-                className="w-1/2 mb-4"
-                />
-                <h2 className="text-lg font-semibold">{book.volumeInfo.title}</h2>
-                <p className="text-md text-gray-800">
-                {book.volumeInfo.authors?.join(", ")}
-                </p>
-                <p className="text-sm text-gray-600">
-                {book.volumeInfo.publishedDate}
-                </p>
+        <div className="p-4 bg-black min-h-screen text-white">
+            <h1 className="text-3xl text-center font-bold mb-6">Explore Books</h1>
+            <SearchBar query={query} setQuery={setQuery} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+                {books.map((book) => (
+                    <ExplorePageBookCard key={book.id} book={book} />
+                ))}
             </div>
-            ))}
-        </div>
-        {books.length === 0 && query && (
-            <div className="text-center text-gray-500">
-            No books found. Try searching for something else.
-            </div>
-        )}
         </div>
     );
 };
