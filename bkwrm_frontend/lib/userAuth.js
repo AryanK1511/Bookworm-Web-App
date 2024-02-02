@@ -22,6 +22,15 @@ const removeToken = () => {
     localStorage.removeItem('access_token');
 }
 
+// => Check to see whether th euser is authenticated
+const isAuthenticated = () => {
+    const token = getToken();
+    if (token) {
+        return true;
+    }
+    return false;
+}
+
 // => Register user in the database
 const registerUser = async (userDetails) => {
     // Make a POST request to the /register route of the API
@@ -76,4 +85,4 @@ const logoutUser = async () => {
     }
 };
 
-export { registerUser, authenticateUser, logoutUser, getToken }; 
+export { registerUser, authenticateUser, logoutUser, getToken, isAuthenticated }; 

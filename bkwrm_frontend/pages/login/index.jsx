@@ -46,11 +46,10 @@ const LoginPage = () => {
             // Call the authenticateUser function
             const response = await authenticateUser(userDetails);
 
-            // Check if registration was successful
+            // Check if login is successful
             if (response.success) {
                 // Set the user state for authentication
                 setUserState({ isAuthenticated: true, user: jwtDecode(response.token) });
-                router.push("/");
 
                 // Redirect to explore page if registration was successful
                 router.push("/explore");

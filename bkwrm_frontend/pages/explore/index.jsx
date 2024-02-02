@@ -1,34 +1,43 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { debounce } from "lodash";
 import ExplorePageBookCard from "@/components/ExplorePageBookCard/ExplorePageBookCard";
 import SearchBar from "@/components/Searchbar/SearchBar";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
 
 // ========== EXPLORE PAGE ==========
 const ExplorePage = () => {
-    // State to store details
     const [books, setBooks] = useState([]);
     const [query, setQuery] = useState("");
+    const router = useRouter(); // Initialize useRouter
+
+    // Use userAtom to check if user is authenticated
+    const [user, setUser] = useAtom(userAtom);
+
+    // Redirect to login page if user is not authenticated
+    useEffect(() => {
+        if (!user.isAuthenticated) {
+            router.push('/login'); // Redirect to login page
+        }
+    }, [user, router]);
 
     // Function to fetch books from the Google Books API
-    // This function is delayed as it is debounced to avoid making too many requests
     const fetchBooks = debounce(async (query) => {
-        if (!query.trim()) return; // Avoid empty query search
+        if (!query.trim()) return;
         const API_KEY = process.env.NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY;
-        const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
-        query
-        )}&key=${API_KEY}&maxResults=20`;
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&key=${API_KEY}&maxResults=20`;
 
         try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setBooks(data.items || []);
+            const response = await fetch(url);
+            const data = await response.json();
+            setBooks(data.items || []);
         } catch (error) {
-        console.error("Error fetching books:", error);
-        setBooks([]);
+            console.error("Error fetching books:", error);
+            setBooks([]);
         }
     }, 300);
 
-    // Effect to handle real-time search when query changes
     useEffect(() => {
         if (query) fetchBooks(query);
     }, [query]);
