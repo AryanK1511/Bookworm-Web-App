@@ -37,31 +37,26 @@ const LoginPage = () => {
     const submitForm = async (e) => {
         e.preventDefault();
         if (validate()) {
-            try {
-                // Prepare user details
-                const userDetails = {
-                    "login_credential": loginCred,
-                    "password": password 
-                };
-    
-                // Call the authenticateUser function
-                const response = await authenticateUser(userDetails);
+            // Prepare user details
+            const userDetails = {
+                "login_credential": loginCred,
+                "password": password 
+            };
 
-                // Check if registration was successful
-                if (response.success) {
-                    // Set the user state for authentication
-                    setUserState({ isAuthenticated: true, user: jwtDecode(response.token) });
-                    router.push("/");
+            // Call the authenticateUser function
+            const response = await authenticateUser(userDetails);
 
-                    // Redirect to explore page if registration was successful
-                    router.push("/explore");
-                } else {
-                    // Set the registration error message
-                    setLoginError("Username or password is incorrect. Please try again.");
-                }
-                
-            } catch (error) {
-                console.error("Error authenticating user: ", error.message);
+            // Check if registration was successful
+            if (response.success) {
+                // Set the user state for authentication
+                setUserState({ isAuthenticated: true, user: jwtDecode(response.token) });
+                router.push("/");
+
+                // Redirect to explore page if registration was successful
+                router.push("/explore");
+            } else {
+                // Set the registration error message
+                setLoginError(response.message);
             }
         }
     };

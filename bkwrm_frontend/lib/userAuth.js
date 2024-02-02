@@ -46,27 +46,22 @@ const registerUser = async (userDetails) => {
 
 // => Authenticate user for login
 const authenticateUser = async (userDetails) => {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userDetails)
-        });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userDetails)
+    });
 
-        const data = await response.json();
-        if (response.ok) {
-            setToken(data.jwt_token);
-            return { success: true, message: data.message, token: data.jwt_token};
-        } else {
-            console.error("Login Failed:", error.message);
-            return { success: false, message: error.message };
-        }
+    const data = await response.json();
 
-    } catch (error) {
-        console.error("Error during user authentication:", error.message);
-        throw error;
+    if (response.ok) {
+        setToken(data.jwt_token);
+        return { success: true, message: data.message, token: data.jwt_token};
+    } else {
+        console.error("Login Failed:", data.message);
+        return { success: false, message: data.message };
     }
 };
 

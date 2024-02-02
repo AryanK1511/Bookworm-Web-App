@@ -52,7 +52,7 @@ def login_user():
 
     else:
         # Authentication failed
-        return jsonify({'message': 'Invalid login credentials'}), 401
+        return jsonify({'message': 'Invalid username or password. Please try again'}), 401
 
 # ========== ENDPOINT FOR USER REGISTRATION ==========
 @app.route('/api/users/register', methods=['POST'])
