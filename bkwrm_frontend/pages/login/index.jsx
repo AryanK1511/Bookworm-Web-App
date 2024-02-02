@@ -16,32 +16,53 @@ const LoginPage = () => {
     const [ password, setPassword ] = useState("");
 
     // State var for login error message
-    const [loginError, setLoginError] = useState(null);
+    const [ loginError, setLoginError ] = useState(null);
+
+    // State vars for validation errors
+    const [ errors, setErrors ] = useState({});
 
     // Update state with user inputs
     const handleInputChange = (e, setter) => setter(e.target.value);
 
+    // Validate input fields
+    const validate = () => {
+        let errors = {};
+        if (!loginCred) errors.loginCred = "Username or email is required";
+        if (!password) errors.password = "Password is required";
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
+    }
+
     // Handle Form Submission
     const submitForm = async (e) => {
         e.preventDefault();
-        try {
-            // Prepare user details
-            const userDetails = {
-                "login_credential": loginCred,
-                "password": password 
-            };
+        if (validate()) {
+            try {
+                // Prepare user details
+                const userDetails = {
+                    "login_credential": loginCred,
+                    "password": password 
+                };
+    
+                // Call the authenticateUser function
+                const response = await authenticateUser(userDetails);
 
-            // Call the authenticateUser function
-            const response = await authenticateUser(userDetails);
-            setUserState({ isAuthenticated: true, user: jwtDecode(response.token) });
-            router.push("/");
-            
-        } catch (error) {
-            let errs = {};
-            errs["auth"] = "Incorrect username or password";
-            // Set the registration error message
-            setErrors(errs);
-            console.error("Login Failed:", error.message);
+                // Check if registration was successful
+                if (response.success) {
+                    // Set the user state for authentication
+                    setUserState({ isAuthenticated: true, user: jwtDecode(response.token) });
+                    router.push("/");
+
+                    // Redirect to explore page if registration was successful
+                    router.push("/explore");
+                } else {
+                    // Set the registration error message
+                    setLoginError("Username or password is incorrect. Please try again.");
+                }
+                
+            } catch (error) {
+                console.error("Error authenticating user: ", error.message);
+            }
         }
     };
 
@@ -71,11 +92,11 @@ const LoginPage = () => {
                                     id="email"
                                     name="email"
                                     type="text"
-                                    required
                                     className="formInput appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm"
                                     onChange={(e) => handleInputChange(e, setLoginCred)}
                                 />
                             </div>
+                            {errors?.loginCred && <p className="errorMessage">{errors.loginCred}</p>}
                         </div>
 
                         <div>
@@ -87,13 +108,19 @@ const LoginPage = () => {
                                     id="password"
                                     name="password"
                                     type="password"
-                                    autoComplete="current-password"
-                                    required
                                     className="formInput appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm"
                                     onChange={(e) => handleInputChange(e, setPassword)}
                                 />
                             </div>
+                            {errors?.password && <p className="errorMessage">{errors.password}</p>}
                         </div>
+
+                        {/* Login error message */}
+                        {loginError && (
+                            <div className="mt-4">
+                                <p className="text-red-600">{loginError}</p>
+                            </div>
+                        )}
 
                         <div>
                             <button

@@ -15,10 +15,10 @@ const SignUpPage = () => {
     const [ confirmPassword, setConfirmPassword ] = useState("");
 
     // State var for registration error message
-    const [registrationError, setRegistrationError] = useState(null);
+    const [ registrationError, setRegistrationError ] = useState(null);
 
     // State vars for validation errors
-    const [errors, setErrors] = useState({});
+    const [ errors, setErrors ] = useState({});
 
     // Update state with user inputs
     const handleInputChange = (e, setter) => setter(e.target.value);
@@ -39,28 +39,25 @@ const SignUpPage = () => {
     const submitForm = async (e) => {
         e.preventDefault();
         if (validate()) {
-            try {
-                // Prepare user details
-                const userDetails = {
-                    "fullname": fullName,
-                    "username": username,
-                    "email": email,
-                    "password": password 
-                };
+            // Prepare user details
+            const userDetails = {
+                "fullname": fullName,
+                "username": username,
+                "email": email,
+                "password": password 
+            };
 
-                // Call the registerUser function
-                const response = await registerUser(userDetails);
+            // Call the registerUser function
+            const response = await registerUser(userDetails);
 
-                // Check if registration was successful
-                if (response.success) {
-                    // Redirect to login page if registration was successful
-                    router.push("/login");
-                } else {
-                    // Set the registration error message
-                    setRegistrationError(response.message);
-                }
-            } catch (error) {
-                console.error("Registration Failed:", error.message);
+            // Check if registration was successful
+            if (response.success) {
+                // Redirect to login page if registration was successful
+                router.push("/login");
+            } else {
+                // Set the registration error message
+                console.log(response)
+                setRegistrationError(response.message);
             }
         }
     };

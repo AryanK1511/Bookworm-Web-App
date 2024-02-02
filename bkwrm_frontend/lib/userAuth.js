@@ -24,28 +24,23 @@ const removeToken = () => {
 
 // => Register user in the database
 const registerUser = async (userDetails) => {
-    try {
-        // Make a POST request to the /register route of the API
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/register`, {
-            method: 'POST', 
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userDetails)
-        });
+    // Make a POST request to the /register route of the API
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/register`, {
+        method: 'POST', 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userDetails)
+    });
 
-        const data = response.json();
+    const data = await response.json();
 
-        // Throw an error if response is not 200
-        if (response.ok) {
-            return { success: true, message: data.message};
-        } else {
-            console.error("Registration Failed:", error.message);
-            return { success: false, message: error.message };
-        }
-    } catch (error) {
-        console.error("Error during user registration:", error.message);
-        return { success: false, message: error.message };
+    // Throw an error if response is not 200
+    if (response.ok) {
+        return { success: true, message: data.message};
+    } else {
+        console.error("Registration Failed:", data.message);
+        return { success: false, message: data.message };
     }
 };
 
