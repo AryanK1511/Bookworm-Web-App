@@ -13,11 +13,6 @@ from datetime import timedelta
 # Configure JWT for authorization
 jwt = JWTManager(app)
 
-# ========== ROUTE TO CHECK API RUNS ==========
-@app.route('/', methods=['GET'])
-def check_for_run():
-    return jsonify({'message': 'API runs successfully'}), 201
-
 # ========== ENDPOINT FOR USER LOGIN ===========
 @app.route('/api/users/login', methods=["POST"])
 def login_user():
@@ -42,7 +37,7 @@ def login_user():
         }
 
         # Create JWT token for the new user
-        jwt_access_token = create_access_token(identity=user.id, additional_claims=user_claims, expires_delta=timedelta(days=365))
+        jwt_access_token = create_access_token(identity=user_claims, expires_delta=timedelta(days=365))
 
         # Return the JWT token in the response body
         return jsonify({
@@ -52,7 +47,7 @@ def login_user():
 
     else:
         # Authentication failed
-        return jsonify({'message': 'Invalid username or password. Please try again'}), 401
+        return jsonify({'message': 'Invalid username or password. Please try again'}), 400
 
 # ========== ENDPOINT FOR USER REGISTRATION ==========
 @app.route('/api/users/register', methods=['POST'])

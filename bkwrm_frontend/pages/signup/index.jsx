@@ -180,36 +180,6 @@ const SignUpPage = () => {
                             </button>
                         </div>
                     </form>
-
-                    <div className="mt-6">
-                        <div className="relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-300"></div>
-                            </div>
-                            <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-6 grid grid-cols-1 gap-3">
-                            <div>
-                                <button
-                                    type="button"
-                                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                                >
-                                    <span className="sr-only">Sign in with Google</span>
-                                    <svg className="w-5 h-5 mr-2" aria-hidden="true" viewBox="0 0 48 48">
-                                        <path fill="#EA4335" d="M24 9.5c3.9 0 7 1.6 9.4 4.7l7.2-7.2C37.9 3.9 31.3 1 24 1 14.8 1 6.8 5.8 2.1 13.1l8.3 6.4C12.6 13.8 18 10.5 24 10.5z"/>
-                                        <path fill="#4285F4" d="M46.6 24.2c0-1.3-.1-2.5-.4-3.7H24v7.2h12.8c-.6 3-2.3 5.5-4.7 7.2l7.2 5.6c4.4-4 6.9-9.8 6.9-16.3z"/>
-                                        <path fill="#FBBC05" d="M10.4 28.9c-.2-1-.3-2-.3-3.1s.1-2.1.3-3.1l-8.3-6.4C1 19.6 0 21.7 0 24s1 4.4 2.1 6.5l8.3-6.4z"/>
-                                        <path fill="#34A853" d="M24 46c6.3 0 11.6-2.1 15.5-5.6l-7.2-5.6c-2.1 1.4-4.8 2.3-8.3 2.3-5 0-9.3-3.4-10.8-7.9l-8.4 6.5C6.8 40.2 14.8 46 24 46z"/>
-                                        <path fill="none" d="M0 0h48v48H0z"/>
-                                    </svg>
-                                    <span className="ml-3">Sign in with Google</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

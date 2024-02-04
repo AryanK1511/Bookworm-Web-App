@@ -1,6 +1,11 @@
 /* => Footer Styles <= */
+.footerBg {
+    background-color: black; /* Adjust the background color as needed */
+}
+
 .footerIcon {
     color: #C6356D;
+    margin-right: 15px; /* Space between icons */
 }
 
 .footerIcon:hover {

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import { useAtom } from "jotai";
