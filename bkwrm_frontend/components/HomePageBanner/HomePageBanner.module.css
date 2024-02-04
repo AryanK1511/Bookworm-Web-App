@@ -10,8 +10,7 @@
 .titleHeading {
     font-family: "Comfortaa", sans-serif;
     font-size: 5rem;
-    padding-bottom: 30px;
-    margin-top: 20px;
+    padding-bottom: 35px;
 }
 
 .orangeYellow {
@@ -40,6 +39,7 @@
     border-radius: 5px;
     font-weight: 200;
     transition: 0.2s;
+    text-decoration: none;
 }
 
 .btnVar1 {

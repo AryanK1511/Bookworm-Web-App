@@ -1,8 +1,15 @@
 /* => Searchbar Styles <= */
 .searchInput {
-    padding: 10px 20px;
+    font-family: "Comfortaa", sans-serif;
+    padding: 15px 20px;
     background-color: transparent;
     color: #fff;
+    border: 2px solid #C6356D;
+    font-weight: 500;
+}
+
+.searchInput:focus {
+    border-color: #6AB376;
 }
 
 .orangeYellow {
@@ -11,16 +18,4 @@
 
 .red {
     color: #DC3D49;
-}
-
-.purple {
-    color: #8947FB;
-}
-
-.pink {
-    color: #C6356D;
-}
-
-.teal {
-    color: #89f1e6;
 }

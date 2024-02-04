@@ -1,6 +1,8 @@
-// ===================================
-// User authentication and authorization
-// ===================================
+/*
+===================================
+User authentication and authorization
+===================================
+*/
 
 // => Store token in local storage
 const setToken = (token) => {

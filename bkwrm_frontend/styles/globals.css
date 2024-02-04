@@ -3,6 +3,12 @@
 @import 'tailwindcss/utilities';
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@300;500;700&family=Rubik+Doodle+Shadow&display=swap');
 
+#root {
+    min-height: 100vh; /* Make sure it covers full height */
+    background-color: #000000; /* Ensure the background color fills the height */
+    font-family: "Poppins", sans-serif;
+}
+
 /* ========== NAVBAR STYLES ========== */
 .navbarStyle {
     font-family: "Poppins", sans-serif;
@@ -16,11 +22,17 @@
 }
 
 .bkwrmLogoWord {
+    text-decoration: none;
     margin-right: 20px;
     color: #fff;
     font-weight: 400;
     font-size: 2rem;
     font-family: "Comfortaa", sans-serif;
+}
+
+.navLink {
+    text-decoration: none;
+    color: gray;
 }
 
 .navLink:hover {
@@ -29,6 +41,8 @@
 }
 
 .loginButton {
+    color: #E48822;
+    text-decoration: none;
     background: transparent;
     transition: 0.2s;
 }
@@ -56,6 +70,10 @@
     color: #E48822;
 }
 
+.formInput {
+    color: #000;
+}
+
 .formInput:focus {
     border-color: #8947FB;
 }
@@ -67,13 +85,13 @@
 
 .errorMessage {
     margin-top: 0.5rem;
-    font-size: 0.875rem; /* Adjust font size to match your form's aesthetic */
-    color: #dc2626; /* This is a shade of red for visibility */
-    background-color: #fef2f2; /* Light red background for contrast */
-    border: 1px solid #fee2e2; /* Light red border */
-    border-radius: 0.375rem; /* Rounded corners */
-    padding: 0.5rem 1rem; /* Padding for text */
-    width: 100%; /* Full width to match input fields */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-    display: block; /* Ensures it takes its own line */
+    font-size: 0.875rem; 
+    color: #dc2626; 
+    background-color: #fef2f2; 
+    border: 1px solid #fee2e2; 
+    border-radius: 0.375rem; 
+    padding: 0.5rem 1rem; 
+    width: 100%; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    display: block; 
 }

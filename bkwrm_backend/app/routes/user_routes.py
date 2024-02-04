@@ -9,14 +9,47 @@ from sqlalchemy import text
 from passlib.hash import pbkdf2_sha256
 import asyncio
 from datetime import timedelta
+import cloudinary
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
+import cloudinary.api
 
 # Configure JWT for authorization
 jwt = JWTManager(app)
 
-# ========== ROUTE TO CHECK API RUNS ==========
-@app.route('/', methods=['GET'])
-def check_for_run():
-    return jsonify({'message': 'API runs successfully'}), 201
+# Cloudinary configuration
+cloudinary.config(
+  cloud_name = app.config['CLOUDINARY_CLOUD_NAME'],
+  api_key = app.config['CLOUDINARY_API_KEY'],
+  api_secret = app.config['CLOUDINARY_API_SECRET']
+)
+
+# ========== ENDPOINT FOR USER PROFILE ===========
+@app.route('/api/users/profile/<user_id>', methods=["GET"])
+@jwt_required()
+def get_user(user_id):
+    user = User.query.get(user_id)
+
+    # If user not found, return error message
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    # If user is found, return user data
+    user_data = {
+        "id": user.id,
+        "fullname": user.fullname,
+        "username": user.username,
+        "email": user.email,
+        "date_joined": user.date_joined.strftime("%Y-%m-%d"),
+        "profile_picture": user.profile_picture,
+        "role": user.role
+    }
+
+    # Return user data
+    return jsonify({
+        'message': 'User found',
+        'user': user_data
+    }), 200
 
 # ========== ENDPOINT FOR USER LOGIN ===========
 @app.route('/api/users/login', methods=["POST"])
@@ -42,7 +75,7 @@ def login_user():
         }
 
         # Create JWT token for the new user
-        jwt_access_token = create_access_token(identity=user.id, additional_claims=user_claims, expires_delta=timedelta(days=365))
+        jwt_access_token = create_access_token(identity=user_claims, expires_delta=timedelta(days=365))
 
         # Return the JWT token in the response body
         return jsonify({
@@ -52,7 +85,7 @@ def login_user():
 
     else:
         # Authentication failed
-        return jsonify({'message': 'Invalid username or password. Please try again'}), 401
+        return jsonify({'message': 'Invalid username or password. Please try again'}), 400
 
 # ========== ENDPOINT FOR USER REGISTRATION ==========
 @app.route('/api/users/register', methods=['POST'])
@@ -74,7 +107,7 @@ def register_user():
     password_hash = pbkdf2_sha256.hash(password)
 
     # Create a new user if the user doesn't exist already
-    new_user = User(fullname=fullname, username=username, email=email, password_hash=password_hash)
+    new_user = User(fullname=fullname, username=username, email=email, password_hash=password_hash, profile_picture=f"https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/v1707052869/default_profile_pic.avif")
 
     # Add the new user to DB
     try:

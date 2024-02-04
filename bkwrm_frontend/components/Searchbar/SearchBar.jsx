@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./Searchbar.module.css";
 
 // ===== SEARCHBAR COMPONENT =====
 const SearchBar = ({ query, setQuery }) => {
@@ -12,7 +13,7 @@ const SearchBar = ({ query, setQuery }) => {
         <div className="flex justify-center items-center mb-14">
             <div className="relative w-full max-w-md">
                 <input
-                    className="w-full border-2 border-gray-300 bg-transparent h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+                    className={`${styles.searchInput} w-full  rounded-lg text-sm focus:outline-none focus:border-blue-500`}
                     type="text"
                     placeholder="Search books..."
                     aria-label="Search books"

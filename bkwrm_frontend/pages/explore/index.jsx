@@ -48,8 +48,14 @@ const ExplorePage = () => {
     }, [query]);
 
     return (
-        <div className="p-4 bg-black min-h-screen text-white">
-            <h1 className={`${styles.heading}`}>Explore Books</h1>
+        <div className={`${styles.explorePage} p-4 bg-black min-h-screen text-white`}>
+            <div className="text-center mt-10 pt-16 pb-4">
+                <h1 className={`${styles.titleHeading} text-4xl font-bold mb-2`}>
+                <span className={styles.orangeYellow}>Explore</span>{' '}
+                <span className={styles.red}>Books</span>
+                </h1>
+                <p className="mb-4 text-xl">Search your favourite books</p>
+            </div>
             <SearchBar query={query} setQuery={setQuery} />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
                 {books.map((book) => (

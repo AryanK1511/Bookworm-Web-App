@@ -16,4 +16,4 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 # Import the routes
-from app.routes import user_routes
+from app.routes import user_routes, book_routes

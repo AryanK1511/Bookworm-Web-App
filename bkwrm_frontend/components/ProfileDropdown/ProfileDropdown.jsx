@@ -53,7 +53,7 @@ const ProfileDropdown = ({ user }) => {
             {/* User's Profile Picture */}
             <button onClick={() => setIsOpen(!isOpen)} className="block">
                 <Image
-                    src="/assets/images/default_profile_pic.jpg"
+                    src={user.sub.profile_picture}
                     alt="User profile picture"
                     width={32}
                     height={32}
@@ -64,13 +64,13 @@ const ProfileDropdown = ({ user }) => {
             {/* Dropdown Menu */}
             {isOpen && (
                 <div className={`${styles.dropdown} absolute right-0 w-48 py-2 mt-2 rounded-md`}>
-                    <Link legacyBehavior href="/profile">
+                    <Link legacyBehavior href={`/profile/${user.sub.id}`}>
                         <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Profile</a>
                     </Link>
                     <Link legacyBehavior href="/reading-list">
                         <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Reading List</a>
                     </Link>
-                    <button onClick={handleLogout} className={`${styles.dropdownLink} block text-left px-4 py-2 text-sm`}>
+                    <button onClick={handleLogout} className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>
                         Logout
                     </button>
                 </div>
