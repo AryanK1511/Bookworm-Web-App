@@ -9,7 +9,6 @@ Reading list functionality
 // => Add book to user's reading list
 const addBookToReadingList = async (book) => {
     const token = getToken();
-    console.log("Token:", token);
 
     // Make a POST request to the /register route of the API
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/add`, {

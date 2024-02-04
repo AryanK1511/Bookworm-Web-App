@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Navbar = () => {
   // Getting the user state from the store
   const [{ isAuthenticated, user }] = useAtom(userAtom);
+  
   // Setting the state for the menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
