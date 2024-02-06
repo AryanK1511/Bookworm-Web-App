@@ -70,7 +70,7 @@ const ProfileDropdown = ({ user }) => {
                     <Link legacyBehavior href="/reading-list">
                         <a className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>Your Reading List</a>
                     </Link>
-                    <button onClick={handleLogout} className={`${styles.dropdownLink} block px-4 py-2 text-sm`}>
+                    <button onClick={handleLogout} className={`${styles.dropdownLink}`}>
                         Logout
                     </button>
                 </div>
