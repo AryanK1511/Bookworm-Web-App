@@ -6,7 +6,7 @@ import { userAtom } from "@/store";
 import { addReview } from '@/lib/bookDetails';
 import { useRouter } from 'next/router';
 
-const CommentSection = ({ reviews, id }) => {
+const CommentSection = ({ reviews, id, fetchBookDetails}) => {
     console.log(id);
     const router = useRouter();
 
@@ -19,15 +19,20 @@ const CommentSection = ({ reviews, id }) => {
         e.preventDefault();
         // Add your submission logic here
         console.log(newComment, rating);
+        console.log("User ID: ", user.user.sub.id);
 
         let result = await addReview(id, newComment, rating);
 
-        // Clear the input fields
-        setNewComment('');
-        setRating(0);
-
-        if (result.success) {   
-            router.replace(`/explore/${id}`);
+        if (result.success) {  
+            await fetchBookDetails(id);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth', // Optional: for smooth scrolling
+            });
+            setNewComment('');
+            setRating(0);
+            // After adding the comment and updating the state
+    
         } else {
             router.push('/explore');
         }
@@ -63,6 +68,12 @@ const CommentSection = ({ reviews, id }) => {
                                 starRatedColor="gold"
                             />
                         </div>
+                        {/* Conditionally render a delete button */}
+        {review.user_id === user.user.sub.id && (
+            <Button variant="danger" size="sm" onClick={() => handleDeleteReview(review.id)}>
+                Delete
+            </Button>
+        )}
                     </ListGroup.Item>
                 ))}
             </ListGroup><br />

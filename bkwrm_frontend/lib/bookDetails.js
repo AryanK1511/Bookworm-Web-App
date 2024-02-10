@@ -46,7 +46,7 @@ const addReview = async (bookId, reviewText, rating) => {
 
     // Throw an error if response is not 200
     if (response.ok) {
-        return { success: true, data: data.message };
+        return { success: true, data: data };
     } else {    
         console.error("Adding review failed:", data.message);
         return { success: false, message: data.message };

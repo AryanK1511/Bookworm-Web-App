@@ -10,7 +10,7 @@ from datetime import timedelta
 # Configure JWT for authorization
 jwt = JWTManager(app)
 
-# ========== ENDPOINT FOR ADDING BOOK TO LIST ===========
+# ========== ENDPOINT FOR ADDING A REVIEW FOR A BOOK ===========
 @app.route('/api/reviews/add', methods=["POST"])
 @jwt_required()
 def add_user_review():
@@ -25,11 +25,6 @@ def add_user_review():
         google_books_id = data.get('bookId')
         review_text = data.get('reviewText')
         rating = data.get('rating')
-
-        print(current_user["id"])
-        print(google_books_id)
-        print(review_text)
-        print(rating)
 
         # Create a new review entry
         review_entry = Review(

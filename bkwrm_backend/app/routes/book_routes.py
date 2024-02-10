@@ -25,7 +25,6 @@ def add_book_to_reading_list():
 
         # Extract the google_books_id from the request
         google_books_id = data.get('google_books_id')
-        print("Google Books ID:", google_books_id)
 
         # Create a new reading list entry
         reading_list_entry = ReadingList(
@@ -43,17 +42,14 @@ def add_book_to_reading_list():
 
     except Exception as e:
         db.session.rollback()
-        print("Error:", str(e))  # Print the error message for debugging
         return jsonify({"message": "Something went wrong"}), 500
 
 # ========== ENDPOINT FOR GETTING THE DETAILS OF A BOOK ===========
 @app.route('/api/books/get-details/<book_id>', methods=["GET"])
 @jwt_required()
 def get_book_details(book_id):
-    GOOGLE_BOOKS_API_KEY = os.environ.get('GOOGLE_BOOKS_API_KEY')
-    print("Google Books API Key:", GOOGLE_BOOKS_API_KEY)
     # Set the URL
-    google_books_api_url = f"https://www.googleapis.com/books/v1/volumes/{book_id}?key={GOOGLE_BOOKS_API_KEY}"
+    google_books_api_url = f"https://www.googleapis.com/books/v1/volumes/{book_id}?key={os.environ.get('GOOGLE_BOOKS_API_KEY')}"
 
     try:
         # Fetch book details from the google books API
