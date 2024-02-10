@@ -29,9 +29,12 @@
     "next": "14.1.0",
     "next-auth": "^4.24.5",
     "react": "^18",
-    "react-bootstrap": "^2.10.0",
+    "react-bootstrap": "^2.10.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18",
-    "react-hook-form": "^7.49.3"
+    "react-hook-form": "^7.49.3",
+    "react-star-ratings": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

@@ -4,7 +4,6 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from app.models.user import User
 from app.models.review import Review
 from app.models.reading_list import ReadingList
-from app.models.book import Book
 from sqlalchemy import text
 from datetime import timedelta
 
@@ -22,19 +21,22 @@ def add_user_review():
         # Get the body
         data = request.get_json()
 
-        # Extract the google_books_id from the request
-        google_books_id = data.get('google_books_id')
-        print("Google Books ID:", google_books_id)
+        # Extract the details from the body sent by user
+        google_books_id = data.get('bookId')
+        review_text = data.get('reviewText')
+        rating = data.get('rating')
 
-        # Extract the review from the request
-        review = data.get('review')
-        print("Review:", review)
+        print(current_user["id"])
+        print(google_books_id)
+        print(review_text)
+        print(rating)
 
         # Create a new review entry
         review_entry = Review(
             user_id=current_user["id"],
             google_books_id=google_books_id,
-            review=review
+            review_text=review_text,
+            rating=rating
         )
 
         # Add the entry to the database session
@@ -47,4 +49,4 @@ def add_user_review():
 
     except Exception as e:
         db.session.rollback()
-        print("Error:", str(e))
+        return jsonify({"message": "Review could not be added. Server error."}), 500

@@ -5,3 +5,7 @@ export const userAtom = atom({
     isAuthenticated: false,
     user: null
 });
+
+// Create an atom for tracking user reviews
+export const bookDetailsAtom = atom({});
+export const reviewsAtom = atom([]);

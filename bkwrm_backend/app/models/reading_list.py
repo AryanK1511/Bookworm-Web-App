@@ -5,7 +5,7 @@ from datetime import datetime
 class ReadingList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    google_books_id = db.Column(db.String(50), db.ForeignKey('book.google_books_id'), nullable=False)
+    google_books_id = db.Column(db.String(50), nullable=False)
     status = db.Column(db.String(50), default="unread")  # Enum can be implemented differently depending on the use case
     date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
