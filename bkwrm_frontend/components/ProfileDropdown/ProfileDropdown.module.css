@@ -1,16 +1,18 @@
 /* => Profile Styles <= */
 .dropdown {
-    background-color: #000;
+	background-color: #000;
 }
 
 .dropdownLink {
-    color: gray;
-    display: block;
-    padding: 1rem;
-    text-decoration: none; 
+	color: gray;
+	display: block;
+	padding: 1rem;
+	text-decoration: none;
+	width: 100%;
+	text-align: left;
 }
 
 .dropdownLink:hover {
-    background-color: #E48822;
-    color: #fff;
+	background-color: #e48822;
+	color: #fff;
 }

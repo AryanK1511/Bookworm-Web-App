@@ -1,21 +1,21 @@
 /* => Searchbar Styles <= */
 .searchInput {
-    font-family: "Comfortaa", sans-serif;
-    padding: 15px 20px;
-    background-color: transparent;
-    color: #fff;
-    border: 2px solid #C6356D;
-    font-weight: 500;
+	font-family: "Comfortaa", sans-serif;
+	padding: 15px 20px;
+	background-color: transparent;
+	color: #fff;
+	border: 2px solid #c6356d;
+	font-weight: 500;
 }
 
 .searchInput:focus {
-    border-color: #6AB376;
+	border-color: #6ab376;
 }
 
 .orangeYellow {
-    color: #E48822;
+	color: #e48822;
 }
 
 .red {
-    color: #DC3D49;
+	color: #dc3d49;
 }
