@@ -1,0 +1,52 @@
+/* => Comment Section Styles <= */
+
+.commentInput {
+    padding: 15px;
+    background-color: transparent;
+    color: #fff;
+}
+
+.commentInput::placeholder {
+    color: #fff;
+}
+
+.commentInput:focus {
+    color: #fff;
+    background-color: transparent;
+    border-color: #E48822;
+}
+
+.cardBtn {
+    padding: 15px 30px;
+    background-color: #E48822;
+    color: #fff;
+    font-weight: 600;
+    border: 2px solid #E48822;
+    z-index: -3;
+}
+
+.cardBtn:hover {
+    background-color: #E48822;
+    border-color: #E48822;
+}
+
+.allComments {
+    border-radius: 10px;
+    padding: 25px;
+    background-color: #1E1E1E;
+    border: #1E1E1E;
+    color: #fff;
+}
+
+.comment {
+    background-color: #1E1E1E;
+    border: #1E1E1E;
+    color: #fff;
+}
+
+.deleteButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem; 
+    z-index: 2; 
+}

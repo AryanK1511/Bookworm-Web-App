@@ -36,7 +36,7 @@ const getBookDetails = async (bookId) => {
 const addReview = async (bookId, reviewText, rating) => {
 	const token = getToken();
 
-	// Make a POST request to the /add-review route of the API
+	// Make a POST request
 	const response = await fetch(
 		`${process.env.NEXT_PUBLIC_API_URL}/api/reviews/add`,
 		{
@@ -63,4 +63,34 @@ const addReview = async (bookId, reviewText, rating) => {
 	}
 };
 
-export { getBookDetails, addReview };
+// => Delete a user review
+const deleteReview = async (reviewId) => {
+	const token = getToken();
+
+	// Make a POST request
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/reviews/delete`,
+		{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				reviewId: reviewId
+			})
+		},
+	);
+
+	const data = await response.json();
+
+	// Throw an error if response is not 200
+	if (response.ok) {
+		return { success: true, data: data };
+	} else {
+		console.error("Adding review failed:", data.message);
+		return { success: false, message: data.message };
+	}
+};
+
+export { getBookDetails, addReview, deleteReview };

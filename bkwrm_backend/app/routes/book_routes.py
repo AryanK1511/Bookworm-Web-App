@@ -58,7 +58,12 @@ def get_book_details(book_id):
         book_details = response.json()
 
         # Fetch and join reviews with user information
-        reviews = db.session.query(Review, User).join(User).filter(Review.google_books_id == book_id).all()
+        reviews = (db.session.query(Review, User)
+                   .join(User)
+                   .filter(Review.google_books_id == book_id)
+                   .order_by(Review.date_posted.desc())  # This will order the results
+                   .all())
+                   
         reviews_list = [{
             'id': review.Review.id,
             'google_books_id': review.Review.google_books_id,

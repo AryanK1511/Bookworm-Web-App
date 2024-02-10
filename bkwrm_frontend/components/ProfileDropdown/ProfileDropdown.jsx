@@ -24,7 +24,7 @@ const ProfileDropdown = ({ user }) => {
 		try {
 			await logoutUser();
 			setUserState({ isAuthenticated: false, user: null });
-			router.push("/login");
+			router.push("/");
 		} catch (error) {
 			console.error("Logout Failed:", error.message);
 		}
@@ -54,22 +54,27 @@ const ProfileDropdown = ({ user }) => {
 	return (
 		<div className="relative" ref={dropdownRef}>
 			{/* User's Profile Picture */}
-			<button onClick={() => setIsOpen(!isOpen)} className="block">
-				<Image
-					src={user.sub.profile_picture}
-					alt="User profile picture"
-					width={32}
-					height={32}
-					className="rounded-full"
-				/>
-			</button>
+			{userState.user && ( // Check if userState.user is not null before rendering the button
+				<button onClick={() => setIsOpen(!isOpen)} className="block">
+					<Image
+						src={userState.user.sub.profile_picture}
+						alt="User profile picture"
+						width={32}
+						height={32}
+						className="rounded-full"
+					/>
+				</button>
+			)}
 
 			{/* Dropdown Menu */}
-			{isOpen && (
+			{isOpen && userState.user && (
 				<div
 					className={`${styles.dropdown} absolute right-0 w-48 py-2 mt-2 rounded-md`}
 				>
-					<Link legacyBehavior href={`/profile/${user.sub.id}`}>
+					<Link
+						legacyBehavior
+						href={`/profile/${userState.user.sub.id}`}
+					>
 						<a
 							className={`${styles.dropdownLink} block px-4 py-2 text-sm`}
 						>
@@ -83,7 +88,6 @@ const ProfileDropdown = ({ user }) => {
 							Your Reading List
 						</a>
 					</Link>
-					{/* Apply the same classes to the button as you do for the <a> tags */}
 					<button
 						onClick={handleLogout}
 						className={`${styles.dropdownLink} block px-4 py-2 text-sm`}

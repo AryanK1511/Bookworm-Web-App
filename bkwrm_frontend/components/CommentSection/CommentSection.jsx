@@ -10,56 +10,75 @@ import {
 import StarRatings from "react-star-ratings";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store";
-import { addReview } from "@/lib/bookDetails";
+import { addReview, deleteReview } from "@/lib/bookDetails";
 import { useRouter } from "next/router";
+import styles from "./CommentSection.module.css";
 
 // ========== COMMENT SECTION COMPONENT ===========
 const CommentSection = ({ reviews, id, fetchBookDetails }) => {
-	console.log(id);
 	const router = useRouter();
 
+	// Setting up the state for the new comment and rating
 	const [newComment, setNewComment] = useState("");
 	const [rating, setRating] = useState(0);
-
+	// Get the user from the atom
 	const [user] = useAtom(userAtom);
 
-	const handleReviewSubmit = async (e) => {
-		e.preventDefault();
-		// Add your submission logic here
-		console.log(newComment, rating);
-		console.log("User ID: ", user.user.sub.id);
+	// Function to handle the deletion of a review
+	const handleDeleteReview = async (reviewId) => {
+		// Call the deleteReview function from the lib
+		let result = await deleteReview(reviewId);
 
-		let result = await addReview(id, newComment, rating);
-
+		// If the review was deleted successfully, fetch the book details again
 		if (result.success) {
 			await fetchBookDetails(id);
 			window.scrollTo({
 				top: 0,
-				behavior: "smooth", // Optional: for smooth scrolling
+				behavior: "smooth",
 			});
-			setNewComment("");
-			setRating(0);
-			// After adding the comment and updating the state
 		} else {
 			router.push("/explore");
 		}
 	};
 
+	// Function to Submit a new review
+	const handleReviewSubmit = async (e) => {
+		e.preventDefault();
+
+		// Only publish the comment if the user puts in a rating and text
+		if (rating !== 0 && newComment !== "") {
+			// Call the addReview function from the lib
+			let result = await addReview(id, newComment, rating);
+
+			// If the review was added successfully, fetch the book details again
+			if (result.success) {
+				await fetchBookDetails(id);
+				window.scrollTo({
+					top: 0,
+					behavior: "smooth",
+				});
+				setNewComment("");
+				setRating(0);
+			} else {
+				router.push("/explore");
+			}
+		}
+	};
+
+	// Function to handle the change in the rating
 	const handleRatingChange = (newRating) => {
 		setRating(newRating);
 	};
 
 	return (
 		<div>
-			<ListGroup variant="flush">
-				{reviews &&
-					reviews.length > 0 &&
-					reviews.map((review) => (
+			{reviews && reviews.length > 0 && (
+				<ListGroup className={styles.allComments} variant="flush">
+					{reviews.map((review) => (
 						<ListGroup.Item
 							key={review.id}
-							className="d-flex align-items-start"
+							className={`${styles.comment} d-flex align-items-start position-relative`}
 						>
-							{/* User's Profile Picture */}
 							<Image
 								src={
 									review.profile_picture ||
@@ -72,7 +91,6 @@ const CommentSection = ({ reviews, id, fetchBookDetails }) => {
 									marginRight: "15px",
 								}}
 							/>
-							{/* User Rating and Review */}
 							<div className="flex-grow-1">
 								<div>
 									<strong>
@@ -103,33 +121,38 @@ const CommentSection = ({ reviews, id, fetchBookDetails }) => {
 									starRatedColor="gold"
 								/>
 							</div>
-							{/* Conditionally render a delete button */}
-							{review.user_id === user.user.sub.id && (
+							{review.user_id === user?.user?.sub.id && (
 								<Button
 									variant="danger"
 									size="sm"
 									onClick={() =>
 										handleDeleteReview(review.id)
 									}
+									className={styles.deleteButton}
 								>
 									Delete
 								</Button>
 							)}
 						</ListGroup.Item>
 					))}
-			</ListGroup>
+				</ListGroup>
+			)}
 			<br />
-			{/* Form to submit more reviews */}
 			<Form onSubmit={handleReviewSubmit}>
 				<InputGroup className="mb-3">
 					<FormControl
+						className={styles.commentInput}
 						placeholder="Leave a comment..."
 						aria-label="Comment"
-						aria-describedby="basic-addon2"
 						value={newComment}
 						onChange={(e) => setNewComment(e.target.value)}
 					/>
-					<Button variant="outline-secondary" type="submit">
+					<Button
+						className={styles.cardBtn}
+						variant="outline-secondary"
+						type="submit"
+						disabled={rating === 0 || newComment.trim() === ""}
+					>
 						Post
 					</Button>
 				</InputGroup>
@@ -139,6 +162,8 @@ const CommentSection = ({ reviews, id, fetchBookDetails }) => {
 					changeRating={handleRatingChange}
 					numberOfStars={5}
 					name="rating"
+					starHoverColor="gold"
+					starDimension="20px"
 				/>
 			</Form>
 		</div>

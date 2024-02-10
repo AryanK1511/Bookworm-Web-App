@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store";
 
+// ========== EXPLORE SPECIFIC BOOK PAGE ===========
 const ExploreSpecificBook = () => {
 	const router = useRouter();
 	const { id } = router.query;
