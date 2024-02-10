@@ -4,7 +4,6 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from app.models.user import User
 from app.models.review import Review
 from app.models.reading_list import ReadingList
-from app.models.book import Book
 from sqlalchemy import text
 from passlib.hash import pbkdf2_sha256
 import asyncio

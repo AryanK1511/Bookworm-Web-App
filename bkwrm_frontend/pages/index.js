@@ -1,17 +1,15 @@
 import React from "react";
 import HomePageBanner from "@/components/HomePageBanner/HomePageBanner";
 import InfoBanner from "@/components/InfoBanner/InfoBanner";
-import Footer from "@/components/Footer/Footer";
 
 // ========== HOME PAGE ==========
 const Home = () => {
-  return (
-    <div>
-      <HomePageBanner />
-      <InfoBanner />
-      <Footer />
-    </div>
-  );
-}
+	return (
+		<div>
+			<HomePageBanner />
+			<InfoBanner />
+		</div>
+	);
+};
 
-export default Home
+export default Home;

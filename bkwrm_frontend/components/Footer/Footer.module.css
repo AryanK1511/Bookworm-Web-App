@@ -1,18 +1,22 @@
 /* => Footer Styles <= */
 .footerBg {
-    background-color: black; /* Adjust the background color as needed */
+	background-color: black;
+	position: sticky;
+	bottom: 0;
+	width: 100%;
+	z-index: 3;
 }
 
 .footerIcon {
-    color: #C6356D;
-    margin-right: 15px; /* Space between icons */
+	color: #c6356d;
+	margin-right: 15px;
 }
 
 .footerIcon:hover {
-    color: #c6356d89;
+	color: #c6356d89;
 }
 
 .footerText {
-    color: #E48822;
-    font-weight: bold;
+	color: #e48822;
+	font-weight: bold;
 }

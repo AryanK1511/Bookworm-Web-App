@@ -1,97 +1,162 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@300;500;700&family=Rubik+Doodle+Shadow&display=swap');
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@300;500;700&family=Rubik+Doodle+Shadow&display=swap");
 
+/* ========== GLOBAL STYLES ========== */
 #root {
-    min-height: 100vh; /* Make sure it covers full height */
-    background-color: #000000; /* Ensure the background color fills the height */
-    font-family: "Poppins", sans-serif;
+	min-height: 100vh;
+	background-color: #000000;
+	font-family: "Poppins", sans-serif;
+	z-index: 0;
 }
 
 /* ========== NAVBAR STYLES ========== */
 .navbarStyle {
-    font-family: "Poppins", sans-serif;
-    background-color: #000;
-    color: gray;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 50; 
+	font-family: "Poppins", sans-serif;
+	background-color: #000;
+	color: gray;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 50;
 }
 
 .bkwrmLogoWord {
-    text-decoration: none;
-    margin-right: 20px;
-    color: #fff;
-    font-weight: 400;
-    font-size: 2rem;
-    font-family: "Comfortaa", sans-serif;
+	text-decoration: none;
+	margin-right: 20px;
+	color: #fff;
+	font-weight: 400;
+	font-size: 2rem;
+	font-family: "Comfortaa", sans-serif;
 }
 
 .navLink {
-    text-decoration: none;
-    color: gray;
+	text-decoration: none;
+	color: gray;
 }
 
 .navLink:hover {
-    color: #fff;
-    transition: 0.3s;
+	color: #fff;
+	transition: 0.3s;
 }
 
 .loginButton {
-    color: #E48822;
-    text-decoration: none;
-    background: transparent;
-    transition: 0.2s;
+	color: #e48822;
+	text-decoration: none;
+	background: transparent;
+	transition: 0.2s;
 }
 
 .loginButton:hover {
-    background: #E48822;
-    color: #fff;
+	background: #e48822;
+	color: #fff;
 }
 
 /* ========== LOGIN AND SIGNUP FORM STYLES ========== */
 .loginSignupPage {
-    background-color: #000;
-    font-family: "Poppins", sans-serif;
+	background-color: #000;
+	font-family: "Poppins", sans-serif;
 }
 
 .formHeading {
-    color: #fff;
+	color: #fff;
 }
 
 .formSubheading {
-    color: #8947FB;
+	color: #8947fb;
 }
 
 .formSubheading:hover {
-    color: #E48822;
+	color: #e48822;
 }
 
 .formInput {
-    color: #000;
+	color: #000;
 }
 
 .formInput:focus {
-    border-color: #8947FB;
+	border-color: #8947fb;
 }
 
 .formBtn {
-    background-color: #8947FB;
-    transition: 0.2s;
+	background-color: #8947fb;
+	transition: 0.2s;
 }
 
 .errorMessage {
-    margin-top: 0.5rem;
-    font-size: 0.875rem; 
-    color: #dc2626; 
-    background-color: #fef2f2; 
-    border: 1px solid #fee2e2; 
-    border-radius: 0.375rem; 
-    padding: 0.5rem 1rem; 
-    width: 100%; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    display: block; 
+	margin-top: 0.5rem;
+	font-size: 0.875rem;
+	color: #dc2626;
+	background-color: #fef2f2;
+	border: 1px solid #fee2e2;
+	border-radius: 0.375rem;
+	padding: 0.5rem 1rem;
+	width: 100%;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: block;
+}
+
+/* ========== BOOK PAGE STYLES ========== */
+.book-title-heading {
+	font-family: "Comfortaa", sans-serif;
+	font-size: 2rem;
+	text-align: center;
+	padding: 100px 0 20px 0;
+}
+
+.book-title-author {
+	text-align: center;
+	padding: 0 0 40px 0;
+	font-size: 1.5rem;
+}
+
+#book-author {
+	color: #c6356d;
+}
+
+.card-img-top {
+	max-height: 900px;
+	object-fit: cover;
+}
+
+.list-group-item {
+	position: relative;
+}
+
+.star-ratings {
+	float: right;
+}
+
+/* ========== EXPLORE PAGE STYLES ========== */
+.explore-page {
+	font-family: "Comfortaa", sans-serif;
+}
+
+.title-heading {
+	font-family: "Comfortaa", sans-serif;
+	font-size: 5rem;
+	padding-bottom: 30px;
+	margin-top: 20px;
+}
+
+.orange-yellow {
+	color: #e48822;
+}
+
+.red {
+	color: #dc3d49;
+}
+
+.purple {
+	color: #8947fb;
+}
+
+.pink {
+	color: #c6356d;
+}
+
+.teal {
+	color: #89f1e6;
 }

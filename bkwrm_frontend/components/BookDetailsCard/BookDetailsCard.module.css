@@ -1,0 +1,19 @@
+/* => Book Card Styles <= */
+
+.bookCard {
+    background-color: transparent;
+}
+
+.cardBody {
+    color: #fff;
+}
+
+.cardImage {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px 0 30px 0;
+}
+
+.cardText {
+    padding-bottom: 30px;
+}
