@@ -8,6 +8,7 @@
 	min-height: 100vh;
 	background-color: #000000;
 	font-family: "Poppins", sans-serif;
+	z-index: 0;
 }
 
 /* ========== NAVBAR STYLES ========== */
