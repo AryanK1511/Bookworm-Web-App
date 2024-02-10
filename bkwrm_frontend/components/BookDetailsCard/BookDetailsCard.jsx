@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, Badge } from "react-bootstrap";
 import StarRatings from "react-star-ratings";
+import styles from "./BookDetailsCard.module.css";
 
+// ========== BOOK DETAILS CARD COMPONENT ===========
 const BookDetailsCard = ({ bookDetails, reviews }) => {
 	// Calculate average rating
 	const averageRating =
@@ -9,20 +11,24 @@ const BookDetailsCard = ({ bookDetails, reviews }) => {
 			reviews.length || 0;
 
 	return (
-		<Card className="mb-4 book-card">
+		<Card className={`${styles.bookCard} mb-4`}>
 			<Card.Img
-				variant="top"
+				variant="bottom"
+				className={styles.cardImage}
 				src={bookDetails?.volumeInfo?.imageLinks?.thumbnail}
 			/>
-			<Card.Body>
-				<Card.Text>{bookDetails?.volumeInfo?.description}</Card.Text>
+			<Card.Body className={styles.cardBody}>
+				<Card.Text className={styles.cardText}>{bookDetails?.volumeInfo?.description}</Card.Text>
 				<StarRatings
+					className={styles.starRating}
 					rating={averageRating}
 					starRatedColor="gold"
 					numberOfStars={5}
 					name="rating"
+					size="small"
+					starDimension="20px"
 				/>
-				<Badge bg="secondary">{reviews.length} Reviews</Badge>
+				<Badge className={styles.cardBadge} bg="info"><Badge bg="secondary">{reviews.length}</Badge> Reviews </Badge>
 			</Card.Body>
 		</Card>
 	);

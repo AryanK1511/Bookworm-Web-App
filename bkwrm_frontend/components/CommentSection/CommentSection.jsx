@@ -13,6 +13,7 @@ import { userAtom } from "@/store";
 import { addReview } from "@/lib/bookDetails";
 import { useRouter } from "next/router";
 
+// ========== COMMENT SECTION COMPONENT ===========
 const CommentSection = ({ reviews, id, fetchBookDetails }) => {
 	console.log(id);
 	const router = useRouter();
