@@ -23,12 +23,11 @@ const Navbar = () => {
           <Link legacyBehavior href="/">
             <a className="bkwrmLogoWord">Bookworm</a>
           </Link>
-          <Link legacyBehavior href="/about">
-            <a className="navLink">About</a>
-          </Link>
-          <Link legacyBehavior href="/explore">
-            <a className="navLink">Explore</a>
-          </Link>
+          <div className="hidden md:block">
+            <Link legacyBehavior href="/explore">
+              <a className="navLink">Explore</a>
+            </Link>
+          </div>
         </div>
 
         <div className="flex items-center space-x-2 ml-auto">
@@ -64,11 +63,6 @@ const Navbar = () => {
         {(ref) => (
           <div ref={ref} className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <Link legacyBehavior href="/about">
-                <a className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-800">
-                  About
-                </a>
-              </Link>
               <Link legacyBehavior href="/explore">
                 <a className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-800">
                   Explore

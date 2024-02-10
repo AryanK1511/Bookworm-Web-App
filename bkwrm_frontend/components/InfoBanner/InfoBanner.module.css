@@ -1,0 +1,10 @@
+/* => Info Banner Styles <= */
+
+.pText {
+    color: #000;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+}
