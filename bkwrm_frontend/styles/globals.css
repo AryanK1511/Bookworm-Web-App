@@ -100,11 +100,16 @@
 }
 
 /* ========== BOOK PAGE STYLES ========== */
+.b-container {
+	color: #fff;
+}
+
 .book-title-heading {
 	font-family: "Comfortaa", sans-serif;
 	font-size: 2rem;
 	text-align: center;
 	padding: 100px 0 20px 0;
+	color: #6AB376;
 }
 
 .book-title-author {

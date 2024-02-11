@@ -33,7 +33,7 @@ const ExploreSpecificBook = () => {
 	}, [id]);
 
 	return (
-		<Container>
+		<Container className="b-container">
 			<h1 className="book-title-heading">
 				{bookDetails?.volumeInfo?.title}
 			</h1>
