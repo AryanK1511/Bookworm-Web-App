@@ -3,10 +3,15 @@ import Link from "next/link";
 import { addBookToReadingList } from "@/lib/readingList";
 import { useRouter } from "next/router";
 import styles from "./ExplorePageBookCard.module.css";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
 
 // ========== BOOK CARD COMPONENT COMPONENT ===========
 const ExplorePageBookCard = ({ book }) => {
 	const router = useRouter();
+
+	// Define state for user
+	const [user, setUser] = useAtom(userAtom);
 
 	// Define a state variable to track the result of the async operation
 	const [isAddingBook, setIsAddingBook] = React.useState(false);
@@ -22,7 +27,7 @@ const ExplorePageBookCard = ({ book }) => {
 			// Check if login is successful
 			if (response.success) {
 				// Redirect to the users reading list
-				router.push("/readinglist/1");
+				router.push(`/readinglist/${user?.user?.sub.id}`);
 			} else {
 				console.error(
 					"Addition of book to reading list failed:",
