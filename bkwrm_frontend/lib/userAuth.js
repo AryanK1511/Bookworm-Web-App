@@ -98,4 +98,5 @@ export {
 	logoutUser,
 	getToken,
 	isAuthenticated,
+	setToken,
 };

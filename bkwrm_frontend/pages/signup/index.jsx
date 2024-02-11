@@ -60,7 +60,6 @@ const SignUpPage = () => {
 				router.push("/login");
 			} else {
 				// Set the registration error message
-				console.log(response);
 				setRegistrationError(response.message);
 			}
 		}

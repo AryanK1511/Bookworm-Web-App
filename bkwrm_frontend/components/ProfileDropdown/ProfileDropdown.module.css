@@ -16,3 +16,11 @@
 	background-color: #e48822;
 	color: #fff;
 }
+
+.profPic {
+	width: 32px;
+	height: 32px;
+	object-fit: cover;
+	border-radius: 50%;
+	overflow: hidden;
+}

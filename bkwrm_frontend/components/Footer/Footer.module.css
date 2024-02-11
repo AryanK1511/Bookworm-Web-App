@@ -1,10 +1,8 @@
 /* => Footer Styles <= */
 .footerBg {
 	background-color: black;
-	position: sticky;
-	bottom: 0;
-	width: 100%;
 	z-index: 3;
+	margin-top: auto;
 }
 
 .footerIcon {

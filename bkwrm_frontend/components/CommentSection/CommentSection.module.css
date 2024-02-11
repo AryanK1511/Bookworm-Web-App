@@ -1,52 +1,59 @@
 /* => Comment Section Styles <= */
+.profPic {
+	width: 32px;
+	height: 32px;
+	object-fit: cover;
+	border-radius: 50%;
+	overflow: hidden;
+}
 
 .commentInput {
-    padding: 15px;
-    background-color: transparent;
-    color: #fff;
+	padding: 15px;
+	background-color: transparent;
+	color: #fff;
 }
 
 .commentInput::placeholder {
-    color: #fff;
+	color: #fff;
 }
 
 .commentInput:focus {
-    color: #fff;
-    background-color: transparent;
-    border-color: #E48822;
+	color: #fff;
+	background-color: transparent;
+	border-color: #e48822;
 }
 
 .cardBtn {
-    padding: 15px 30px;
-    background-color: #E48822;
-    color: #fff;
-    font-weight: 600;
-    border: 2px solid #E48822;
-    z-index: -3;
+	padding: 15px 30px;
+	background-color: #e48822;
+	color: #fff;
+	font-weight: 600;
+	border: 2px solid #e48822;
+	z-index: -3;
 }
 
 .cardBtn:hover {
-    background-color: #E48822;
-    border-color: #E48822;
+	background-color: #e48822;
+	border-color: #e48822;
 }
 
 .allComments {
-    border-radius: 10px;
-    padding: 25px;
-    background-color: #1E1E1E;
-    border: #1E1E1E;
-    color: #fff;
+	border-radius: 10px;
+	padding: 25px;
+	background-color: #1e1e1e;
+	border: #1e1e1e;
+	color: #fff;
 }
 
 .comment {
-    background-color: #1E1E1E;
-    border: #1E1E1E;
-    color: #fff;
+	background-color: #1e1e1e;
+	border: #1e1e1e;
+	color: #fff;
 }
 
 .deleteButton {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem; 
-    z-index: 2; 
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	z-index: 2;
 }

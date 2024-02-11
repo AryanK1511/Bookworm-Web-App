@@ -13,13 +13,6 @@ export default function App({ Component, pageProps }) {
 	// Getting the user state from the store
 	const [user, setUser] = useAtom(userAtom);
 
-	// Setting style
-	const appStyle = {
-		backgroundColor: "#000000",
-		color: "#ffffff",
-		minHeight: "100vh", // Make sure it covers full height
-	};
-
 	// Set user state on page load
 	useEffect(() => {
 		if (isAuthenticated()) {
@@ -29,9 +22,12 @@ export default function App({ Component, pageProps }) {
 	}, []);
 
 	return (
-		<div style={appStyle}>
+		<div className="body-wrapper">
 			<Navbar />
-			<Component {...pageProps} />
+
+			<main style={{ flex: 1 }}>
+				<Component {...pageProps} />
+			</main>
 			<Footer />
 		</div>
 	);
