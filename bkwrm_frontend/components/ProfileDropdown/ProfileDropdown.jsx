@@ -8,7 +8,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "@/store";
 
 // ===== PROFILE DROPDOWN COMPONENT =====
-const ProfileDropdown = ({ user }) => {
+const ProfileDropdown = () => {
 	// Getting the user state from the store
 	const [userState, setUserState] = useAtom(userAtom);
 
@@ -61,7 +61,8 @@ const ProfileDropdown = ({ user }) => {
 						alt="User profile picture"
 						width={32}
 						height={32}
-						className="rounded-full"
+						className={styles.profPic}
+						layout="fixed" // add this if you're using Next.js Image component
 					/>
 				</button>
 			)}

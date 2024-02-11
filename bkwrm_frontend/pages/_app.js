@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
 	const appStyle = {
 		backgroundColor: "#000000",
 		color: "#ffffff",
-		minHeight: "100vh", // Make sure it covers full height
+		minHeight: "100vh", 
 	};
 
 	// Set user state on page load

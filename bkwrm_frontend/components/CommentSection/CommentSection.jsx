@@ -90,6 +90,7 @@ const CommentSection = ({ reviews, id, fetchBookDetails }) => {
 									height: "50px",
 									marginRight: "15px",
 								}}
+								className={styles.profPic}
 							/>
 							<div className="flex-grow-1">
 								<div>

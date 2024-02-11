@@ -12,6 +12,7 @@ import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
 import cloudinary.api
+from werkzeug.utils import secure_filename
 
 # Configure JWT for authorization
 jwt = JWTManager(app)
@@ -49,6 +50,72 @@ def get_user(user_id):
         'message': 'User found',
         'user': user_data
     }), 200
+
+# ========== ENDPOINT FOR USER PROFILE UPDATE ===========
+@app.route('/api/users/profile/update/<user_id>', methods=["PUT"])
+@jwt_required()
+def update_user_profile(user_id):
+    user = User.query.get(user_id)
+
+    # If user not found, return error message
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    # This assumes that the form data is sent as multipart/form-data
+    fullname = request.form.get('fullname')
+    username = request.form.get('username')
+
+    # Update user data
+    user.fullname = fullname if fullname else user.fullname
+    user.username = username if username else user.username
+
+    # Set to default profile picture
+    if 'profile_picture' in request.form and request.form['profile_picture'] == 'reset':
+        user.profile_picture = "https://res.cloudinary.com/dtjzbh27c/image/upload/v1707052869/default_profile_pic.avif"
+    # Check if a new profile picture file is included
+    elif 'profile_picture' in request.files:
+        file_to_upload = request.files['profile_picture']
+        filename = secure_filename(file_to_upload.filename)
+
+        # Check if the user already has a profile picture
+        if user.profile_picture:
+            # Delete the existing profile picture
+            cloudinary.uploader.destroy(user_id+"_profile_picture")
+
+        # Upload the new file
+        result = cloudinary.uploader.upload(file_to_upload, public_id=user_id+"_profile_picture")
+
+        # Update the profile picture URL in the database
+        user.profile_picture = result['secure_url']
+
+    # Save the updated user data
+    try:
+        db.session.commit()
+
+        user = User.query.get(user_id)
+
+        # Create a new JWT token with the new user details
+        user_claims = {
+            "id": user.id,
+            "fullname": user.fullname,
+            "username": user.username,
+            "email": user.email,
+            "profile_picture": user.profile_picture
+        }
+
+        # Create JWT token for the new user
+        jwt_access_token = create_access_token(identity=user_claims, expires_delta=timedelta(days=365))
+
+        # Return message with new JWT token
+        return jsonify({
+            "message": "User profile updated successfully",
+            "jwt_token": jwt_access_token
+        }), 200
+
+    except Exception as e:
+        db.session.rollback()
+        # Handle any exceptions, such as database errors
+        return jsonify({'message': 'Failed to update user profile', 'error': str(e)}), 500
 
 # ========== ENDPOINT FOR USER LOGIN ===========
 @app.route('/api/users/login', methods=["POST"])

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getUserDetails } from "@/lib/userFunctions";
 import { Button, Card, Container, ListGroup } from "react-bootstrap";
-import styles from "./ProfilePage.module.css";
 
 // ========== PROFILE PAGE ==========
 const ProfilePage = () => {
@@ -30,29 +29,27 @@ const ProfilePage = () => {
 	}, [id]);
 
 	return (
-		<Container
-			className={`d-flex justify-content-center align-items-center ${styles.profileContainer}`}
-		>
-			<Card className={styles.profileCard}>
-				<Card.Body className={styles.cardBody}>
-					<div className={styles.imageContainer}>
+		<Container className="d-flex justify-content-center align-items-center profile-container">
+			<Card className="form-card">
+				<Card.Body className="card-body">
+					<div>
 						<img
 							src={userDetails.profile_picture}
 							alt="Profile Picture"
-							className={styles.profileImage}
+							className="profile-image"
 						/>
 					</div>
-					<Card.Title className={styles.cardTitle}>
+					<Card.Title className="card-title">
 						{userDetails.fullname}
 					</Card.Title>
-					<ListGroup className={styles.listGroup}>
-						<ListGroup.Item className={styles.item}>
+					<ListGroup className="list-group">
+						<ListGroup.Item className="item">
 							{userDetails.email}
 						</ListGroup.Item>
-						<ListGroup.Item className={styles.item}>
+						<ListGroup.Item className="item">
 							{userDetails.username}
 						</ListGroup.Item>
-						<ListGroup.Item className={styles.item}>
+						<ListGroup.Item className="item">
 							<p>Member Since:</p>
 							<p>
 								{new Date(
@@ -63,8 +60,8 @@ const ProfilePage = () => {
 					</ListGroup>
 					<Button
 						variant="primary"
-						className={styles.editButton}
-						onClick={() => router.push(`/edit-profile/${id}`)}
+						className="save-button"
+						onClick={() => router.push(`/profile/edit/${id}`)}
 					>
 						Edit Profile
 					</Button>

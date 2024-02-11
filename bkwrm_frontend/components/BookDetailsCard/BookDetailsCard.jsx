@@ -33,7 +33,7 @@ const BookDetailsCard = ({ bookDetails, reviews }) => {
 					name="rating"
 					size="small"
 					starDimension="20px"
-				/>
+				/><br />
 				<Badge className={styles.cardBadge} bg="info">
 					<Badge bg="secondary">{reviews.length}</Badge> Reviews{" "}
 				</Badge>
