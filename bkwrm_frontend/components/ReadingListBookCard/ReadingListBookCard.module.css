@@ -43,20 +43,3 @@
 	box-shadow: none !important;
 	padding: 20px;
 }
-
-.statusDropdown {
-	display: inline-block;
-}
-
-.statusDropdownMenu {
-	min-width: 4rem;
-	background-color: #000;
-}
-
-.statusDropdownItem {
-	color: #fff;
-}
-
-.statusDropdownItem:hover {
-	background-color: #c6356d;
-}

@@ -5,16 +5,14 @@
 
 /* ========== GLOBAL STYLES ========== */
 
-
 .body-wrapper {
 	background-color: black;
-  z-index: 3;
-  width: 100%;
-  text-align: center;
-  min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+	z-index: 3;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
 
 /* ========== NAVBAR STYLES ========== */
 .navbarStyle {
@@ -270,7 +268,7 @@
 .form-control,
 .save-button {
 	width: 100%;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 }
 
 /* ========== READING LIST PAGE STYLES ========== */
@@ -280,14 +278,55 @@
 	font-size: 3rem;
 	text-align: center;
 	padding: 50px 0 20px 0;
-	color: #E48822;
+	color: #e48822;
+}
+
+.filter-badge {
+    font-size: 1rem;
+	text-align: center;
+}
+
+.rl-dropdown {
+	padding-bottom: 30px;
 }
 
 .rl-dropdown-btn {
+	background-color: transparent;
+	color: #fff;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding-bottom: 20px;
+	border-color: #c6356d;
+	margin: 0 auto;
+}
+
+.rl-dropdown-btn:hover {
+	background-color: transparent;
+	color: #fff;
+	border-color: #c6356d;
+}
+
+.rl-dropdown-btn:focus {
+	background-color: transparent;
+	color: #fff;
+	border-color: #c6356d;
+}
+
+.dropdown-menu {
+	background-color: #000;
+}
+
+.dropdown-item {
+	color: #fff;
+}
+
+.dropdown-item:hover {
+	color: #fff;
+	background-color: #c6356d;
+}
+
+.filter-text {
+	padding: 10px 10px;
 }
 
 .delete-btn {
@@ -298,7 +337,7 @@
 	background-color: #000;
 	text-align: center;
 	padding: 30px;
-	border: none
+	border: none;
 }
 
 .alert-banner-text {
@@ -307,7 +346,7 @@
 }
 
 .alert-btn {
-	border: 2px solid #C6356D;
+	border: 2px solid #c6356d;
 	background-color: transparent;
 	color: #fff;
 	font-weight: 600;
@@ -316,7 +355,7 @@
 }
 
 .alert-btn:hover {
-	border: 2px solid #C6356D;
-	background-color: #C6356D;
+	border: 2px solid #c6356d;
+	background-color: #c6356d;
 	color: #fff;
 }

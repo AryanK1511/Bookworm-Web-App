@@ -8,7 +8,7 @@ import BookCard from "@/components/ReadingListBookCard/ReadingListBookCard";
 const ReadingListPage = () => {
     // Define state variables
     const [readingList, setReadingList] = useState([]);
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useState("All");
 
     // Define a router instance
     const router = useRouter();
@@ -39,33 +39,54 @@ const ReadingListPage = () => {
     }, []);
 
     // Filter the reading list based on the selected status
-    const filteredList = readingList.filter(book => filter ? book.status === filter : true);
+    const filteredList = filter === "All"
+    ? readingList
+    : readingList.filter(book => book.status === filter.toLowerCase());
+
 
     return (
         <Container>
             <h1 className="rl-title-heading">My Reading List</h1>
+            <div className="filter-badge">
+                <Badge pill bg="secondary" className="filter-badge">
+                    {filter} Books
+                </Badge>
+            </div>
+            <br /><br />
+            <Dropdown align="end" className="rl-dropdown">
+                <Dropdown.Toggle id="filter-dropdown" className="rl-dropdown-btn">
+                    <span className="filter-text">Select Filter</span>
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="dropdown-menu">
+                    <Dropdown.Item className="dropdown-item" onClick={() => setFilter("All")}>All</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item" onClick={() => setFilter("Unread")}>Unread</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item" onClick={() => setFilter("Reading")}>Reading</Dropdown.Item>
+                    <Dropdown.Item className="dropdown-item" onClick={() => setFilter("Read")}>Read</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
             {filteredList.length > 0 ? (
-                <>
-                    <DropdownButton onSelect={setFilter} title="Filter by Status" className="mb-4 rl-dropdown-btn">
-                        <Dropdown.Item eventKey="">All</Dropdown.Item>
-                        <Dropdown.Item eventKey="unread">Unread</Dropdown.Item>
-                        <Dropdown.Item eventKey="reading">Reading</Dropdown.Item>
-                        <Dropdown.Item eventKey="read">Read</Dropdown.Item>
-                    </DropdownButton>
-                    <Row>
-                        {filteredList.map(book => (
-                            <Col key={book.id} sm={12} md={6} lg={4}>
-                                <BookCard book={book} fetchReadingList={fetchReadingList} />
-                            </Col>
-                        ))}
-                    </Row>
-                    <Button variant="danger" className="mt-3 delete-btn" onClick={handleDeleteAll}>Delete All</Button>
-                </>
+                <div className="filter-badge">
+                <Row>
+                    {filteredList.map(book => (
+                        <Col key={book.id} sm={12} md={6} lg={4}>
+                            <BookCard book={book} fetchReadingList={fetchReadingList} />
+                        </Col>
+                    ))}
+                </Row>
+                <Button variant="danger" className="delete-btn" onClick={handleDeleteAll}>
+                Delete All
+            </Button>
+            </div> 
+                
             ) : (
-                <Alert className="alert-banner">
-                    <span className="alert-banner-text">No Books in this list</span><br /> <Button className="alert-btn" variant="primary" onClick={() => router.push("/explore")}>Explore Books</Button>
+                <Alert variant="info" className="alert-banner">
+                    <span className="alert-banner-text">List is empty</span><br />
+                    <Button variant="primary" onClick={() => router.push("/explore")} className="alert-btn">
+                        Explore Books
+                    </Button>
                 </Alert>
             )}
+            
         </Container>
     );
 };

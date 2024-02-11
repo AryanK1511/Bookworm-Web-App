@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProfileDropdown.module.css";
 import { logoutUser } from "@/lib/userAuth";
+import { deactivateUserAccount } from "@/lib/userFunctions";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store";
@@ -27,6 +28,17 @@ const ProfileDropdown = () => {
 			router.push("/");
 		} catch (error) {
 			console.error("Logout Failed:", error.message);
+		}
+	};
+
+	// Function to deactivate the user's account
+	const handleDeactivate = async () => {
+		try {
+			await deactivateUserAccount();
+			setUserState({ isAuthenticated: false, user: null });
+			router.push("/");
+		} catch (error) {
+			console.error("Deactivation Failed:", error.message);
 		}
 	};
 
@@ -94,6 +106,12 @@ const ProfileDropdown = () => {
 						className={`${styles.dropdownLink} block px-4 py-2 text-sm`}
 					>
 						Logout
+					</button>
+					<button
+						onClick={handleDeactivate}
+						className={`${styles.dropdownLink} block px-4 py-2 text-sm`}
+					>
+						Deactivate Account
 					</button>
 				</div>
 			)}

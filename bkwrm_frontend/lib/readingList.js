@@ -10,6 +10,9 @@ Reading list functionality
 const addBookToReadingList = async (book) => {
 	const token = getToken();
 
+	// Format the authors array into a string
+	const authors = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Anonymous';
+
 	// Make a POST request to the /register route of the API
 	const response = await fetch(
 		`${process.env.NEXT_PUBLIC_API_URL}/api/books/add`,
@@ -19,7 +22,7 @@ const addBookToReadingList = async (book) => {
 				"Content-Type": "application/json",
 				Authorization: `Bearer ${token}`,
 			},
-			body: JSON.stringify({ google_books_id: book.id, title: book.volumeInfo.title, authors: book.volumeInfo.authors, image_url: book.volumeInfo.imageLinks?.thumbnail}),
+			body: JSON.stringify({ google_books_id: book.id, title: book.volumeInfo.title, authors: authors, image_url: book.volumeInfo.imageLinks?.thumbnail}),
 		},
 	);
 
@@ -115,6 +118,7 @@ const deleteAllBooks = async () => {
 	const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/remove-all`, {
 		method: "DELETE",
 		headers: {
+			"Content-Type": "application/json",
 			Authorization: `Bearer ${token}`,
 		},
 	});

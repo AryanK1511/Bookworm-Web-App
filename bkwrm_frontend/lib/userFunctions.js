@@ -85,4 +85,31 @@ const updateUserProfile = async (
 	}
 };
 
-export { getUserDetails, updateUserProfile };
+// => Function to deactivate the user's account
+const deactivateUserAccount = async () => {
+	const token = getToken();
+
+	// Make a DELETE request to the /deactivate route of the API
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/users/deactivate`,
+		{
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		},
+	);
+
+	const data = await response.json();
+
+	// Throw an error if response is not 200
+	if (response.ok) {
+		return { success: true, message: data.message };
+	} else {
+		console.error("Failed to deactivate user account:", data.message);
+		return { success: false, message: data.message };
+	}
+};
+
+export { getUserDetails, updateUserProfile, deactivateUserAccount };

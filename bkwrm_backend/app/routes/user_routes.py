@@ -191,10 +191,14 @@ def register_user():
         return jsonify({'message': 'Failed to register user. Server Error.', 'error': str(e)}), 500
 
 # ========== ENDPOINT FOR USER ACCOUNT DEACTIVATION ==========
-@app.route('/api/users/deactivate/<user_id>', methods=['POST'])
-def deactivate_user(user_id):
+@app.route('/api/users/deactivate', methods=['DELETE'])
+@jwt_required()
+def deactivate_user():
+    # Get the user's details from the JWT token
+    current_user = get_jwt_identity()
+
     # Retrieve the user to be deleted
-    user_to_be_deleted = User.query.get(user_id)
+    user_to_be_deleted = User.query.get(current_user['id'])
 
     # If invalid user id is passed, return error message
     if not user_to_be_deleted:
@@ -203,10 +207,10 @@ def deactivate_user(user_id):
     # If it is a valid user, delete user data from all tables in DB
     try:
         # Delete reviews by the user
-        Review.query.filter_by(user_id=user_id).delete()
+        Review.query.filter_by(user_id=current_user['id']).delete()
 
         # Delete reading list entries by the user
-        ReadingList.query.filter_by(user_id=user_id).delete()
+        ReadingList.query.filter_by(user_id=current_user['id']).delete()
 
         # Delete the user account
         db.session.delete(user_to_be_deleted)
