@@ -1,9 +1,9 @@
+from app import app, db
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
-from app import app, db
 
 # Create all tables
 with app.app_context():

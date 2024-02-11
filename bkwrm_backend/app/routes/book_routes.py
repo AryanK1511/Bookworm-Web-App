@@ -13,6 +13,8 @@ import requests
 jwt = JWTManager(app)
 
 # ========== ENDPOINT FOR GETTING A USER'S READING LIST ===========
+
+
 @app.route('/api/books/readinglist', methods=["GET"])
 @jwt_required()
 def get_reading_list():
@@ -22,7 +24,7 @@ def get_reading_list():
 
         # Fetch the reading list from the database
         reading_list = ReadingList.query.filter_by(user_id=user['id']).all()
-        
+
         # Convert the reading list to JSON
         reading_list_json = [
             {
@@ -45,6 +47,8 @@ def get_reading_list():
         return jsonify({"message": "An error occurred while fetching reading list"}), 500
 
 # ========== ENDPOINT FOR REMOVING BOOK FROM READING LIST ===========
+
+
 @app.route('/api/books/remove', methods=["DELETE"])
 @jwt_required()
 def remove_book_from_reading_list():
@@ -63,7 +67,8 @@ def remove_book_from_reading_list():
         print("GOOGLE BOOKS ID:", google_books_id)
 
         # Remove the book from the reading list
-        ReadingList.query.filter_by(user_id=current_user["id"], google_books_id=google_books_id).delete()
+        ReadingList.query.filter_by(
+            user_id=current_user["id"], google_books_id=google_books_id).delete()
 
         # Commit the changes to the database
         db.session.commit()
@@ -75,6 +80,8 @@ def remove_book_from_reading_list():
         return jsonify({"message": "Something went wrong"}), 500
 
 # ========== ENDPOINT FOR DELETING ALL BOOKS FOR A USER ===========
+
+
 @app.route('/api/books/remove-all', methods=["DELETE"])
 @jwt_required()
 def remove_all_books_from_reading_list():
@@ -95,6 +102,8 @@ def remove_all_books_from_reading_list():
         return jsonify({"message": "Something went wrong"}), 500
 
 # ========== ENDPOINT FOR UPDATING BOOK STATUS ===========
+
+
 @app.route('/api/books/update', methods=["PUT"])
 @jwt_required()
 def update_book_status():
@@ -110,7 +119,8 @@ def update_book_status():
         status = data.get('status')
 
         # Update the book status
-        ReadingList.query.filter_by(user_id=current_user["id"], google_books_id=google_books_id).update({"status": status})
+        ReadingList.query.filter_by(
+            user_id=current_user["id"], google_books_id=google_books_id).update({"status": status})
 
         # Commit the changes to the database
         db.session.commit()
@@ -122,6 +132,8 @@ def update_book_status():
         return jsonify({"message": "Something went wrong"}), 500
 
 # ========== ENDPOINT FOR ADDING BOOK TO LIST ===========
+
+
 @app.route('/api/books/add', methods=["POST"])
 @jwt_required()
 def add_book_to_reading_list():
@@ -157,6 +169,8 @@ def add_book_to_reading_list():
         return jsonify({"message": "Something went wrong"}), 500
 
 # ========== ENDPOINT FOR GETTING THE DETAILS OF A BOOK ===========
+
+
 @app.route('/api/books/get-details/<book_id>', methods=["GET"])
 @jwt_required()
 def get_book_details(book_id):
@@ -166,16 +180,18 @@ def get_book_details(book_id):
     try:
         # Fetch book details from the google books API
         response = requests.get(google_books_api_url)
-        response.raise_for_status()  # Raises an HTTPError if the response status code is 4XX/5XX
+        # Raises an HTTPError if the response status code is 4XX/5XX
+        response.raise_for_status()
         book_details = response.json()
 
         # Fetch and join reviews with user information
         reviews = (db.session.query(Review, User)
                    .join(User)
                    .filter(Review.google_books_id == book_id)
-                   .order_by(Review.date_posted.desc())  # This will order the results
+                   # This will order the results
+                   .order_by(Review.date_posted.desc())
                    .all())
-                   
+
         reviews_list = [{
             'id': review.Review.id,
             'google_books_id': review.Review.google_books_id,

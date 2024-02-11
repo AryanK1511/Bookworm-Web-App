@@ -11,6 +11,8 @@ from datetime import timedelta
 jwt = JWTManager(app)
 
 # ========== ENDPOINT FOR ADDING A REVIEW FOR A BOOK ===========
+
+
 @app.route('/api/reviews/add', methods=["POST"])
 @jwt_required()
 def add_user_review():
@@ -47,6 +49,8 @@ def add_user_review():
         return jsonify({"message": "Review could not be added. Server error."}), 500
 
 # ========== ENDPOINT FOR DELETING A REVIEW FOR A BOOK ===========
+
+
 @app.route('/api/reviews/delete', methods=["POST"])
 @jwt_required()
 def delete_user_review():
@@ -61,7 +65,8 @@ def delete_user_review():
         id = data.get('reviewId')
 
         # Find the review entry in the database
-        review_entry = Review.query.filter_by(id=id, user_id=current_user["id"]).first()
+        review_entry = Review.query.filter_by(
+            id=id, user_id=current_user["id"]).first()
 
         # If the review entry exists, delete it
         if review_entry:

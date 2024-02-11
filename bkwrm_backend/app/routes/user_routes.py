@@ -19,12 +19,14 @@ jwt = JWTManager(app)
 
 # Cloudinary configuration
 cloudinary.config(
-  cloud_name = app.config['CLOUDINARY_CLOUD_NAME'],
-  api_key = app.config['CLOUDINARY_API_KEY'],
-  api_secret = app.config['CLOUDINARY_API_SECRET']
+    cloud_name=app.config['CLOUDINARY_CLOUD_NAME'],
+    api_key=app.config['CLOUDINARY_API_KEY'],
+    api_secret=app.config['CLOUDINARY_API_SECRET']
 )
 
 # ========== ENDPOINT FOR USER PROFILE ===========
+
+
 @app.route('/api/users/profile/<user_id>', methods=["GET"])
 @jwt_required()
 def get_user(user_id):
@@ -52,6 +54,8 @@ def get_user(user_id):
     }), 200
 
 # ========== ENDPOINT FOR USER PROFILE UPDATE ===========
+
+
 @app.route('/api/users/profile/update/<user_id>', methods=["PUT"])
 @jwt_required()
 def update_user_profile(user_id):
@@ -83,7 +87,8 @@ def update_user_profile(user_id):
             cloudinary.uploader.destroy(user_id+"_profile_picture")
 
         # Upload the new file
-        result = cloudinary.uploader.upload(file_to_upload, public_id=user_id+"_profile_picture")
+        result = cloudinary.uploader.upload(
+            file_to_upload, public_id=user_id+"_profile_picture")
 
         # Update the profile picture URL in the database
         user.profile_picture = result['secure_url']
@@ -104,7 +109,8 @@ def update_user_profile(user_id):
         }
 
         # Create JWT token for the new user
-        jwt_access_token = create_access_token(identity=user_claims, expires_delta=timedelta(days=365))
+        jwt_access_token = create_access_token(
+            identity=user_claims, expires_delta=timedelta(days=365))
 
         # Return message with new JWT token
         return jsonify({
@@ -118,16 +124,20 @@ def update_user_profile(user_id):
         return jsonify({'message': 'Failed to update user profile', 'error': str(e)}), 500
 
 # ========== ENDPOINT FOR USER LOGIN ===========
+
+
 @app.route('/api/users/login', methods=["POST"])
 def login_user():
     user_data = request.get_json()
 
     # Extract user info from the request
-    login_credential = user_data.get('login_credential')  # Can be either username or email
+    # Can be either username or email
+    login_credential = user_data.get('login_credential')
     password = user_data.get('password')
 
     # Fetch user by username or email
-    user = User.query.filter((User.username == login_credential) | (User.email == login_credential)).first()
+    user = User.query.filter((User.username == login_credential) | (
+        User.email == login_credential)).first()
 
     # Check if user exists and the password is correct
     if user and pbkdf2_sha256.verify(password, user.password_hash):
@@ -141,7 +151,8 @@ def login_user():
         }
 
         # Create JWT token for the new user
-        jwt_access_token = create_access_token(identity=user_claims, expires_delta=timedelta(days=365))
+        jwt_access_token = create_access_token(
+            identity=user_claims, expires_delta=timedelta(days=365))
 
         # Return the JWT token in the response body
         return jsonify({
@@ -154,6 +165,8 @@ def login_user():
         return jsonify({'message': 'Invalid username or password. Please try again'}), 400
 
 # ========== ENDPOINT FOR USER REGISTRATION ==========
+
+
 @app.route('/api/users/register', methods=['POST'])
 def register_user():
     user_data = request.get_json()
@@ -173,7 +186,8 @@ def register_user():
     password_hash = pbkdf2_sha256.hash(password)
 
     # Create a new user if the user doesn't exist already
-    new_user = User(fullname=fullname, username=username, email=email, password_hash=password_hash, profile_picture=f"https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/v1707052869/default_profile_pic.avif")
+    new_user = User(fullname=fullname, username=username, email=email, password_hash=password_hash,
+                    profile_picture=f"https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/v1707052869/default_profile_pic.avif")
 
     # Add the new user to DB
     try:
@@ -191,6 +205,8 @@ def register_user():
         return jsonify({'message': 'Failed to register user. Server Error.', 'error': str(e)}), 500
 
 # ========== ENDPOINT FOR USER ACCOUNT DEACTIVATION ==========
+
+
 @app.route('/api/users/deactivate', methods=['DELETE'])
 @jwt_required()
 def deactivate_user():
