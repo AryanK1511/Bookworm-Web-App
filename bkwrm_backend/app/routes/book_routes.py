@@ -43,7 +43,6 @@ def get_reading_list():
         return jsonify({"message": "Reading list fetched successfully", "reading_list": reading_list_json}), 200
 
     except Exception as e:
-        print(e)
         return jsonify({"message": "An error occurred while fetching reading list"}), 500
 
 # ========== ENDPOINT FOR REMOVING BOOK FROM READING LIST ===========
@@ -59,12 +58,8 @@ def remove_book_from_reading_list():
         # Get the body
         data = request.get_json()
 
-        print("Hello")
-
         # Extract the google_books_id from the request
         google_books_id = data.get('google_books_id')
-
-        print("GOOGLE BOOKS ID:", google_books_id)
 
         # Remove the book from the reading list
         ReadingList.query.filter_by(
@@ -209,5 +204,4 @@ def get_book_details(book_id):
 
     except Exception as e:
         # Handle any errors that occur during the request
-        print(e)
         return jsonify({"message": "An error occurred while fetching book and reviews details"}), 500

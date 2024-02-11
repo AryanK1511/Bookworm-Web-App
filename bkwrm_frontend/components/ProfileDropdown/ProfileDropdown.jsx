@@ -94,7 +94,10 @@ const ProfileDropdown = () => {
 							Your Profile
 						</a>
 					</Link>
-					<Link legacyBehavior href={`/readinglist/${userState.user.sub.id}`}>
+					<Link
+						legacyBehavior
+						href={`/readinglist/${userState.user.sub.id}`}
+					>
 						<a
 							className={`${styles.dropdownLink} block px-4 py-2 text-sm`}
 						>

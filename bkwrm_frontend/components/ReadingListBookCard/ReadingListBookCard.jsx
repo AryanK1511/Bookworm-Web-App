@@ -16,32 +16,35 @@ const statusColors = {
 const BookCard = ({ book, fetchReadingList }) => {
 	const router = useRouter();
 
-    // Format date
+	// Format date
 	const formatDate = (dateString) => {
 		const options = { year: "numeric", month: "long", day: "numeric" };
 		return new Date(dateString).toLocaleDateString(undefined, options);
 	};
 
-    // Handle status change
+	// Handle status change
 	const handleStatusChange = async (newStatus) => {
-		const response = await updateBookStatus(book.google_books_id, newStatus);
+		const response = await updateBookStatus(
+			book.google_books_id,
+			newStatus,
+		);
 
 		if (response.success) {
 			fetchReadingList(); // Refresh the reading list
 		} else {
-            console.error("Failed to update book status:", response.message);
-        }
+			console.error("Failed to update book status:", response.message);
+		}
 	};
 
-    // Handle delete book
+	// Handle delete book
 	const handleDeleteBook = async (bookId) => {
 		const response = await deleteBookFromReadingList(bookId);
 
 		if (response.success) {
 			fetchReadingList(); // Refresh the reading list
 		} else {
-            console.error("Failed to delete book:", response.message);
-        }
+			console.error("Failed to delete book:", response.message);
+		}
 	};
 
 	return (
@@ -78,7 +81,7 @@ const BookCard = ({ book, fetchReadingList }) => {
 							{" "}
 							{/* Apply custom menu class if needed */}
 							<Dropdown.Item
-                                className={styles.statusDropdownItem}
+								className={styles.statusDropdownItem}
 								eventKey="unread"
 								onClick={() => handleStatusChange("unread")}
 							>
@@ -100,19 +103,22 @@ const BookCard = ({ book, fetchReadingList }) => {
 					</Dropdown>
 				</div>
 				<div className="d-flex justify-content-between">
-				<Button
-					variant="danger"
-					className="mt-2 delete-btn"
-					onClick={() => handleDeleteBook(book.google_books_id)}
-				>
-					Delete
-				</Button>{''}
-				<Button
-					className="mt-2 ml-4 delete-btn"
-					onClick={() => router.push(`/explore/${book.google_books_id}`)}
-				>
-					View Book
-				</Button>
+					<Button
+						variant="danger"
+						className="mt-2 delete-btn"
+						onClick={() => handleDeleteBook(book.google_books_id)}
+					>
+						Delete
+					</Button>
+					{""}
+					<Button
+						className="mt-2 ml-4 delete-btn"
+						onClick={() =>
+							router.push(`/explore/${book.google_books_id}`)
+						}
+					>
+						View Book
+					</Button>
 				</div>
 			</Card.Body>
 		</Card>

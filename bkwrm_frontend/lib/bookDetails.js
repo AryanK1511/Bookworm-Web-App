@@ -77,8 +77,8 @@ const deleteReview = async (reviewId) => {
 				Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
-				reviewId: reviewId
-			})
+				reviewId: reviewId,
+			}),
 		},
 	);
 
