@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }) {
 		<div style={appStyle}>
 			<Navbar />
 			<Component {...pageProps} />
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

@@ -262,9 +262,56 @@
 	margin-bottom: 1rem;
 }
 
-/* Adjust the width of the input and button to match */
 .form-control,
 .save-button {
 	width: 100%;
-	box-sizing: border-box; /* Include padding and border in the width */
+	box-sizing: border-box; 
+}
+
+/* ========== READING LIST PAGE STYLES ========== */
+
+.rl-title-heading {
+	font-family: "Comfortaa", sans-serif;
+	font-size: 3rem;
+	text-align: center;
+	padding: 50px 0 20px 0;
+	color: #E48822;
+}
+
+.rl-dropdown-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 20px;
+}
+
+.delete-btn {
+	padding: 15px 30px;
+}
+
+.alert-banner {
+	background-color: #000;
+	text-align: center;
+	padding: 30px;
+	border: none
+}
+
+.alert-banner-text {
+	color: #fff;
+	font-size: 1.4rem;
+}
+
+.alert-btn {
+	border: 2px solid #C6356D;
+	background-color: transparent;
+	color: #fff;
+	font-weight: 600;
+	margin: 20px;
+	transition: 0.2s;
+}
+
+.alert-btn:hover {
+	border: 2px solid #C6356D;
+	background-color: #C6356D;
+	color: #fff;
 }

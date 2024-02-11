@@ -1,0 +1,110 @@
+import React from "react";
+import { Card, Button, Badge, Dropdown } from "react-bootstrap";
+import { updateBookStatus, deleteBookFromReadingList } from "@/lib/readingList";
+import styles from "./ReadingListBookCard.module.css";
+
+// ========== Status Colors ==========
+const statusColors = {
+	unread: "secondary",
+	reading: "warning",
+	read: "success",
+};
+
+// ========== BookCard Component ==========
+const BookCard = ({ book, fetchReadingList }) => {
+    // Format date
+	const formatDate = (dateString) => {
+		const options = { year: "numeric", month: "long", day: "numeric" };
+		return new Date(dateString).toLocaleDateString(undefined, options);
+	};
+
+    // Handle status change
+	const handleStatusChange = async (newStatus) => {
+		const response = await updateBookStatus(book.google_books_id, newStatus);
+
+		if (response.success) {
+			fetchReadingList(); // Refresh the reading list
+		} else {
+            console.error("Failed to update book status:", response.message);
+        }
+	};
+
+    // Handle delete book
+	const handleDeleteBook = async (bookId) => {
+		const response = await deleteBookFromReadingList(bookId);
+
+		if (response.success) {
+			fetchReadingList(); // Refresh the reading list
+		} else {
+            console.error("Failed to delete book:", response.message);
+        }
+	};
+
+	return (
+		<Card className={`shadow-sm ${styles.bookCard}`}>
+			<Card.Img
+				variant="top"
+				src={book.image_url}
+				className={styles.cardImage}
+			/>
+			<Card.Body>
+				<Card.Title className={styles.cardTitle}>
+					{book.title}
+				</Card.Title>
+				<Card.Text className={styles.cardAuthor}>
+					{book.author}
+				</Card.Text>
+				<Card.Text className={styles.cardDate}>
+					Added on: {formatDate(book.date_added)}
+				</Card.Text>
+				<div className="d-flex align-items-center">
+					<Badge bg={statusColors[book.status]} className="me-2">
+						{book.status.toUpperCase()}
+					</Badge>
+					<Dropdown align="end" className={styles.statusDropdown}>
+						<Dropdown.Toggle
+							split
+							variant={statusColors[book.status]}
+							id="dropdown-split-basic"
+							className={`btn-sm ${styles.statusDropdownToggle}`} // Apply custom toggle class
+						>
+							{/* You can leave this empty if you only want the split arrow */}
+						</Dropdown.Toggle>
+						<Dropdown.Menu className={styles.statusDropdownMenu}>
+							{" "}
+							{/* Apply custom menu class if needed */}
+							<Dropdown.Item
+                                className={styles.statusDropdownItem}
+								eventKey="unread"
+								onClick={() => handleStatusChange("unread")}
+							>
+								Unread
+							</Dropdown.Item>
+							<Dropdown.Item
+								eventKey="reading"
+								onClick={() => handleStatusChange("reading")}
+							>
+								Reading
+							</Dropdown.Item>
+							<Dropdown.Item
+								eventKey="read"
+								onClick={() => handleStatusChange("read")}
+							>
+								Read
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+				</div>
+				<Button
+					variant="danger"
+					className="mt-2 delete-btn"
+					onClick={() => handleDeleteBook(book.google_books_id)}
+				>
+					Delete
+				</Button>
+			</Card.Body>
+		</Card>
+	);
+};
+
+export default BookCard;

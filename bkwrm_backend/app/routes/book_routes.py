@@ -12,6 +12,115 @@ import requests
 # Configure JWT for authorization
 jwt = JWTManager(app)
 
+# ========== ENDPOINT FOR GETTING A USER'S READING LIST ===========
+@app.route('/api/books/readinglist', methods=["GET"])
+@jwt_required()
+def get_reading_list():
+    try:
+        # Get the current user's ID from the JWT token
+        user = get_jwt_identity()
+
+        # Fetch the reading list from the database
+        reading_list = ReadingList.query.filter_by(user_id=user['id']).all()
+        
+        # Convert the reading list to JSON
+        reading_list_json = [
+            {
+                'id': item.id,
+                'user_id': item.user_id,
+                'google_books_id': item.google_books_id,
+                'title': item.title,
+                'author': item.author,
+                'image_url': item.image_url,
+                'status': item.status,
+                'date_added': item.date_added.isoformat()
+            } for item in reading_list
+        ]
+
+        # Return the reading list
+        return jsonify({"message": "Reading list fetched successfully", "reading_list": reading_list_json}), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({"message": "An error occurred while fetching reading list"}), 500
+
+# ========== ENDPOINT FOR REMOVING BOOK FROM READING LIST ===========
+@app.route('/api/books/remove', methods=["DELETE"])
+@jwt_required()
+def remove_book_from_reading_list():
+    try:
+        # Get the current user's ID from the JWT token
+        current_user = get_jwt_identity()
+
+        # Get the body
+        data = request.get_json()
+
+        print("Hello")
+
+        # Extract the google_books_id from the request
+        google_books_id = data.get('google_books_id')
+
+        print("GOOGLE BOOKS ID:", google_books_id)
+
+        # Remove the book from the reading list
+        ReadingList.query.filter_by(user_id=current_user["id"], google_books_id=google_books_id).delete()
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        return jsonify({"message": "Book removed from reading list successfully"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": "Something went wrong"}), 500
+
+# ========== ENDPOINT FOR DELETING ALL BOOKS FOR A USER ===========
+@app.route('/api/books/remove-all', methods=["DELETE"])
+@jwt_required()
+def remove_all_books_from_reading_list():
+    try:
+        # Get the current user's ID from the JWT token
+        current_user = get_jwt_identity()
+
+        # Remove all books from the reading list
+        ReadingList.query.filter_by(user_id=current_user["id"]).delete()
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        return jsonify({"message": "All books removed from reading list successfully"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": "Something went wrong"}), 500
+
+# ========== ENDPOINT FOR UPDATING BOOK STATUS ===========
+@app.route('/api/books/update', methods=["PUT"])
+@jwt_required()
+def update_book_status():
+    try:
+        # Get the current user's ID from the JWT token
+        current_user = get_jwt_identity()
+
+        # Get the body
+        data = request.get_json()
+
+        # Extract the google_books_id and status from the request
+        google_books_id = data.get('google_books_id')
+        status = data.get('status')
+
+        # Update the book status
+        ReadingList.query.filter_by(user_id=current_user["id"], google_books_id=google_books_id).update({"status": status})
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        return jsonify({"message": "Book status updated successfully"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"message": "Something went wrong"}), 500
+
 # ========== ENDPOINT FOR ADDING BOOK TO LIST ===========
 @app.route('/api/books/add', methods=["POST"])
 @jwt_required()
@@ -29,7 +138,10 @@ def add_book_to_reading_list():
         # Create a new reading list entry
         reading_list_entry = ReadingList(
             user_id=current_user["id"],
-            google_books_id=google_books_id
+            google_books_id=google_books_id,
+            title=data.get('title'),
+            author=data.get('authors'),
+            image_url=data.get('image_url')
         )
 
         # Add the entry to the database session

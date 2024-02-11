@@ -22,7 +22,7 @@ const ExplorePageBookCard = ({ book }) => {
 			// Check if login is successful
 			if (response.success) {
 				// Redirect to the users reading list
-				router.push("/reading-list");
+				router.push("/readinglist/1");
 			} else {
 				console.error(
 					"Addition of book to reading list failed:",
