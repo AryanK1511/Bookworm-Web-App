@@ -20,6 +20,13 @@ const EditProfilePage = () => {
 	const [profilePicture, setProfilePicture] = useState(null);
 	const [errorMessage, setErrorMessage] = useState("");
 
+	useEffect(() => {
+        // Redirect the user if they try to access someone else's profile
+        if (user.isAuthenticated && user.user.sub.id !== id) {
+            router.push(`/profile/edit/${user.user.sub.id}`);
+        }
+    }, [id]);
+
 	// Default profile picture URL
 	const defaultProfilePic =
 		"https://res.cloudinary.com/dtjzbh27c/image/upload/v1707052869/default_profile_pic.avif";

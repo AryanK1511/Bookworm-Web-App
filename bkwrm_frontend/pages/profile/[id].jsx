@@ -2,15 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getUserDetails } from "@/lib/userFunctions";
 import { Button, Card, Container, ListGroup } from "react-bootstrap";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store";
 
 // ========== PROFILE PAGE ==========
 const ProfilePage = () => {
 	// Define Router and get user ID from URL
 	const router = useRouter();
 	const { id } = router.query;
+	const [user, setUser] = useAtom(userAtom);
 
 	// State var for user details
 	const [userDetails, setUserDetails] = useState({});
+
+	useEffect(() => {
+        // Redirect the user if they try to access someone else's profile
+        if (user.isAuthenticated && user.user.sub.id !== id) {
+            router.push(`/profile/${user.user.sub.id}`);
+        }
+    }, [id]);
 
 	// Fetch user details from server
 	useEffect(() => {

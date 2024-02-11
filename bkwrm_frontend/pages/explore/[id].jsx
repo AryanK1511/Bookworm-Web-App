@@ -4,8 +4,6 @@ import BookDetailsCard from "@/components/BookDetailsCard/BookDetailsCard";
 import CommentSection from "@/components/CommentSection/CommentSection";
 import { getBookDetails } from "@/lib/bookDetails";
 import { useRouter } from "next/router";
-import { useAtom } from "jotai";
-import { userAtom } from "@/store";
 
 // ========== EXPLORE SPECIFIC BOOK PAGE ===========
 const ExploreSpecificBook = () => {
@@ -13,9 +11,6 @@ const ExploreSpecificBook = () => {
 	const { id } = router.query;
 	const [bookDetails, setBookDetails] = useState({});
 	const [reviews, setReviews] = useState([]);
-	const [user] = useAtom(userAtom);
-
-	console.log("User: ", user);
 
 	const fetchBookDetails = async () => {
 		if (router.isReady && id) {
@@ -35,8 +30,7 @@ const ExploreSpecificBook = () => {
 
 	useEffect(() => {
 		fetchBookDetails();
-		console.log(reviews);
-	}, [id, router.isReady]);
+	}, [id]);
 
 	return (
 		<Container>
