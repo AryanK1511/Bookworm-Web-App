@@ -5,9 +5,9 @@ import styles from "./BookDetailsCard.module.css";
 
 // Helper function to strip HTML tags
 const stripHtml = (html) => {
-	if (!html) return '';
-	return html.replace(/<[^>]+>/g, '');
-  };
+	if (!html) return "";
+	return html.replace(/<[^>]+>/g, "");
+};
 
 // ========== BOOK DETAILS CARD COMPONENT ===========
 const BookDetailsCard = ({ bookDetails, reviews }) => {
@@ -38,7 +38,8 @@ const BookDetailsCard = ({ bookDetails, reviews }) => {
 					name="rating"
 					size="small"
 					starDimension="20px"
-				/><br />
+				/>
+				<br />
 				<Badge className={styles.cardBadge} bg="info">
 					<Badge bg="secondary">{reviews.length}</Badge> Reviews{" "}
 				</Badge>

@@ -21,11 +21,11 @@ const EditProfilePage = () => {
 	const [errorMessage, setErrorMessage] = useState("");
 
 	useEffect(() => {
-        // Redirect the user if they try to access someone else's profile
-        if (user.isAuthenticated && user.user.sub.id !== id) {
-            router.push(`/profile/edit/${user.user.sub.id}`);
-        }
-    }, [id]);
+		// Redirect the user if they try to access someone else's profile
+		if (user.isAuthenticated && user.user.sub.id !== id) {
+			router.push(`/profile/edit/${user.user.sub.id}`);
+		}
+	}, [id]);
 
 	// Default profile picture URL
 	const defaultProfilePic =

@@ -16,11 +16,11 @@ const ProfilePage = () => {
 	const [userDetails, setUserDetails] = useState({});
 
 	useEffect(() => {
-        // Redirect the user if they try to access someone else's profile
-        if (user.isAuthenticated && user.user.sub.id !== id) {
-            router.push(`/profile/${user.user.sub.id}`);
-        }
-    }, [id]);
+		// Redirect the user if they try to access someone else's profile
+		if (user.isAuthenticated && user.user.sub.id !== id) {
+			router.push(`/profile/${user.user.sub.id}`);
+		}
+	}, [id]);
 
 	// Fetch user details from server
 	useEffect(() => {
