@@ -4,7 +4,10 @@ import BookDetailsCard from "@/components/BookDetailsCard/BookDetailsCard";
 import CommentSection from "@/components/CommentSection/CommentSection";
 import { getBookDetails } from "@/lib/bookDetails";
 import { useRouter } from "next/router";
-import { checkBookInReadingList, addBookToReadingList } from "@/lib/readingList";
+import {
+	checkBookInReadingList,
+	addBookToReadingList,
+} from "@/lib/readingList";
 
 // ========== EXPLORE SPECIFIC BOOK PAGE ===========
 const ExploreSpecificBook = () => {
@@ -44,7 +47,10 @@ const ExploreSpecificBook = () => {
 			// Optionally, fetch the book details again to update the UI
 			fetchBookDetails();
 		} else {
-			console.error("Adding book to reading list failed:", response.message);
+			console.error(
+				"Adding book to reading list failed:",
+				response.message,
+			);
 		}
 	};
 
@@ -66,11 +72,8 @@ const ExploreSpecificBook = () => {
 				</span>
 			</h3>
 			<div className="btn-div">
-			{!isInReadingList ? (
-					<Button
-						variant="primary"
-						onClick={handleAddToReadingList}
-					>
+				{!isInReadingList ? (
+					<Button variant="primary" onClick={handleAddToReadingList}>
 						Add to Reading List
 					</Button>
 				) : (
@@ -78,7 +81,7 @@ const ExploreSpecificBook = () => {
 						Added to Reading List
 					</Button>
 				)}
-				</div>
+			</div>
 			<Row className="justify-content-md-center">
 				<Col md={8}>
 					<BookDetailsCard

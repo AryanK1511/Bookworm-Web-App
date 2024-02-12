@@ -1,4 +1,4 @@
-import { getToken, setToken } from "./userAuth";
+import { getToken, setToken, removeToken } from "./userAuth";
 
 /*
 ===================================
@@ -105,6 +105,7 @@ const deactivateUserAccount = async () => {
 
 	// Throw an error if response is not 200
 	if (response.ok) {
+		removeToken();
 		return { success: true, message: data.message };
 	} else {
 		console.error("Failed to deactivate user account:", data.message);

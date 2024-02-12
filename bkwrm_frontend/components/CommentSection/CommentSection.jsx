@@ -18,6 +18,18 @@ import styles from "./CommentSection.module.css";
 const CommentSection = ({ reviews, id, fetchBookDetails }) => {
 	const router = useRouter();
 
+	// Function to convert UTC date to local date
+	const convertUTCDateToLocalDate = (dateString) => {
+		const date = new Date(dateString);
+		const newDate = new Date(
+			date.getTime() + date.getTimezoneOffset() * 60 * 1000,
+		);
+		const offset = date.getTimezoneOffset() / 60;
+		const hours = date.getHours();
+		newDate.setHours(hours - offset);
+		return newDate;
+	};
+
 	// Setting up the state for the new comment and rating
 	const [newComment, setNewComment] = useState("");
 	const [rating, setRating] = useState(0);
@@ -107,12 +119,9 @@ const CommentSection = ({ reviews, id, fetchBookDetails }) => {
 										marginBottom: "10px",
 									}}
 								>
-									{new Date(
+									{convertUTCDateToLocalDate(
 										review.date_posted,
-									).toLocaleDateString()}{" "}
-									{new Date(
-										review.date_posted,
-									).toLocaleTimeString()}
+									).toLocaleString()}
 								</div>
 								<div>{review.review_text}</div>
 								<StarRatings
