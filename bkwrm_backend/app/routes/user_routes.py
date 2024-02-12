@@ -220,13 +220,20 @@ def deactivate_user():
     if not user_to_be_deleted:
         return jsonify({'message': 'User not found'}), 404
 
-    # If it is a valid user, delete user data from all tables in DB
+    # If it is a valid user, start the deletion process
     try:
         # Delete reviews by the user
         Review.query.filter_by(user_id=current_user['id']).delete()
 
         # Delete reading list entries by the user
         ReadingList.query.filter_by(user_id=current_user['id']).delete()
+
+        # Check if the user has a profile picture and it's not the default one
+        if user_to_be_deleted.profile_picture and user_to_be_deleted.profile_picture != "https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/v1707052869/default_profile_pic.avif":
+            # Extract the public_id from the user's profile picture URL
+            public_id = user_to_be_deleted.profile_picture.split('/')[-1].split('.')[0]
+            # Delete the existing profile picture from Cloudinary
+            cloudinary.uploader.destroy(public_id)
 
         # Delete the user account
         db.session.delete(user_to_be_deleted)
@@ -236,4 +243,5 @@ def deactivate_user():
 
     except Exception as e:
         db.session.rollback()
+        # Handle any exceptions, such as database errors
         return jsonify({'message': 'Failed to deactivate user', 'error': str(e)}), 500
