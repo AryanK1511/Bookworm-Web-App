@@ -102,6 +102,33 @@ const deleteBookFromReadingList = async (bookId) => {
 	}
 };
 
+// => Check if a book is in the user's reading list
+const checkBookInReadingList = async (googleBooksId) => {
+	const token = getToken();
+
+	// Make a GET request to a new endpoint that checks for book presence in the reading list
+	const response = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/books/check?google_books_id=${googleBooksId}`,
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`,
+			},
+		},
+	);
+
+	const data = await response.json();
+
+	// If the response is ok, return the data indicating whether the book is in the reading list
+	if (response.ok) {
+		return { success: true, inReadingList: data.inReadingList };
+	} else {
+		console.error("Failed to check book in reading list:", data.message);
+		return { success: false, message: data.message };
+	}
+};
+
 // => Update book status
 const updateBookStatus = async (bookId, status) => {
 	const token = getToken();
@@ -166,4 +193,5 @@ export {
 	deleteBookFromReadingList,
 	updateBookStatus,
 	deleteAllBooks,
+	checkBookInReadingList,
 };

@@ -104,6 +104,12 @@
 	color: #fff;
 }
 
+.btn-div {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 20px;
+}
+
 .book-title-heading {
 	font-family: "Comfortaa", sans-serif;
 	font-size: 2rem;

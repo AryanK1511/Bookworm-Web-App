@@ -20,7 +20,11 @@ const getToken = () => {
 
 // => Remove token from local storage
 const removeToken = () => {
-	localStorage.removeItem("access_token");
+	try {
+		localStorage.removeItem("access_token");
+	} catch (error) {
+		console.error("Error removing token from local storage:", error);
+	}
 };
 
 // => Check to see whether the user is authenticated
@@ -99,4 +103,5 @@ export {
 	getToken,
 	isAuthenticated,
 	setToken,
+	removeToken,
 };

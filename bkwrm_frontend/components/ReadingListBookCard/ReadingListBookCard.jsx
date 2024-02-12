@@ -16,10 +16,25 @@ const statusColors = {
 const BookCard = ({ book, fetchReadingList }) => {
 	const router = useRouter();
 
+	// Function to convert UTC date to local date
+	const convertUTCDateToLocalDate = (dateString) => {
+		const date = new Date(dateString);
+		const newDate = new Date(
+			date.getTime() + date.getTimezoneOffset() * 60 * 1000,
+		);
+		const offset = date.getTimezoneOffset() / 60;
+		const hours = date.getHours();
+		newDate.setHours(hours - offset);
+		return newDate;
+	};
+
 	// Format date
 	const formatDate = (dateString) => {
 		const options = { year: "numeric", month: "long", day: "numeric" };
-		return new Date(dateString).toLocaleDateString(undefined, options);
+		return convertUTCDateToLocalDate(dateString).toLocaleDateString(
+			undefined,
+			options,
+		);
 	};
 
 	// Handle status change

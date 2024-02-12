@@ -19,7 +19,7 @@ jwt = JWTManager(app)
 @jwt_required()
 def get_reading_list():
     try:
-        # Get the current user's ID from the JWT token
+        # Get the current user from the JWT token
         user = get_jwt_identity()
 
         # Fetch the reading list from the database
@@ -52,7 +52,7 @@ def get_reading_list():
 @jwt_required()
 def remove_book_from_reading_list():
     try:
-        # Get the current user's ID from the JWT token
+        # Get the current user from the JWT token
         current_user = get_jwt_identity()
 
         # Get the body
@@ -81,7 +81,7 @@ def remove_book_from_reading_list():
 @jwt_required()
 def remove_all_books_from_reading_list():
     try:
-        # Get the current user's ID from the JWT token
+        # Get the current user from the JWT token
         current_user = get_jwt_identity()
 
         # Remove all books from the reading list
@@ -103,7 +103,7 @@ def remove_all_books_from_reading_list():
 @jwt_required()
 def update_book_status():
     try:
-        # Get the current user's ID from the JWT token
+        # Get the current user from the JWT token
         current_user = get_jwt_identity()
 
         # Get the body
@@ -126,6 +126,33 @@ def update_book_status():
         db.session.rollback()
         return jsonify({"message": "Something went wrong"}), 500
 
+# ========== ENDPOINT FOR CHECKING IF BOOK IS IN READING LIST ===========
+
+
+@app.route('/api/books/check', methods=['GET'])
+@jwt_required()
+def check_book_in_reading_list():
+    try:
+        # Get the current user from the JWT token
+        current_user = get_jwt_identity()
+
+        # Extract the google_books_id from the query parameters
+        google_books_id = request.args.get('google_books_id')
+
+        print(google_books_id)
+        print(current_user['id'])
+
+
+        book = ReadingList.query.filter_by(user_id=current_user['id'], google_books_id=google_books_id).first()
+
+        print(book)
+        
+
+        return jsonify({'message': 'Book exists in reading list', 'inReadingList': book is not None }), 200
+    except Exception as e:
+        return jsonify({"message": "Something went wrong"}), 500    
+
+
 # ========== ENDPOINT FOR ADDING BOOK TO LIST ===========
 
 
@@ -133,7 +160,7 @@ def update_book_status():
 @jwt_required()
 def add_book_to_reading_list():
     try:
-        # Get the current user's ID from the JWT token
+        # Get the current user from the JWT token
         current_user = get_jwt_identity()
 
         # Get the body
@@ -150,6 +177,8 @@ def add_book_to_reading_list():
             author=data.get('authors'),
             image_url=data.get('image_url')
         )
+
+        print(reading_list_entry)
 
         # Add the entry to the database session
         db.session.add(reading_list_entry)
