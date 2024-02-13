@@ -2,7 +2,7 @@
 
 **📚 Welcome to Bookworm! 📖**
 
-Bookworm is an engaging web app built for book lovers everywhere! It offers a vast library of books from across the globe, allowing users to dive into the world of literature with just a few clicks. 🌍✨
+[Bookworm]() is an engaging web app built for book lovers everywhere! It offers a vast library of books from across the globe, allowing users to dive into the world of literature with just a few clicks. 🌍✨
 
 **What can you do with Bookworm?**
 
