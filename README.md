@@ -4,9 +4,9 @@
 
 **Bookworm** is an engaging web app built for book lovers everywhere! It offers a vast library of books from across the globe, allowing users to dive into the world of books with just a few clicks. 🌍✨
 
-## Video Demo of application
+# Video Demo of application
 
-## Tech Stack
+# Tech Stack
 
 - **Frontend**: `React.js`, `Next.js`, `JavaScript`
 - **Styling**: `CSS`, `Bootstrap`, `Tailwind CSS`
@@ -31,13 +31,13 @@
 - [JWT-Decode](https://www.npmjs.com/package/jwt-decode)
 - [Jotai](https://jotai.org/docs/introduction)
 
-## App Functionality and UI - Deep Dive
+# App Functionality and UI - Deep Dive
 
 ![Home Page](./assets/home-page.png)
 
-### User Authentication and Authorization
+## User Authentication and Authorization
 
-- Users can register for an account by providing their full name, email, username, and password.
+- Users can register for an account by providing their `full name`, `email`, `username`, and `password`.
 - Password validation ensures user safety by requiring at least one capital letter, number, and special character.
 - The registration process includes robust error handling, displaying beautifully designed UI components to notify users of any registration failures.
 - User authentication is handled securely using JWT tokens.
@@ -46,15 +46,15 @@
 - JWT tokens act as sessions, eliminating the need for users to log in every time they access the website from the same device.
 - Tokens have a default expiration period of one year, after which users are required to log in again for continued access, ensuring security and user convenience.
 
-#### Sign up page
+### Sign up page
 
 ![Sign up page](./assets/sign-up-page.png)
 
-#### Login page
+### Login page
 
 ![Login Page](./assets/login-page.png)
 
-### Book Searching and Management
+## Book Searching and Management
 
 - The app provides users with a search feature to explore a database containing books from around the world.
 ![Seach page](./assets/explore-page.png)
@@ -63,10 +63,10 @@
 - Users can search for books by title, author, genre, or any other relevant criteria.
 ![Seach page 2](./assets/explore-page-2.png)
 
-- Each book entry displays essential information such as title, author, publication date, summary, and cover image in the form of a card, which contains two options: view or add to reading list.
+- Each book entry displays essential information such as title, author, publication date, summary, and cover image in the form of a card, which contains two options: `view` or `add to reading list`.
 ![Seach page 3](./assets/explore-page-3.png)
 
-### Reading List Functionality
+## Reading List Functionality
 
 - Users can add books to their reading list, which categorizes books as `unread`, `reading`, or `read`.
 ![Reading List Page](./assets/reading-list-page.png)
@@ -81,9 +81,9 @@
 - If there are no books in the reading list, the app prompts the user to explore books.
 - The reading list functionality allows users to track their progress and manage their reading activities effectively.
 
-### Book Ratings and Reviews
+## Book Ratings and Reviews
 
-#### Book Ratings and Review Page
+### Book Ratings and Review Page
 ![Book Ratings and Review Page](./assets/book-page-4.png)
 
 - Users can rate books based on their reading experience using a star rating system.
@@ -95,7 +95,7 @@
 - Users can also delete the reviews that they posted but they do not have access to delete the reviews that other users posted.
 - To avoid empty comments and no reviews, the post button will only be available when the user has enetered some text in the input field and has given a review.
 
-### User Profile Management
+## User Profile Management
 
 - Users can view and manage their profiles, including personal information such as full name, username, email, and profile picture.
 ![Profile Page](./assets/profile-page-3.png)
@@ -110,7 +110,7 @@
 
 # Running the Bookworm Web App Locally
 
-I have not deployed this application simply because once deployed, the app requires a lot of maintenance to keep it running
+I have not deployed this application simply because once deployed, the app requires a lot of maintenance to keep it running. 
 
 This guide will help you set up and run the Bookworm web app on your local machine using Docker and Docker Compose. The application consists of a frontend and a backend service, with data storage managed through a PostgreSQL database and image storage through Cloudinary.
 
@@ -135,38 +135,75 @@ Additionally, you will need:
    - Replace `NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY` with your Google Books API Key.
    - Populate the PostgreSQL database credentials (`POSTGRES_DB_USERNAME`, `POSTGRES_DB_PASSWORD`) with the ones obtained from your PostgreSQL cloud instance.
    - Fill in the Cloudinary credentials (`CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`) with your account details.
+   - Populate the `JWT_SECRET_KEY` with a randomly generated string that will be used to encrypt your JWT tokens.
 
-Here's an example snippet from the `docker-compose.yml` file:
+    Here's an example snippet from the `docker-compose.yml` file:
 
-```yaml
-version: '3.8'
+    ```yaml
+    version: '3.8'
 
-services:
-  frontend:
-    build: ./bkwrm_frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8000
-      - NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY=your_google_books_api_key_here
+    services:
+    frontend:
+        build: ./bkwrm_frontend
+        ports:
+        - "3000:3000"
+        depends_on:
+        - backend
+        environment:
+        - NEXT_PUBLIC_API_URL=http://localhost:8000
+        - NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY=your_google_books_api_key_here
 
-  backend:
-    build: ./bkwrm_backend
-    ports:
-      - "8000:8000"
-    environment:
-      - POSTGRES_DB_USERNAME=your_postgres_username
-      - POSTGRES_DB_PASSWORD=your_postgres_password
-      - JWT_SECRET_KEY=your_jwt_secret_key
-      - CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-      - CLOUDINARY_API_KEY=your_cloudinary_api_key
-      - CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-      - GOOGLE_BOOKS_API_KEY=your_google_books_api_key_here
+    backend:
+        build: ./bkwrm_backend
+        ports:
+        - "8000:8000"
+        environment:
+        - POSTGRES_DB_USERNAME=your_postgres_username
+        - POSTGRES_DB_PASSWORD=your_postgres_password
+        - JWT_SECRET_KEY=your_jwt_secret_key
+        - CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+        - CLOUDINARY_API_KEY=your_cloudinary_api_key
+        - CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+        - GOOGLE_BOOKS_API_KEY=your_google_books_api_key_here
+    ```
+
+## Running the Application
+
+After configuring your environment variables:
+
+1. Open a Terminal or Command Prompt in the project root directory.
+2. Run Docker Compose:
+    ```bash
+    docker-compose up --build
+    ```
+    This command builds and starts the frontend and backend services, making them accessible at http://localhost:3000 and http://localhost:8000 respectively.
+
+## Accessing the App
+
+Once the application is running, you can access the frontend by navigating to http://localhost:3000 in your web browser. The backend API will be available at http://localhost:8000.
 
 
-## Potential Future Improvements
+You now have the Bookworm web app running locally on your machine. This setup is intended for development and testing purposes. For production deployment, consider using a production-ready setup with a proper WSGI server for the backend and a database managed by a reliable cloud provider.
+
+# Potential Future Improvements
+
+The following enhancements are proposed to elevate the user experience and functionality of the Bookworm web app, prioritized by their potential impact:
+
+- **Enhanced Authentication Handling**: Implement more robust authentication mechanisms to improve security and user management. This includes adding email confirmation to ensure users provide valid email addresses during registration, preventing misuse and enhancing account security.
+  
+- **Social Sign-In Integration**: Enable sign-in using Google or other social media platforms on the sign-up page, offering users a streamlined and more convenient login experience.
+  
+- **AI-Powered Book Recommendations**: Introduce an AI assistant to help users find books based on the vibe and feel of their input prompts, enhancing the book discovery process.
+  
+- **Interactive Data Visualizations**: Develop visualizations on the book explore page showing how many users have added a particular book to their reading list, providing insights into popular titles and fostering a community feel.
+  
+- **Search Functionality in Reading List**: Add a search feature within the reading list, allowing users to easily find specific books in their collection, improving navigation and user satisfaction.
+  
+- **UI Enhancements**: Continuously improve the user interface for a more intuitive and visually appealing experience, focusing on usability and design consistency.
+  
+- **Redis for Caching**: Utilize Redis for caching frequently accessed data, significantly reducing load times and improving the overall performance of the website.
+  
+- **Confirmation Dialogues for Critical Actions**: Introduce confirmation prompts for actions like deactivation or logout, giving users a moment to reconsider their decision and preventing accidental account changes.
 
 ## Author
 [Aryan Khurana](https://github.com/AryanK1511)
