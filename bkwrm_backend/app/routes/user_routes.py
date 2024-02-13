@@ -24,6 +24,10 @@ cloudinary.config(
     api_secret=app.config['CLOUDINARY_API_SECRET']
 )
 
+@app.route('/', methods=["GET"])
+def test():
+    return jsonify({'message': 'Welcome to the BKWRM API'}), 200
+
 # ========== ENDPOINT FOR USER PROFILE ===========
 
 

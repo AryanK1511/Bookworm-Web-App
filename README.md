@@ -108,6 +108,64 @@
 - The app also provides a feature for users to deactivate their accounts if they no longer wish to use the platform. If a user deactivates their account, all their data is deleted including the reviews posted by them, their reading list and their profile details.
 ![Profile Page](./assets/deactivate.png)
 
+# Running the Bookworm Web App Locally
+
+I have not deployed this application simply because once deployed, the app requires a lot of maintenance to keep it running
+
+This guide will help you set up and run the Bookworm web app on your local machine using Docker and Docker Compose. The application consists of a frontend and a backend service, with data storage managed through a PostgreSQL database and image storage through Cloudinary.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your local machine:
+
+- **Docker**: Download and install Docker from [https://www.docker.com/get-started](https://www.docker.com/get-started).
+- **Docker Compose**: Usually included with Docker Desktop for Windows and Mac. For Linux, you may need to install it separately. Instructions can be found [here](https://docs.docker.com/compose/install/).
+
+Additionally, you will need:
+
+- A **Google Books API Key**: Follow the steps at [https://developers.google.com/books/docs/v1/using#APIKey](https://developers.google.com/books/docs/v1/using#APIKey) to obtain an API key.
+- **PostgreSQL Cloud Instance Credentials**: You can create a free PostgreSQL database at services like ElephantSQL ([https://www.elephantsql.com/](https://www.elephantsql.com/)).
+- A **Cloudinary Account** for image uploads: Sign up at [https://cloudinary.com/users/register/free](https://cloudinary.com/users/register/free) and obtain your Cloudinary `Cloud Name`, `API Key`, and `API Secret`.
+
+## Configuration
+
+1. **Clone the Repository**: Clone the project repository to your local machine.
+
+2. **Set Up Environment Variables**: Update the `docker-compose.yml` file with your credentials:
+   - Replace `NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY` with your Google Books API Key.
+   - Populate the PostgreSQL database credentials (`POSTGRES_DB_USERNAME`, `POSTGRES_DB_PASSWORD`) with the ones obtained from your PostgreSQL cloud instance.
+   - Fill in the Cloudinary credentials (`CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`) with your account details.
+
+Here's an example snippet from the `docker-compose.yml` file:
+
+```yaml
+version: '3.8'
+
+services:
+  frontend:
+    build: ./bkwrm_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY=your_google_books_api_key_here
+
+  backend:
+    build: ./bkwrm_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_DB_USERNAME=your_postgres_username
+      - POSTGRES_DB_PASSWORD=your_postgres_password
+      - JWT_SECRET_KEY=your_jwt_secret_key
+      - CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+      - CLOUDINARY_API_KEY=your_cloudinary_api_key
+      - CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+      - GOOGLE_BOOKS_API_KEY=your_google_books_api_key_here
+
+
 ## Potential Future Improvements
 
 ## Author
