@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }) {
 				// Check if the user exists in the database
 				async function checkUserExistence() {
 					try {
-						const response = await getUserDetails(usr.id);
+						const response = await getUserDetails(usr.sub.id);
 						if (response.success) {
 							setUser({ isAuthenticated: true, user: usr });
 						} else {
