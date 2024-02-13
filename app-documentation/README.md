@@ -29,6 +29,7 @@
 - [React.js](https://reactjs.org/docs/getting-started.html)
 - [Next.js](https://nextjs.org/docs)
 - [React Bootstrap](https://react-bootstrap.github.io/)
+- [Tailwind](https://tailwindcss.com/docs/installation)
 - [JWT-Decode](https://www.npmjs.com/package/jwt-decode)
 - [Jotai](https://jotai.org/docs/introduction)
 
