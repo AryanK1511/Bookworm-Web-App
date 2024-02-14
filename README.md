@@ -2,7 +2,7 @@
 
 **📚 Welcome to Bookworm! 📖**
 
-**Bookworm** is an engaging web app built for book lovers everywhere! It offers a vast library of books from across the globe, allowing users to dive into the world of books with just a few clicks. 🌍✨
+**Bookworm** is a user-friendly web application tailored for book enthusiasts. It provides a diverse collection of books from different genres, enabling users to explore, rate, and review them. With features like user authentication, reading list management, and interactive book discussions, Bookworm offers a seamless experience for users to connect and engage with their favorite reads. Built using modern technologies such as React.js, Flask, and PostgreSQL, Bookworm aims to simplify the book discovery process and foster a vibrant community of readers online
 
 # Video Demo of application
 
