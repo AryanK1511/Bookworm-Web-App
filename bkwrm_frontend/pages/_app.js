@@ -8,6 +8,7 @@ import { isAuthenticated, getToken } from "@/lib/userAuth";
 import { jwtDecode } from "jwt-decode";
 import Footer from "@/components/Footer/Footer";
 import { removeToken } from "@/lib/userAuth";
+import { getUserDetails } from "@/lib/userFunctions";
 
 // ========== APP COMPONENT (LAYOUT) ==========
 export default function App({ Component, pageProps }) {
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }) {
 		const currentTime = Date.now() / 1000; // Convert to seconds
 		return decodedToken.exp < currentTime;
 	}
+
 	// Getting the user state from the store
 	const [user, setUser] = useAtom(userAtom);
 
@@ -30,7 +32,23 @@ export default function App({ Component, pageProps }) {
 				setUser({ isAuthenticated: false, user: null }); // Update user state
 			} else {
 				let usr = jwtDecode(token);
-				setUser({ isAuthenticated: true, user: usr });
+
+				// Check if the user exists in the database
+				async function checkUserExistence() {
+					try {
+						const response = await getUserDetails(usr.sub.id);
+						if (response.success) {
+							setUser({ isAuthenticated: true, user: usr });
+						} else {
+							removeToken(); // Remove the expired token
+							setUser({ isAuthenticated: false, user: null });
+						}
+					} catch (error) {
+						removeToken(); // Remove the expired token
+						setUser({ isAuthenticated: false, user: null });
+					}
+				}
+				checkUserExistence();
 			}
 		}
 	}, []);

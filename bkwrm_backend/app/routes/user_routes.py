@@ -24,6 +24,10 @@ cloudinary.config(
     api_secret=app.config['CLOUDINARY_API_SECRET']
 )
 
+@app.route('/', methods=["GET"])
+def test():
+    return jsonify({'message': 'Welcome to the BKWRM API'}), 200
+
 # ========== ENDPOINT FOR USER PROFILE ===========
 
 
@@ -75,7 +79,7 @@ def update_user_profile(user_id):
 
     # Set to default profile picture
     if 'profile_picture' in request.form and request.form['profile_picture'] == 'reset':
-        user.profile_picture = "https://res.cloudinary.com/dtjzbh27c/image/upload/v1707052869/default_profile_pic.avif"
+        user.profile_picture = f"https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/default_profile_pic.avif"
     # Check if a new profile picture file is included
     elif 'profile_picture' in request.files:
         file_to_upload = request.files['profile_picture']
@@ -187,7 +191,7 @@ def register_user():
 
     # Create a new user if the user doesn't exist already
     new_user = User(fullname=fullname, username=username, email=email, password_hash=password_hash,
-                    profile_picture=f"https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/v1707052869/default_profile_pic.avif")
+                    profile_picture=f"https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/default_profile_pic.avif")
 
     # Add the new user to DB
     try:
@@ -229,7 +233,7 @@ def deactivate_user():
         ReadingList.query.filter_by(user_id=current_user['id']).delete()
 
         # Check if the user has a profile picture and it's not the default one
-        if user_to_be_deleted.profile_picture and user_to_be_deleted.profile_picture != "https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/v1707052869/default_profile_pic.avif":
+        if user_to_be_deleted.profile_picture and user_to_be_deleted.profile_picture != f"https://res.cloudinary.com/{app.config['CLOUDINARY_CLOUD_NAME']}/image/upload/default_profile_pic.avif":
             # Extract the public_id from the user's profile picture URL
             public_id = user_to_be_deleted.profile_picture.split('/')[-1].split('.')[0]
             # Delete the existing profile picture from Cloudinary

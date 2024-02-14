@@ -7,8 +7,20 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=
+      - NEXT_PUBLIC_REACT_APP_GOOGLE_BOOKS_API_KEY=
+
 
   backend:
     build: ./bkwrm_backend
     ports:
       - "8000:8000"
+    environment:
+      - POSTGRES_DB_USERNAME=
+      - POSTGRES_DB_PASSWORD=
+      - JWT_SECRET_KEY=
+      - CLOUDINARY_CLOUD_NAME=
+      - CLOUDINARY_API_KEY=
+      - CLOUDINARY_API_SECRET=
+      - GOOGLE_BOOKS_API_KEY=
