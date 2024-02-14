@@ -6,6 +6,8 @@
 
 # Video Demo of application
 
+[Youtube Link for video demo of app](https://youtu.be/U5m9-BXqwGI)
+
 # Tech Stack
 
 - **Frontend**: `React.js`, `Next.js`, `JavaScript`
