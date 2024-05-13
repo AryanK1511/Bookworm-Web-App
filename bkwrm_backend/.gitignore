@@ -12,9 +12,6 @@ venv/
 node_modules/
 *.log
 
-# Local development configuration
-config.py
-
 # Database files
 *.db
 
